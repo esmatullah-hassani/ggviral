@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
-            $table->text('photo')->nullable();
+            $table->text('photo')->default('default.png');
             $table->timestamp('last_seen')->nullable();
             $table->string('google_id')->nullable();
             $table->string("facebook_id")->nullable();

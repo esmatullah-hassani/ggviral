@@ -4,9 +4,9 @@ export default class ApiService{
     /**
      * get all video
      */
-    getVideo(){
+    getPost(){
         return request()
-            .get('/get-video')
+            .get('/posts')
             .then(response => response)
             .catch(errors => errors.response.data.errors);
     }

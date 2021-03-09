@@ -55,3 +55,5 @@ Route::post('/video/accept-call', [ChatController::class,'acceptCall']);
 Route::post("/upload",[PostController::class,'uploadVideo']);
 
 Route::post("/posts",[PostController::class,'store']);
+
+Route::get("/posts",[PostController::class,'index']);

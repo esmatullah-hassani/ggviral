@@ -9,8 +9,6 @@ require('alpinejs');
 
 import App from './components/App';
 import router from './routes/api.route';
-import Vuex from 'vuex';
-Vue.use(Vuex);
 
 const app = new Vue({
     el: '#app',

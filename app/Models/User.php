@@ -72,6 +72,15 @@ class User extends Authenticatable
      */
     public function messages()
     {
-    return $this->hasMany(Message::class);
+        return $this->hasMany(Message::class);
+    }
+
+    /**
+     * The user that has many posts.
+     * @return \Illuminate\Database\Eloquent\Relations\BelongTo
+     */
+    public function post()
+    {
+        return $this->hasMany(Post::class);
     }
 }

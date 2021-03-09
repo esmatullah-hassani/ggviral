@@ -1,9 +1,9 @@
 <template>
   <div class="container">
-    <hero-menu/>
+    <hero-menu :authuser="authuser"/>
     <div class="flex flex-col md:flex-row mt-14">
      
-      <hero-sidebar/>
+      <hero-sidebar />
       <router-view 
         :allusers="allusers"
         :authuser="authuser"
@@ -20,13 +20,12 @@ import HeroMenu from './hero-section/HeroMenu.vue'
 import HeroSidebar from './hero-section/HeroSidebar.vue'
 import HerroFooter from './hero-section/HerroFooter.vue'
 export default {
-     props: [
+  props: [
     "allusers",
     "authuser",
     "turn_url",
     "turn_username",
     "turn_credential",
-    
   ],
   components: { HeroSidebar, HerroFooter, HeroMenu },
     name:'App',
