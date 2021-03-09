@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video chat</title>
+    <title>GGviral</title>
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     <script  src="{{asset('css/font.js')}}"></script>
 </head>

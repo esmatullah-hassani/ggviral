@@ -11,16 +11,22 @@
                     <!--Graph Card-->
                     <div class="bg-white border-transparent rounded-lg shadow-lg">
                         <div class="bg-gray-400  text-gray-800 border-b-2 border-gray-500 rounded-tl-lg rounded-tr-lg p-2">
-                            <router-link :to="'/user/'+post.user.id">
+                            <router-link :to="'/users/'+post.user.id">
                                 <img class="w-7 h-7 rounded-full inline"  :src="'/uploads/users/photo/'+post.user.photo" v-if="post.user.social_path == null">
                                 <img class="w-7 h-7 rounded-full inline"  :src="post.user.social_path" v-else> 
                                 <span class="text-gray-600">{{post.user.name}}</span>
                             </router-link>
                         </div>
                         <div class="p-5">
-                            {{post.discription}}
-                            <canvas id="chartjs-7" class="chartjs" width="undefined" height="undefined"></canvas>
                             
+                        <iframe
+                        src="https://www.youtube.com/embed/bTqVqk7FSmY?amp;iv_load_policy=3&amp;modestbranding=1&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;enablejsapi=1"
+                        allowfullscreen
+                        allowtransparency
+                        allow="autoplay"
+                        ></iframe>
+                            
+                            {{post.discription}}
                         </div>
                     </div>
                     <!--/Graph Card-->
@@ -44,7 +50,9 @@ export default {
     created(){
         this.getPost();
     },
+    
     methods:{
+
         getPost(){
             this.services.getPost()
             .then((response)=> {

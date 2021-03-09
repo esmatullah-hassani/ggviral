@@ -3917,6 +3917,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "HomeContent",
@@ -38305,7 +38311,7 @@ var render = function() {
                     [
                       _c(
                         "router-link",
-                        { attrs: { to: "/user/" + post.user.id } },
+                        { attrs: { to: "/users/" + post.user.id } },
                         [
                           post.user.social_path == null
                             ? _c("img", {
@@ -38329,19 +38335,20 @@ var render = function() {
                   ),
                   _vm._v(" "),
                   _c("div", { staticClass: "p-5" }, [
-                    _vm._v(
-                      "\n                          " +
-                        _vm._s(post.discription) +
-                        "\n                          "
-                    ),
-                    _c("canvas", {
-                      staticClass: "chartjs",
+                    _c("iframe", {
                       attrs: {
-                        id: "chartjs-7",
-                        width: "undefined",
-                        height: "undefined"
+                        src:
+                          "https://www.youtube.com/embed/bTqVqk7FSmY?amp;iv_load_policy=3&modestbranding=1&playsinline=1&showinfo=0&rel=0&enablejsapi=1",
+                        allowfullscreen: "",
+                        allowtransparency: "",
+                        allow: "autoplay"
                       }
-                    })
+                    }),
+                    _vm._v(
+                      "\n                          \n                          " +
+                        _vm._s(post.discription) +
+                        "\n                      "
+                    )
                   ])
                 ]
               )
@@ -38472,7 +38479,22 @@ var render = function() {
               [
                 _vm._m(0),
                 _vm._v(" "),
-                _vm._m(1),
+                _c(
+                  "li",
+                  { staticClass: "flex-1 md:flex-none md:mr-3" },
+                  [
+                    _c(
+                      "router-link",
+                      {
+                        staticClass:
+                          "inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4",
+                        attrs: { to: "/users/" + _vm.authuser.id, href: "#" }
+                      },
+                      [_vm._v(_vm._s(_vm.authuser.name))]
+                    )
+                  ],
+                  1
+                ),
                 _vm._v(" "),
                 _c("li", { staticClass: "flex-1 md:flex-none md:mr-3" }, [
                   _c("div", { staticClass: "relative inline-block" }, [
@@ -38549,11 +38571,11 @@ var render = function() {
                           ]
                         ),
                         _vm._v(" "),
-                        _vm._m(2),
+                        _vm._m(1),
                         _vm._v(" "),
                         _c("div", { staticClass: "border border-gray-800" }),
                         _vm._v(" "),
-                        _vm._m(3)
+                        _vm._m(2)
                       ],
                       1
                     )
@@ -38580,22 +38602,6 @@ var staticRenderFns = [
           attrs: { href: "#" }
         },
         [_vm._v("Active")]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "flex-1 md:flex-none md:mr-3" }, [
-      _c(
-        "a",
-        {
-          staticClass:
-            "inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4",
-          attrs: { href: "#" }
-        },
-        [_vm._v("link")]
       )
     ])
   },

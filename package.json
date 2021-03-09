@@ -25,6 +25,7 @@
         "laravel-echo": "^1.10.0",
         "pusher-js": "^7.0.2",
         "simple-peer": "^9.9.3",
+        "v-infinite-scroll": "^1.0.4",
         "vue": "^2.6.12",
         "vue-router": "^3.4.9",
         "vuex": "^3.6.2"
