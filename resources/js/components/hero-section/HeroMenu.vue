@@ -26,18 +26,18 @@
 					    <a class="inline-block py-2 px-4 text-white no-underline" href="#">Active</a>
 				    </li>
 				    <li class="flex-1 md:flex-none md:mr-3">
-					    <router-link :to="'/users/'+authuser.id" class="inline-block text-gray-600 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="#">{{authuser.name}}</router-link>
+                        <img class="w-5 h-5 rounded-full"  :src="'/uploads/users/photo/'+authuser.photo" v-if="authuser.social_path == null">
+                                <img class="w-5 h-5 rounded-full"  :src="authuser.social_path" v-else> 
 				    </li>
 				    <li class="flex-1 md:flex-none md:mr-3">
 						<div class="relative inline-block">
 							<button onclick="toggleDD('myDropdown')" class="drop-button text-white focus:outline-none">
-                                <img class="w-5 h-5 rounded-full"  :src="'/uploads/users/photo/'+authuser.photo" v-if="authuser.social_path == null">
-                                <img class="w-5 h-5 rounded-full"  :src="authuser.social_path" v-else> 
+                                {{authuser.name}}
                                 <svg class="h-3 fill-current inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg></button>
                             <div id="myDropdown" class="dropdownlist absolute bg-indigo-900 text-white right-0 mt-3 p-3 overflow-auto z-30 invisible">
                                 <input type="text" class="drop-search p-2 text-gray-600" placeholder="Search.." id="myInput" onkeyup="filterDD('myDropdown','myInput')">
-                                <router-link to="/profiles" class="p-2 hover:bg-gray-800 text-white text-sm no-underline hover:no-underline block"><i class="fa fa-user-circle fa-fw"></i> Profile</router-link>
-                                <a href="#" class="p-2 hover:bg-gray-800 text-white text-sm no-underline hover:no-underline block"><i class="fa fa-cog fa-fw"></i> Settings</a>
+                                <a href="/user/profile" class="p-2 hover:bg-gray-800 text-white text-sm no-underline hover:no-underline block"><i class="fa fa-user-circle fa-fw"></i> Profile</a>
+                                <a href="/user/profile" class="p-2 hover:bg-gray-800 text-white text-sm no-underline hover:no-underline block"><i class="fa fa-cog fa-fw"></i> Settings</a>
                                 <div class="border border-gray-800"></div>
                                 <a href="/logout" class="p-2 hover:bg-gray-800 text-white text-sm no-underline hover:no-underline block"><i class="fas fa-sign-out-alt fa-fw"></i> Log Out</a>
                            

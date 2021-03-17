@@ -57,3 +57,7 @@ Route::post("/upload",[PostController::class,'uploadVideo']);
 Route::post("/posts",[PostController::class,'store']);
 
 Route::get("/posts",[PostController::class,'index']);
+
+Route::get("/user-posts/{id}",[PostController::class,"getUserPost"]);
+
+Route::get("/video-detail/{id}",[PostController::class,'show']);

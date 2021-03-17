@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -38,7 +39,9 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $request['user_id'] = Auth::id();
+
         $post = new Post();
+
         if($post->create($request->all())){
             return response(['status' => true,'message' => "Successfuly has been posted your post"]);
         }
@@ -50,9 +53,11 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show($id)
     {
-        //
+        $post = Post::find($id);
+        
+        return response(['status' => true,'post' => $post,'user' => $post->user]);
     }
 
     /**
@@ -99,12 +104,24 @@ class PostController extends Controller
         $request->validate([
             'video' => 'required',
         ]);
-        $check = 
 
         $videoName = time().'.'.request()->video->getClientOriginalExtension();
 
         request()->video->move(storage_path("video/"), $videoName);
 
-        return response(['status'=> true,'message' => $videoName]);
+        return response(['status'=> true,'message' => "storage/video/".$videoName]);
+    }
+
+    /**
+     * get spicifig user profile and posts
+     * @param id
+     */
+    public function getUserPost($id)
+    {
+        $posts = Post::where("user_id",$id)->get();
+
+        $user = User::find($id);
+        
+        return response(['status' => true,'posts' => $posts,'user' => $user]);
     }
 }

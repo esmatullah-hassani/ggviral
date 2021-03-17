@@ -5,15 +5,18 @@ import Profile from '../components/pages/Profile';
 import Video from '../components/pages/Video';
 import ChatContent from '../components/pages/ChatContent';
 import UploadContent from '../components/pages/UploadContent';
+import VideoDetail from '../components/VideoDetail';
+
 Vue.use(VueRouter)
 
 const router = new VueRouter({
   routes: [
     {path: '/', component: HomeContent},
-    {path:"/profiles",component:Profile},
+    {path:"/users/:id",component:Profile},
     {path:"/video",component:Video},
     {path:'/chats',component:ChatContent},
-    {path:'/posts/create',component:UploadContent}
+    {path:'/posts/create',component:UploadContent},
+    {path:"/video/:id",component:VideoDetail},
   ]
 });
 

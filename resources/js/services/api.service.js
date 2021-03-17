@@ -21,4 +21,26 @@ export default class ApiService{
         .catch(errors => errors.response.data.errors);
     }
 
+    /**
+     * get spicific user profile and post
+     * @param id
+     */
+    getUserPost(id){
+        return request()
+        .get(`/user-posts/${id}`)
+        .then(response => response)
+        .catch(errors => errors.response.data.errors);
+    }
+
+    /**
+     * get the spicific video
+     * @param id
+     */
+    getVideoDetail(id){
+        return request()
+        .get(`/video-detail/${id}`)
+        .then(response => response)
+        .catch(errors => errors.response.data.errors);
+    }
+
 }

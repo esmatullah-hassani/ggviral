@@ -18,15 +18,15 @@
                             </router-link>
                         </div>
                         <div class="p-5">
-                            
-                        <iframe
-                        src="https://www.youtube.com/embed/bTqVqk7FSmY?amp;iv_load_policy=3&amp;modestbranding=1&amp;playsinline=1&amp;showinfo=0&amp;rel=0&amp;enablejsapi=1"
-                        allowfullscreen
-                        allowtransparency
-                        allow="autoplay"
-                        ></iframe>
-                            
-                            {{post.discription}}
+                            <router-link :to="'/video/'+post.id">
+                                <video :id="'video'+post.id" width="420" class="cursor-pointer" v-on:mouseover="playVideo(post.id);">
+                                    <source :src="post.video_path" type="video/mp4">
+                                    <source src="" type="video/ogg">
+                                    Your browser does not support HTML video.
+                                </video>
+                            </router-link>        
+                       
+                            {{post.discription.substring(0,40)}}
                         </div>
                     </div>
                     <!--/Graph Card-->
@@ -74,6 +74,15 @@ export default {
                     throw new Error(`Unable to fetch stream ${err}`);
                 })
             })
+        },
+
+        /**
+         * Play video
+         */
+        playVideo(id){
+            var myVideo = document.getElementById("video"+id);
+            // myVideo.play();
+            console.log(myVideo);
         }
     }
 
