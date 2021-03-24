@@ -107,9 +107,9 @@ class PostController extends Controller
 
         $videoName = time().'.'.request()->video->getClientOriginalExtension();
 
-        request()->video->move(storage_path("video/"), $videoName);
+        request()->video->move("video/", $videoName);
 
-        return response(['status'=> true,'message' => "storage/video/".$videoName]);
+        return response(['status'=> true,'message' => "video/".$videoName]);
     }
 
     /**

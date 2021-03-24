@@ -3983,6 +3983,39 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_api_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../services/api.service */ "./resources/js/services/api.service.js");
+/* harmony import */ var _pages_Video_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./pages/Video.vue */ "./resources/js/components/pages/Video.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -4013,7 +4046,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    Video: _pages_Video_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
   name: "VideoDetail",
   data: function data() {
     return {
@@ -4025,6 +4062,10 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var id = this.$route.params.id;
     this.getVideoDetail(id);
+  },
+  mounted: function mounted() {
+    var container = this.$el.querySelector(".usercomment");
+    container.scrollTop = container.scrollHeight;
   },
   methods: {
     getVideoDetail: function getVideoDetail(id) {
@@ -38562,7 +38603,7 @@ var render = function() {
     [
       _vm._m(0),
       _vm._v(" "),
-      _c("div", { staticClass: "flex flex-row flex-wrap flex-grow mt-2" }, [
+      _c("div", { staticClass: "flex flex-row flex-wrap flex-grow mt-2 " }, [
         _c(
           "div",
           {
@@ -38595,12 +38636,18 @@ var render = function() {
             _vm._v(" "),
             _c("div", { staticClass: "p-5" }, [
               _c("iframe", {
-                staticClass: "w-full",
+                staticClass: "bg-black mx-auto",
                 attrs: {
+                  controls: "",
+                  allow: "autoplay",
+                  "x-ref": "player",
                   src: _vm.post.video_path,
-                  type: "video/mp4",
-                  allowfullscreen: "",
-                  allow: "autoplay"
+                  width: "700",
+                  height: "450",
+                  frameborder: "0",
+                  webkitallowfullscreen: "",
+                  mozallowfullscreen: "",
+                  allowfullscreen: ""
                 }
               }),
               _vm._v(
@@ -38612,7 +38659,92 @@ var render = function() {
           ]
         ),
         _vm._v(" "),
-        _vm._m(1)
+        _c(
+          "div",
+          {
+            staticClass:
+              "w-full sm:w-full md:w-1/3 bg-white border-transparent rounded-lg shadow-lg "
+          },
+          [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "bg-gray-400  text-gray-800 border-b-2 border-gray-500 rounded-tl-lg rounded-tr-lg p-2"
+              },
+              [_c("center", [_vm._v("Comments")])],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "p-5 overflow-y-auto max-h-96 usercomment" },
+              [
+                _c("div", { staticClass: "container mb-10" }, [
+                  _vm.user.social_path == null
+                    ? _c("img", {
+                        staticClass: "w-7 h-7 rounded-full inline",
+                        attrs: { src: "/uploads/users/photo/" + _vm.user.photo }
+                      })
+                    : _c("img", {
+                        staticClass: "w-7 h-7 rounded-full inline",
+                        attrs: { src: _vm.user.social_path }
+                      }),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "text-gray-600" }, [
+                    _vm._v(_vm._s(_vm.user.name))
+                  ]),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("p", [_vm._v("This is good and very usefull")])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "container mb-10" }, [
+                  _vm.user.social_path == null
+                    ? _c("img", {
+                        staticClass: "w-7 h-7 rounded-full inline",
+                        attrs: { src: "/uploads/users/photo/" + _vm.user.photo }
+                      })
+                    : _c("img", {
+                        staticClass: "w-7 h-7 rounded-full inline",
+                        attrs: { src: _vm.user.social_path }
+                      }),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "text-gray-600" }, [
+                    _vm._v(_vm._s(_vm.user.name))
+                  ]),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("p", [_vm._v("This is good and very usefull")])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "container mb-10" }, [
+                  _vm.user.social_path == null
+                    ? _c("img", {
+                        staticClass: "w-7 h-7 rounded-full inline",
+                        attrs: { src: "/uploads/users/photo/" + _vm.user.photo }
+                      })
+                    : _c("img", {
+                        staticClass: "w-7 h-7 rounded-full inline",
+                        attrs: { src: _vm.user.social_path }
+                      }),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "text-gray-600" }, [
+                    _vm._v(_vm._s(_vm.user.name))
+                  ]),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("p", [_vm._v("This is good and very usefull")])
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _vm._m(1)
+          ]
+        )
       ])
     ]
   )
@@ -38632,14 +38764,21 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "w-full sm:w-full md:w-1/3 bg-indigo-400" },
-      [
-        _vm._v("there are comment "),
-        _c("p", { staticClass: "float-right" }, [_vm._v("jkf")])
-      ]
-    )
+    return _c("div", { staticClass: "shadow flex" }, [
+      _c("input", {
+        staticClass: "w-full rounded p-2",
+        attrs: { type: "text", placeholder: "Write a comment ..." }
+      }),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass:
+            "bg-white w-auto flex justify-end items-center text-blue-500 p-2 hover:text-blue-400"
+        },
+        [_c("i", { staticClass: "fa fa-paper-plane  text-blue-600" })]
+      )
+    ])
   }
 ]
 render._withStripped = true
