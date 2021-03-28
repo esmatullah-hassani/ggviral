@@ -16,7 +16,7 @@
                 </div>
                 <div class="p-5">
                     
-                    <iframe controls allow="autoplay" class="bg-black mx-auto" x-ref="player" :src="post.video_path" width="700" height="450" frameborder="0"  webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+                    <iframe controls allow="autoplay" class="bg-black mx-auto w-full h-96" x-ref="player" :src="post.video_path"  frameborder="0"  webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
                     {{post.discription}}
                 </div>
                 
@@ -26,32 +26,29 @@
                     <center>Comments</center>
                 </div>
                 <div class="p-5 overflow-y-auto max-h-96 usercomment">
-                    <div class="container mb-10">
-                        <img class="w-7 h-7 rounded-full inline"  :src="'/uploads/users/photo/'+user.photo" v-if="user.social_path == null">
-                        <img class="w-7 h-7 rounded-full inline"  :src="user.social_path" v-else> 
-                        <span class="text-gray-600">{{user.name}}</span>
+                    
+                    <div class="container mb-10" v-for="comment in comments" v-bind:key="comment.id">
+                        <img class="w-7 h-7 rounded-full inline"  :src="'/uploads/users/photo/'+comment.user.photo" v-if="comment.user.social_path == null">
+                        <img class="w-7 h-7 rounded-full inline"  :src="comment.user.social_path" v-else> 
+                        <span class="text-gray-600">{{comment.user.name}} say</span>
                         <br>
-                        <p>This is good and very usefull</p>
+                        <p class="ml-4">{{comment.comment}}</p>
                     </div>
-                    <div class="container mb-10">
-                        <img class="w-7 h-7 rounded-full inline"  :src="'/uploads/users/photo/'+user.photo" v-if="user.social_path == null">
-                        <img class="w-7 h-7 rounded-full inline"  :src="user.social_path" v-else> 
-                        <span class="text-gray-600">{{user.name}}</span>
-                        <br>
-                        <p>This is good and very usefull</p>
-                    </div>
-                    <div class="container mb-10">
-                        <img class="w-7 h-7 rounded-full inline"  :src="'/uploads/users/photo/'+user.photo" v-if="user.social_path == null">
-                        <img class="w-7 h-7 rounded-full inline"  :src="user.social_path" v-else> 
-                        <span class="text-gray-600">{{user.name}}</span>
-                        <br>
-                        <p>This is good and very usefull</p>
-                    </div>
+
                 </div>
                 <div class="shadow flex">
-                    <input class="w-full rounded p-2" type="text" placeholder="Write a comment ...">
-                    <button class="bg-white w-auto flex justify-end items-center text-blue-500 p-2 hover:text-blue-400">
-                        <i class="fa fa-paper-plane  text-blue-600"></i>
+                    <input 
+                        class="w-full rounded p-2 focus:outline-none" 
+                        type="text" 
+                        placeholder="Write a comment ..."
+                        v-model="comment"
+                        @keyup="checkKey"
+                    >
+                    <button
+                     @click="setComment"
+                     class="bg-white w-auto flex justify-end items-center text-blue-500 p-2 hover:text-blue-400 focus:outline-none">
+                        <i class="fa fa-paper-plane  text-blue-600" v-show="send_button"></i>
+                        <i class="fas fa-spinner fa-pulse text-blue-600" v-show="load_button"></i>
                     </button>
                 </div>
             </div>
@@ -71,20 +68,26 @@ export default {
             post:[],
             user:[],
             services:new ApiService(),
+            comment:null,
+            post_id:null,
+            comments:[],
+            send_button:true,
+            load_button:false,
         }
     },
 
     created(){
-        var id = this.$route.params.id;
-       
-        this.getVideoDetail(id);
+        this.post_id = this.$route.params.id;
+        this.getVideoDetail(this.post_id);
+        this.getComment();
     },
 
-    mounted(){
-         var container = this.$el.querySelector(".usercomment");
-		container.scrollTop = container.scrollHeight;
-    },
     methods:{
+
+        /**
+         * display a spicific video
+         * @param id
+         */
         getVideoDetail(id){
             this.services.getVideoDetail(id)
             .then((response) => {
@@ -94,7 +97,68 @@ export default {
             .catch((error) => {
                 console.log(error);
             });
-        }
+        },
+
+        /**
+         * display all comment of spicifig video
+         */
+        getComment(){
+            this.services.getComment(this.post_id)
+            .then((response) => {
+                this.comments = response.data.comments;
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+        },
+
+        /**
+         * store comment of spicifig video
+         */
+        setComment(){
+            this.send_button = false;
+            this.load_button = true;
+            var formData = new FormData();
+            formData.append('comment',this.comment);
+            formData.append("post_id",this.post.id);
+            this.services.setComment(formData)
+            .then((response) => {
+                if(response.data.status){
+                    this.comment = "";
+                    this.send_button = true;
+                    this.load_button = false;
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        },
+
+        /**
+         * Submit if press enter button
+         */
+        checkKey(e){
+            if(e.keyCode == 13){
+                this.setComment();
+            }
+        },
+
+        /**
+         * scroll down method
+         */
+        scrollToElement() {
+			var container = this.$el.querySelector(".usercomment");
+			container.scrollTop = container.scrollHeight;
+		}
+    },
+
+    mounted(){
+        this.scrollToElement();
+        Echo.private("video-comment-"+this.post_id)
+        .listen("CommentEvent",(e)=>{
+            this.comments.push(e.data);
+            this.scrollToElement();
+		});
     }
 
     

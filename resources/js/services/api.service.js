@@ -43,4 +43,26 @@ export default class ApiService{
         .catch(errors => errors.response.data.errors);
     }
 
+    /**
+     * display comment of spicifig video
+     * @param id
+     */
+    getComment(id){
+        return request()
+        .get(`/comments/${id}`)
+        .then(response => response)
+        .catch(errors => errors.response.data.errors);
+    }
+
+    /**
+     * store comment to spicifig video
+     * @param id
+     */
+    setComment(data){
+        return request()
+        .post(`/comments`,data)
+        .then(response => response)
+        .catch(errors => errors.response.data.errors);
+    }
+
 }

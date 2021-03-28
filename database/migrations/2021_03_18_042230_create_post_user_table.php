@@ -15,6 +15,9 @@ class CreatePostUserTable extends Migration
     {
         Schema::create('post_user', function (Blueprint $table) {
             $table->id();
+            $table->text("comment");
+            $table->foreignId("user_id")->constrained("users")->cascadeOnDelete();
+            $table->foreignId("post_id")->constrained("posts")->cascadeOnDelete();
             $table->timestamps();
         });
     }

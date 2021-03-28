@@ -20,8 +20,6 @@ import Echo from 'laravel-echo';
 
 window.Pusher = require('pusher-js');
 
-window.Pusher = require('pusher-js');
-
 window.Echo = new Echo({
     broadcaster: 'pusher',
     key: '74075fba8f6c86cdac5f',

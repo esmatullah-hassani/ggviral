@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\VideoController;
 use App\Http\Controllers\ChatsController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LoginWithSocialiteController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
@@ -61,3 +62,7 @@ Route::get("/posts",[PostController::class,'index']);
 Route::get("/user-posts/{id}",[PostController::class,"getUserPost"]);
 
 Route::get("/video-detail/{id}",[PostController::class,'show']);
+
+//Comment route
+Route::post("/comments",[CommentController::class,'store']);
+Route::get("/comments/{id}",[CommentController::class,"show"]);

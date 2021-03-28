@@ -6,10 +6,10 @@
         </div>
 
         <div class="flex flex-col flex-wrap flex-grow mt-2 justify-center">
-            
+            <center>
             <div class="w-full md:w-1/2 xl:w-1/3 p-3">
                     <label class="w-96 flex flex-col  items-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-white mt-5 ">
-                    <svg class="w-8 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                    <svg class="w-9 h-8" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                         <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z"></path>
                     </svg>
                     <span class="mt-2 text-base leading-normal">Select a video</span>
@@ -19,7 +19,7 @@
                     <div class="flex mb-2 items-center justify-between">
                         <div>
                         <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-pink-600 bg-pink-200">
-                            Video in uploadin
+                            {{videouploading}}
                         </span>
                         </div>
                         <div class="text-right">
@@ -32,11 +32,12 @@
                         <div :style="'width:'+uploadPercentage+'%'" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-pink-500"></div>
                     </div>
                 </div>
-                <textarea class="resize-y border rounded-md px-3/12" v-model="discription"></textarea>
-                <button @click="submitPost" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6/12 focus:outline-none rounded-full">
+                <textarea class="resize-y border rounded-md w-96 focus:outline-none focus:shadow-outline" placeholder="Write any things.." v-model="discription"></textarea>
+                <button @click="submitPost" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 w-96 focus:outline-none rounded-full">
                 Post
                 </button>
             </div>
+            </center>
             
 
             
@@ -57,6 +58,7 @@ export default {
             showbutton:true,
             progrescount:false,
             video_name:'',
+            videouploading:"Video in uploadin",
         }
     },
     methods:{
@@ -73,6 +75,7 @@ export default {
         Submits the file to the server
         */
         uploadVideo(){
+            this.videouploading = "Video in uploading";
             this.video = this.$refs.video.files[0];
             this.upload = "Chose a video...";
             this.error = "";
@@ -107,6 +110,7 @@ export default {
             .then((data) => {
                 console.log(data);
                 if(data.data.status){
+                    this.videouploading="Video uploaded";
                     this.video_name = data.data.message;
                     // this.upload = "uploaded successfully";
                     // this.showbutton = true;

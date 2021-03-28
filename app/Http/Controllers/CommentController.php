@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\CommentEvent;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 
@@ -35,7 +36,22 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request['user_id'] = auth()->id();
+        $c = Comment::create($request->all());
+        if($c){
+            $comment = Comment::with("user")->where('id',$c->id)->get();
+            if($comment->isEmpty()){
+                broadcast(new CommentEvent(auth()->user(),$c))->toOthers();
+                return response(['status' => true,'message' => $c]);
+            }
+            else{
+                broadcast(new CommentEvent(auth()->user(),$comment[0]))->toOthers();
+                return response(['status' => true,'message' => $comment]);
+            }
+        }
+        else{
+            return response(['status' => false,'message' => 'unreachable']);
+        }
     }
 
     /**
@@ -44,9 +60,10 @@ class CommentController extends Controller
      * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function show(Comment $comment)
+    public function show($id)
     {
-        //
+        $comments = Comment::with("user")->where("post_id",$id)->get();
+        return response(['status' => true,'comments' => $comments]);
     }
 
     /**

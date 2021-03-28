@@ -19,7 +19,7 @@
                         </div>
                         <div class="p-5">
                             <router-link :to="'/video/'+post.id">
-                                <video :id="'video'+post.id" width="420" class="cursor-pointer" v-on:mouseover="playVideo(post.id);">
+                                <video :id="'video'+post.id" width="420" class="cursor-pointer h-56" v-on:mouseover="playVideo(post.id);">
                                     <source :src="post.video_path" type="video/mp4">
                                     <source src="" type="video/ogg">
                                     Your browser does not support HTML video.
