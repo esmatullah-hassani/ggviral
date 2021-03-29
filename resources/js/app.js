@@ -9,10 +9,16 @@ require('alpinejs');
 
 import App from './components/App';
 import router from './routes/api.route';
+import infiniteScroll from "vue-infinite-scroll";
+import VueChatScroll from 'vue-chat-scroll-top-scroll';
+Vue.use(infiniteScroll);
+Vue.use(VueChatScroll);
 
 const app = new Vue({
     el: '#app',
     router,
+    infiniteScroll,
+    VueChatScroll,
     components:{
      App
     },

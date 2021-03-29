@@ -25,14 +25,16 @@
                 <div class="bg-gray-400  text-gray-800 border-b-2 border-gray-500 rounded-tl-lg rounded-tr-lg p-2">
                     <center>Comments</center>
                 </div>
-                <div class="p-5 overflow-y-auto max-h-96 usercomment">
-                    
+                <div class="p-5 overflow-y-auto max-h-96 usercomment" v-chat-scroll @scroll-top="onNextPage">
+                    <span v-if="nextLink">
+                        <center><i class="fas fa-spinner fa-pulse text-blue-600" ></i></center> 
+                    </span>
                     <div class="container mb-10" v-for="comment in comments" v-bind:key="comment.id">
                         <img class="w-7 h-7 rounded-full inline"  :src="'/uploads/users/photo/'+comment.user.photo" v-if="comment.user.social_path == null">
                         <img class="w-7 h-7 rounded-full inline"  :src="comment.user.social_path" v-else> 
                         <span class="text-gray-600">{{comment.user.name}} say</span>
                         <br>
-                        <p class="ml-4">{{comment.comment}}</p>
+                        <p class="ml-4">{{comment.comment}}{{comment.id}}</p>
                     </div>
 
                 </div>
@@ -47,8 +49,8 @@
                     <button
                      @click="setComment"
                      class="bg-white w-auto flex justify-end items-center text-blue-500 p-2 hover:text-blue-400 focus:outline-none">
-                        <i class="fa fa-paper-plane  text-blue-600" v-show="send_button"></i>
-                        <i class="fas fa-spinner fa-pulse text-blue-600" v-show="load_button"></i>
+                        <i class="fa fa-paper-plane  text-blue-600" v-if="send_button"></i>
+                        <i class="fas fa-spinner fa-pulse text-blue-600" v-if="load_button"></i>
                     </button>
                 </div>
             </div>
@@ -73,6 +75,8 @@ export default {
             comments:[],
             send_button:true,
             load_button:false,
+            currentpage: 1,
+            nextLink: true,
         }
     },
 
@@ -102,14 +106,33 @@ export default {
         /**
          * display all comment of spicifig video
          */
-        getComment(){
-            this.services.getComment(this.post_id)
+        getComment(pageNumber = null){
+            this.services.getComment(this.post_id,pageNumber)
             .then((response) => {
-                this.comments = response.data.comments;
+                if(pageNumber == null){
+                    this.comments = response.data.comments.data;
+                }
+                else{
+                    var container = this.$el.querySelector(".usercomment");
+			        container.scrollTop = container.scrollTop;
+                    for(let x =0;x < response.data.comments.data.length;x++){
+                        
+                        this.comments.splice(0,0,response.data.comments.data[x]);
+                    }
+                }
+                if (response.data.to == response.data.total) this.nextLink = false;
+
             })
             .catch((error) => {
                 console.log(error);
             })
+        },
+
+        /**
+         * scroll pagination
+         */
+        onNextPage: function() {
+            ++this.currentpage, this.getComment(this.currentpage);
         },
 
         /**

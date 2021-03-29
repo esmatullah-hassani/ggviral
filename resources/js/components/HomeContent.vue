@@ -5,7 +5,7 @@
                 <h3 class="font-bold pl-2">Analytics</h3>
             </div>
 
-            <div class="flex flex-row flex-wrap flex-grow mt-2">
+            <div class="flex flex-row flex-wrap flex-grow mt-2" v-infinite-scroll="onNextPage">
 
                 <div class="w-full md:w-1/2 xl:w-1/3 p-3" v-for="post in posts" v-bind:key="post.id" >
                     <!--Graph Card-->
@@ -19,7 +19,7 @@
                         </div>
                         <div class="p-5">
                             <router-link :to="'/video/'+post.id">
-                                <video :id="'video'+post.id" width="420" class="cursor-pointer h-56" v-on:mouseover="playVideo(post.id);">
+                                <video :id="'video'+post.id" width="420" class="cursor-pointer h-56" v-on:mouseover="playVideo(post.id);" v-on:mouseout="stopVideo(post.id)">
                                     <source :src="post.video_path" type="video/mp4">
                                     <source src="" type="video/ogg">
                                     Your browser does not support HTML video.
@@ -43,6 +43,7 @@ export default {
     name:"HomeContent",
     data(){
         return{
+            currentpage:1,
             posts:[],
             services:new ApiService(),
         }
@@ -53,17 +54,35 @@ export default {
     
     methods:{
 
-        getPost(){
-            this.services.getPost()
+        /**
+         * Display all post
+         */
+        getPost(pageNumber = null){
+            this.services.getPost(pageNumber)
             .then((response)=> {
                 if(response.data.status){
-                    this.posts = response.data.posts;
+                    if(pageNumber == null){
+                        this.posts = response.data.posts.data;
+                    }
+                    else{
+                        for(let x =0;x<response.data.posts.data.length;x++){
+                            this.posts.push(response.data.posts.data[x]);
+                        }
+                    }
                 }
             })
             .catch((errors)=>{
                 console.log(errors+" errors");
             })
         },
+
+        /**
+         * scroll pagination
+         */
+        onNextPage: function() {
+            ++this.currentpage, this.getPost(this.currentpage);
+        },
+
         getPermissions(){
             return new Promise((res,rej)=>{
                 navigator.mediaDevices.getUserMedia({video:true,audio:true})
@@ -81,8 +100,15 @@ export default {
          */
         playVideo(id){
             var myVideo = document.getElementById("video"+id);
-            // myVideo.play();
-            console.log(myVideo);
+            myVideo.play();
+        },
+
+        /**
+         * stop video
+         */
+        stopVideo(id){
+            var myVideo = document.getElementById("video"+id);
+            myVideo.pause();
         }
     }
 

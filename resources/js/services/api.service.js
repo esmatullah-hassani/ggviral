@@ -4,9 +4,9 @@ export default class ApiService{
     /**
      * get all video
      */
-    getPost(){
+    getPost(page){
         return request()
-            .get('/posts')
+            .get(`/posts?page=${page}`)
             .then(response => response)
             .catch(errors => errors.response.data.errors);
     }
@@ -47,9 +47,9 @@ export default class ApiService{
      * display comment of spicifig video
      * @param id
      */
-    getComment(id){
+    getComment(id,page = null){
         return request()
-        .get(`/comments/${id}`)
+        .get(`/comments/${id}?page=${page}`)
         .then(response => response)
         .catch(errors => errors.response.data.errors);
     }

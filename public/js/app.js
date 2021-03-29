@@ -3928,6 +3928,7 @@ __webpack_require__.r(__webpack_exports__);
   name: "HomeContent",
   data: function data() {
     return {
+      currentpage: 1,
       posts: [],
       services: new _services_api_service__WEBPACK_IMPORTED_MODULE_0__["default"]()
     };
@@ -3936,16 +3937,33 @@ __webpack_require__.r(__webpack_exports__);
     this.getPost();
   },
   methods: {
+    /**
+     * Display all post
+     */
     getPost: function getPost() {
       var _this = this;
 
-      this.services.getPost().then(function (response) {
+      var pageNumber = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+      this.services.getPost(pageNumber).then(function (response) {
         if (response.data.status) {
-          _this.posts = response.data.posts;
+          if (pageNumber == null) {
+            _this.posts = response.data.posts.data;
+          } else {
+            for (var x = 0; x < response.data.posts.data.length; x++) {
+              _this.posts.push(response.data.posts.data[x]);
+            }
+          }
         }
       })["catch"](function (errors) {
         console.log(errors + " errors");
       });
+    },
+
+    /**
+     * scroll pagination
+     */
+    onNextPage: function onNextPage() {
+      ++this.currentpage, this.getPost(this.currentpage);
     },
     getPermissions: function getPermissions() {
       return new Promise(function (res, rej) {
@@ -3964,9 +3982,16 @@ __webpack_require__.r(__webpack_exports__);
      * Play video
      */
     playVideo: function playVideo(id) {
-      var myVideo = document.getElementById("video" + id); // myVideo.play();
+      var myVideo = document.getElementById("video" + id);
+      myVideo.play();
+    },
 
-      console.log(myVideo);
+    /**
+     * stop video
+     */
+    stopVideo: function stopVideo(id) {
+      var myVideo = document.getElementById("video" + id);
+      myVideo.pause();
     }
   }
 });
@@ -4042,6 +4067,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4058,7 +4085,9 @@ __webpack_require__.r(__webpack_exports__);
       post_id: null,
       comments: [],
       send_button: true,
-      load_button: false
+      load_button: false,
+      currentpage: 1,
+      nextLink: true
     };
   },
   created: function created() {
@@ -4088,11 +4117,31 @@ __webpack_require__.r(__webpack_exports__);
     getComment: function getComment() {
       var _this2 = this;
 
-      this.services.getComment(this.post_id).then(function (response) {
-        _this2.comments = response.data.comments;
+      var pageNumber = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+      this.services.getComment(this.post_id, pageNumber).then(function (response) {
+        if (pageNumber == null) {
+          _this2.comments = response.data.comments.data;
+        } else {
+          var container = _this2.$el.querySelector(".usercomment");
+
+          container.scrollTop = container.scrollTop;
+
+          for (var x = 0; x < response.data.comments.data.length; x++) {
+            _this2.comments.splice(0, 0, response.data.comments.data[x]);
+          }
+        }
+
+        if (response.data.to == response.data.total) _this2.nextLink = false;
       })["catch"](function (error) {
         console.log(error);
       });
+    },
+
+    /**
+     * scroll pagination
+     */
+    onNextPage: function onNextPage() {
+      ++this.currentpage, this.getComment(this.currentpage);
     },
 
     /**
@@ -38456,6 +38505,330 @@ function config (name) {
 
 /***/ }),
 
+/***/ "./node_modules/vue-chat-scroll-top-scroll/dist/vue-chat-scroll-top-scroll.js":
+/*!************************************************************************************!*\
+  !*** ./node_modules/vue-chat-scroll-top-scroll/dist/vue-chat-scroll-top-scroll.js ***!
+  \************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+(function (global, factory) {
+	 true ? module.exports = factory() :
+	undefined;
+}(this, (function () { 'use strict';
+
+/**
+ * @name VueJS vChatScroll (vue-chat-scroll)
+ * @description Monitors an element and scrolls to the bottom if a new child is added
+ * @author Theodore Messinezis <theo@theomessin.com>
+ * @file v-chat-scroll  directive definition
+ */
+
+var scrollToBottom = function scrollToBottom(el) {
+    el.scrollTop = el.scrollHeight;
+};
+
+var emit = function emit(vnode, name, data) {
+    var handlers = vnode.data && vnode.data.on || vnode.componentOptions && vnode.componentOptions.listeners;
+
+    if (handlers && handlers[name]) {
+        handlers[name].fns(data);
+    }
+};
+
+var vChatScroll = {
+    bind: function bind(el, binding, vnode) {
+        var timeout = void 0;
+        var scrolled = false;
+
+        el.addEventListener('scroll', function (e) {
+            if (timeout) window.clearTimeout(timeout);
+            timeout = window.setTimeout(function () {
+                scrolled = el.scrollTop + el.clientHeight + 1 < el.scrollHeight;
+                if (el.scrollTop < 10) {
+                    emit(vnode, 'scroll-top', "123");
+                }
+            }, 200);
+        });
+
+        new MutationObserver(function (e) {
+            var config = binding.value || {};
+            var pause = config.always === false && scrolled;
+            if (pause || e[e.length - 1].addedNodes.length != 1) return;
+            scrollToBottom(el);
+        }).observe(el, { childList: true, subtree: true });
+    },
+    inserted: scrollToBottom
+};
+
+/**
+ * @name VueJS vChatScroll (vue-chat-scroll)
+ * @description Monitors an element and scrolls to the bottom if a new child is added
+ * @author Theodore Messinezis <theo@theomessin.com>
+ * @file vue-chat-scroll plugin definition
+ */
+
+var VueChatScroll = {
+    install: function install(Vue, options) {
+        Vue.directive('chat-scroll', vChatScroll);
+    }
+};
+
+if (typeof window !== 'undefined' && window.Vue) {
+    window.Vue.use(VueChatScroll);
+}
+
+return VueChatScroll;
+
+})));
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-infinite-scroll/vue-infinite-scroll.js":
+/*!*****************************************************************!*\
+  !*** ./node_modules/vue-infinite-scroll/vue-infinite-scroll.js ***!
+  \*****************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+(function (global, factory) {
+   true ? module.exports = factory() :
+  undefined;
+}(this, function () { 'use strict';
+
+  var ctx = '@@InfiniteScroll';
+
+  var throttle = function throttle(fn, delay) {
+    var now, lastExec, timer, context, args; //eslint-disable-line
+
+    var execute = function execute() {
+      fn.apply(context, args);
+      lastExec = now;
+    };
+
+    return function () {
+      context = this;
+      args = arguments;
+
+      now = Date.now();
+
+      if (timer) {
+        clearTimeout(timer);
+        timer = null;
+      }
+
+      if (lastExec) {
+        var diff = delay - (now - lastExec);
+        if (diff < 0) {
+          execute();
+        } else {
+          timer = setTimeout(function () {
+            execute();
+          }, diff);
+        }
+      } else {
+        execute();
+      }
+    };
+  };
+
+  var getScrollTop = function getScrollTop(element) {
+    if (element === window) {
+      return Math.max(window.pageYOffset || 0, document.documentElement.scrollTop);
+    }
+
+    return element.scrollTop;
+  };
+
+  var getComputedStyle = document.defaultView.getComputedStyle;
+
+  var getScrollEventTarget = function getScrollEventTarget(element) {
+    var currentNode = element;
+    // bugfix, see http://w3help.org/zh-cn/causes/SD9013 and http://stackoverflow.com/questions/17016740/onscroll-function-is-not-working-for-chrome
+    while (currentNode && currentNode.tagName !== 'HTML' && currentNode.tagName !== 'BODY' && currentNode.nodeType === 1) {
+      var overflowY = getComputedStyle(currentNode).overflowY;
+      if (overflowY === 'scroll' || overflowY === 'auto') {
+        return currentNode;
+      }
+      currentNode = currentNode.parentNode;
+    }
+    return window;
+  };
+
+  var getVisibleHeight = function getVisibleHeight(element) {
+    if (element === window) {
+      return document.documentElement.clientHeight;
+    }
+
+    return element.clientHeight;
+  };
+
+  var getElementTop = function getElementTop(element) {
+    if (element === window) {
+      return getScrollTop(window);
+    }
+    return element.getBoundingClientRect().top + getScrollTop(window);
+  };
+
+  var isAttached = function isAttached(element) {
+    var currentNode = element.parentNode;
+    while (currentNode) {
+      if (currentNode.tagName === 'HTML') {
+        return true;
+      }
+      if (currentNode.nodeType === 11) {
+        return false;
+      }
+      currentNode = currentNode.parentNode;
+    }
+    return false;
+  };
+
+  var doBind = function doBind() {
+    if (this.binded) return; // eslint-disable-line
+    this.binded = true;
+
+    var directive = this;
+    var element = directive.el;
+
+    var throttleDelayExpr = element.getAttribute('infinite-scroll-throttle-delay');
+    var throttleDelay = 200;
+    if (throttleDelayExpr) {
+      throttleDelay = Number(directive.vm[throttleDelayExpr] || throttleDelayExpr);
+      if (isNaN(throttleDelay) || throttleDelay < 0) {
+        throttleDelay = 200;
+      }
+    }
+    directive.throttleDelay = throttleDelay;
+
+    directive.scrollEventTarget = getScrollEventTarget(element);
+    directive.scrollListener = throttle(doCheck.bind(directive), directive.throttleDelay);
+    directive.scrollEventTarget.addEventListener('scroll', directive.scrollListener);
+
+    this.vm.$on('hook:beforeDestroy', function () {
+      directive.scrollEventTarget.removeEventListener('scroll', directive.scrollListener);
+    });
+
+    var disabledExpr = element.getAttribute('infinite-scroll-disabled');
+    var disabled = false;
+
+    if (disabledExpr) {
+      this.vm.$watch(disabledExpr, function (value) {
+        directive.disabled = value;
+        if (!value && directive.immediateCheck) {
+          doCheck.call(directive);
+        }
+      });
+      disabled = Boolean(directive.vm[disabledExpr]);
+    }
+    directive.disabled = disabled;
+
+    var distanceExpr = element.getAttribute('infinite-scroll-distance');
+    var distance = 0;
+    if (distanceExpr) {
+      distance = Number(directive.vm[distanceExpr] || distanceExpr);
+      if (isNaN(distance)) {
+        distance = 0;
+      }
+    }
+    directive.distance = distance;
+
+    var immediateCheckExpr = element.getAttribute('infinite-scroll-immediate-check');
+    var immediateCheck = true;
+    if (immediateCheckExpr) {
+      immediateCheck = Boolean(directive.vm[immediateCheckExpr]);
+    }
+    directive.immediateCheck = immediateCheck;
+
+    if (immediateCheck) {
+      doCheck.call(directive);
+    }
+
+    var eventName = element.getAttribute('infinite-scroll-listen-for-event');
+    if (eventName) {
+      directive.vm.$on(eventName, function () {
+        doCheck.call(directive);
+      });
+    }
+  };
+
+  var doCheck = function doCheck(force) {
+    var scrollEventTarget = this.scrollEventTarget;
+    var element = this.el;
+    var distance = this.distance;
+
+    if (force !== true && this.disabled) return; //eslint-disable-line
+    var viewportScrollTop = getScrollTop(scrollEventTarget);
+    var viewportBottom = viewportScrollTop + getVisibleHeight(scrollEventTarget);
+
+    var shouldTrigger = false;
+
+    if (scrollEventTarget === element) {
+      shouldTrigger = scrollEventTarget.scrollHeight - viewportBottom <= distance;
+    } else {
+      var elementBottom = getElementTop(element) - getElementTop(scrollEventTarget) + element.offsetHeight + viewportScrollTop;
+
+      shouldTrigger = viewportBottom + distance >= elementBottom;
+    }
+
+    if (shouldTrigger && this.expression) {
+      this.expression();
+    }
+  };
+
+  var InfiniteScroll = {
+    bind: function bind(el, binding, vnode) {
+      el[ctx] = {
+        el: el,
+        vm: vnode.context,
+        expression: binding.value
+      };
+      var args = arguments;
+      el[ctx].vm.$on('hook:mounted', function () {
+        el[ctx].vm.$nextTick(function () {
+          if (isAttached(el)) {
+            doBind.call(el[ctx], args);
+          }
+
+          el[ctx].bindTryCount = 0;
+
+          var tryBind = function tryBind() {
+            if (el[ctx].bindTryCount > 10) return; //eslint-disable-line
+            el[ctx].bindTryCount++;
+            if (isAttached(el)) {
+              doBind.call(el[ctx], args);
+            } else {
+              setTimeout(tryBind, 50);
+            }
+          };
+
+          tryBind();
+        });
+      });
+    },
+    unbind: function unbind(el) {
+      if (el && el[ctx] && el[ctx].scrollEventTarget) el[ctx].scrollEventTarget.removeEventListener('scroll', el[ctx].scrollListener);
+    }
+  };
+
+  var install = function install(Vue) {
+    Vue.directive('InfiniteScroll', InfiniteScroll);
+  };
+
+  if (window.Vue) {
+    window.infiniteScroll = InfiniteScroll;
+    Vue.use(install); // eslint-disable-line
+  }
+
+  InfiniteScroll.install = install;
+
+  return InfiniteScroll;
+
+}));
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/App.vue?vue&type=template&id=332fccf4&":
 /*!******************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/App.vue?vue&type=template&id=332fccf4& ***!
@@ -38531,7 +38904,17 @@ var render = function() {
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "flex flex-row flex-wrap flex-grow mt-2" },
+        {
+          directives: [
+            {
+              name: "infinite-scroll",
+              rawName: "v-infinite-scroll",
+              value: _vm.onNextPage,
+              expression: "onNextPage"
+            }
+          ],
+          staticClass: "flex flex-row flex-wrap flex-grow mt-2"
+        },
         _vm._l(_vm.posts, function(post) {
           return _c(
             "div",
@@ -38592,6 +38975,9 @@ var render = function() {
                               on: {
                                 mouseover: function($event) {
                                   return _vm.playVideo(post.id)
+                                },
+                                mouseout: function($event) {
+                                  return _vm.stopVideo(post.id)
                                 }
                               }
                             },
@@ -38745,37 +39131,57 @@ var render = function() {
             _vm._v(" "),
             _c(
               "div",
-              { staticClass: "p-5 overflow-y-auto max-h-96 usercomment" },
-              _vm._l(_vm.comments, function(comment) {
-                return _c(
-                  "div",
-                  { key: comment.id, staticClass: "container mb-10" },
-                  [
-                    comment.user.social_path == null
-                      ? _c("img", {
-                          staticClass: "w-7 h-7 rounded-full inline",
-                          attrs: {
-                            src: "/uploads/users/photo/" + comment.user.photo
-                          }
-                        })
-                      : _c("img", {
-                          staticClass: "w-7 h-7 rounded-full inline",
-                          attrs: { src: comment.user.social_path }
-                        }),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "text-gray-600" }, [
-                      _vm._v(_vm._s(comment.user.name) + " say")
-                    ]),
-                    _vm._v(" "),
-                    _c("br"),
-                    _vm._v(" "),
-                    _c("p", { staticClass: "ml-4" }, [
-                      _vm._v(_vm._s(comment.comment))
-                    ])
-                  ]
-                )
-              }),
-              0
+              {
+                directives: [{ name: "chat-scroll", rawName: "v-chat-scroll" }],
+                staticClass: "p-5 overflow-y-auto max-h-96 usercomment",
+                on: { "scroll-top": _vm.onNextPage }
+              },
+              [
+                _vm.nextLink
+                  ? _c(
+                      "span",
+                      [
+                        _c("center", [
+                          _c("i", {
+                            staticClass: "fas fa-spinner fa-pulse text-blue-600"
+                          })
+                        ])
+                      ],
+                      1
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm._l(_vm.comments, function(comment) {
+                  return _c(
+                    "div",
+                    { key: comment.id, staticClass: "container mb-10" },
+                    [
+                      comment.user.social_path == null
+                        ? _c("img", {
+                            staticClass: "w-7 h-7 rounded-full inline",
+                            attrs: {
+                              src: "/uploads/users/photo/" + comment.user.photo
+                            }
+                          })
+                        : _c("img", {
+                            staticClass: "w-7 h-7 rounded-full inline",
+                            attrs: { src: comment.user.social_path }
+                          }),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "text-gray-600" }, [
+                        _vm._v(_vm._s(comment.user.name) + " say")
+                      ]),
+                      _vm._v(" "),
+                      _c("br"),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "ml-4" }, [
+                        _vm._v(_vm._s(comment.comment) + _vm._s(comment.id))
+                      ])
+                    ]
+                  )
+                })
+              ],
+              2
             ),
             _vm._v(" "),
             _c("div", { staticClass: "shadow flex" }, [
@@ -38810,29 +39216,17 @@ var render = function() {
                   on: { click: _vm.setComment }
                 },
                 [
-                  _c("i", {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: _vm.send_button,
-                        expression: "send_button"
-                      }
-                    ],
-                    staticClass: "fa fa-paper-plane  text-blue-600"
-                  }),
+                  _vm.send_button
+                    ? _c("i", {
+                        staticClass: "fa fa-paper-plane  text-blue-600"
+                      })
+                    : _vm._e(),
                   _vm._v(" "),
-                  _c("i", {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: _vm.load_button,
-                        expression: "load_button"
-                      }
-                    ],
-                    staticClass: "fas fa-spinner fa-pulse text-blue-600"
-                  })
+                  _vm.load_button
+                    ? _c("i", {
+                        staticClass: "fas fa-spinner fa-pulse text-blue-600"
+                      })
+                    : _vm._e()
                 ]
               )
             ])
@@ -39080,7 +39474,7 @@ var staticRenderFns = [
               "p-2 hover:bg-gray-800 text-white text-sm no-underline hover:no-underline block",
             attrs: { href: "/user/profile" }
           },
-          [_c("i", { staticClass: "fa fa-cog fa-fw" }), _vm._v(" Settings")]
+          [_c("i", { staticClass: "    fa-cog fa-fw" }), _vm._v(" Settings")]
         ),
         _vm._v(" "),
         _c("div", { staticClass: "border border-gray-800" }),
@@ -55156,6 +55550,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _components_App__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/App */ "./resources/js/components/App.vue");
 /* harmony import */ var _routes_api_route__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./routes/api.route */ "./resources/js/routes/api.route.js");
+/* harmony import */ var vue_infinite_scroll__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-infinite-scroll */ "./node_modules/vue-infinite-scroll/vue-infinite-scroll.js");
+/* harmony import */ var vue_infinite_scroll__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vue_infinite_scroll__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var vue_chat_scroll_top_scroll__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue-chat-scroll-top-scroll */ "./node_modules/vue-chat-scroll-top-scroll/dist/vue-chat-scroll-top-scroll.js");
+/* harmony import */ var vue_chat_scroll_top_scroll__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(vue_chat_scroll_top_scroll__WEBPACK_IMPORTED_MODULE_4__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
@@ -55170,9 +55568,15 @@ __webpack_require__(/*! alpinejs */ "./node_modules/alpinejs/dist/alpine.js");
 
 
 
+
+
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_infinite_scroll__WEBPACK_IMPORTED_MODULE_3___default.a);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_chat_scroll_top_scroll__WEBPACK_IMPORTED_MODULE_4___default.a);
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: '#app',
   router: _routes_api_route__WEBPACK_IMPORTED_MODULE_2__["default"],
+  infiniteScroll: vue_infinite_scroll__WEBPACK_IMPORTED_MODULE_3___default.a,
+  VueChatScroll: vue_chat_scroll_top_scroll__WEBPACK_IMPORTED_MODULE_4___default.a,
   components: {
     App: _components_App__WEBPACK_IMPORTED_MODULE_1__["default"]
   }
@@ -56101,8 +56505,8 @@ var ApiService = /*#__PURE__*/function () {
     /**
      * get all video
      */
-    value: function getPost() {
-      return Object(_environment_request__WEBPACK_IMPORTED_MODULE_0__["default"])().get('/posts').then(function (response) {
+    value: function getPost(page) {
+      return Object(_environment_request__WEBPACK_IMPORTED_MODULE_0__["default"])().get("/posts?page=".concat(page)).then(function (response) {
         return response;
       })["catch"](function (errors) {
         return errors.response.data.errors;
@@ -56157,7 +56561,8 @@ var ApiService = /*#__PURE__*/function () {
   }, {
     key: "getComment",
     value: function getComment(id) {
-      return Object(_environment_request__WEBPACK_IMPORTED_MODULE_0__["default"])().get("/comments/".concat(id)).then(function (response) {
+      var page = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+      return Object(_environment_request__WEBPACK_IMPORTED_MODULE_0__["default"])().get("/comments/".concat(id, "?page=").concat(page)).then(function (response) {
         return response;
       })["catch"](function (errors) {
         return errors.response.data.errors;

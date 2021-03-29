@@ -62,7 +62,7 @@ class CommentController extends Controller
      */
     public function show($id)
     {
-        $comments = Comment::with("user")->where("post_id",$id)->get();
+        $comments = Comment::with("user")->where("post_id",$id)->orderBy("created_at",'desc')->paginate(5);
         return response(['status' => true,'comments' => $comments]);
     }
 
