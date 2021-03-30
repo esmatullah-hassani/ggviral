@@ -32,8 +32,10 @@
                     <!--/Graph Card-->
                 </div>
 
-
             </div>
+            <span v-if="nextLink">
+                <center><i class="fas fa-spinner fa-pulse text-blue-600" ></i></center> 
+            </span>
         </div>
 </template>
 
@@ -46,6 +48,7 @@ export default {
             currentpage:1,
             posts:[],
             services:new ApiService(),
+            nextLink:true,
         }
     },
     created(){
@@ -69,6 +72,8 @@ export default {
                             this.posts.push(response.data.posts.data[x]);
                         }
                     }
+                    if (response.data.posts.to == response.data.posts.total) this.nextLink = false;
+
                 }
             })
             .catch((errors)=>{

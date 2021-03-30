@@ -49,8 +49,15 @@
                     <button
                      @click="setComment"
                      class="bg-white w-auto flex justify-end items-center text-blue-500 p-2 hover:text-blue-400 focus:outline-none">
-                        <i class="fa fa-paper-plane  text-blue-600" v-if="send_button"></i>
-                        <i class="fas fa-spinner fa-pulse text-blue-600" v-if="load_button"></i>
+                       
+                        <span v-if="load_button">
+                            <i class="fas fa-spinner fa-pulse text-blue-600" ></i>
+                        </span>
+
+                        <span v-if="send_button">
+                           <i class="fa fa-paper-plane  text-blue-600" ></i>
+                        </span> 
+                        
                     </button>
                 </div>
             </div>
@@ -120,7 +127,13 @@ export default {
                         this.comments.splice(0,0,response.data.comments.data[x]);
                     }
                 }
-                if (response.data.to == response.data.total) this.nextLink = false;
+                console.log(response);
+                if (response.data.comments.to == response.data.comments.total){
+                    this.nextLink = false;
+                } 
+                else if(response.data.comments.to == null){
+                    this.nextLink = false;
+                }
 
             })
             .catch((error) => {
@@ -139,7 +152,6 @@ export default {
          * store comment of spicifig video
          */
         setComment(){
-            this.send_button = false;
             this.load_button = true;
             var formData = new FormData();
             formData.append('comment',this.comment);
@@ -148,7 +160,6 @@ export default {
             .then((response) => {
                 if(response.data.status){
                     this.comment = "";
-                    this.send_button = true;
                     this.load_button = false;
                 }
             })

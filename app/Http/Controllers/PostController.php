@@ -16,7 +16,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::with("user")->paginate(6);
+        $posts = Post::with("user")->orderBy("created_at",'desc')->paginate(6);
         return response(['status' => true,'posts' => $posts]);
     }
 
@@ -116,11 +116,11 @@ class PostController extends Controller
      * get spicifig user profile and posts
      * @param id
      */
-    public function getUserPost($id)
+    public function getUserPost(Request $request)
     {
-        $posts = Post::where("user_id",$id)->get();
+        $posts = Post::where("user_id",$request->user_id)->orderBy("created_at",'desc')->paginate(6);
 
-        $user = User::find($id);
+        $user = User::find($request->user_id);
         
         return response(['status' => true,'posts' => $posts,'user' => $user]);
     }

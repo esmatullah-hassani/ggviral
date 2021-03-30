@@ -25,9 +25,9 @@ export default class ApiService{
      * get spicific user profile and post
      * @param id
      */
-    getUserPost(id){
+    getUserPost(data,page){
         return request()
-        .get(`/user-posts/${id}`)
+        .post(`/user-posts?page=${page}`,data)
         .then(response => response)
         .catch(errors => errors.response.data.errors);
     }
