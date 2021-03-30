@@ -34,7 +34,7 @@
                         <img class="w-7 h-7 rounded-full inline"  :src="comment.user.social_path" v-else> 
                         <span class="text-gray-600">{{comment.user.name}} say</span>
                         <br>
-                        <p class="ml-4">{{comment.comment}}{{comment.id}}</p>
+                        <p class="ml-4">{{comment.comment}}</p>
                     </div>
 
                 </div>

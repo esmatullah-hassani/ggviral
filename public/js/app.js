@@ -39251,7 +39251,7 @@ var render = function() {
                       _c("br"),
                       _vm._v(" "),
                       _c("p", { staticClass: "ml-4" }, [
-                        _vm._v(_vm._s(comment.comment) + _vm._s(comment.id))
+                        _vm._v(_vm._s(comment.comment))
                       ])
                     ]
                   )
