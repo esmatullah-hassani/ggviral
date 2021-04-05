@@ -1,6 +1,6 @@
 <template>
    <!--Nav-->
-    <nav class="bg-indigo-900 pt-2 md:pt-1 pb-1 px-1 mt-0 h-auto fixed w-full z-20 top-0">
+    <nav class="font-serif bg-indigo-300 pt-2 md:pt-1 pb-1 px-1 mt-0 h-auto fixed w-full z-20 top-0">
         
         <div class="flex flex-wrap items-center">
             <div class="flex flex-shrink md:w-1/3 justify-center md:justify-start text-white">
@@ -9,7 +9,7 @@
                 </router-link>
             </div>
 
-            <div class="flex flex-1 md:w-1/3 justify-center md:justify-start text-black px-2">
+            <div class="font-serif flex flex-1 md:w-1/3 justify-center md:justify-start text-black px-2">
                 <span class="relative w-full">
                     <input type="search" placeholder="Search" class="w-full  text-sm text-black transition border border-transparent focus:outline-none focus:border-gray-700 rounded py-1 px-2 pl-10 appearance-none leading-normal">
                     <div class="absolute search-icon cursor-pointer" style="top: .5rem; left: .8rem;">
@@ -20,7 +20,7 @@
                 </span>
 			</div>
 
-			<div class="flex w-full pt-2 content-center justify-between md:w-1/3 md:justify-end">
+			<div class="font-serif flex w-full pt-2 content-center justify-between md:w-1/3 md:justify-end">
 				<ul class="list-reset flex justify-between flex-1 md:flex-none items-center">
 				    <li class="flex-1 md:flex-none md:mr-3">
 					    <a class="inline-block py-2 px-4 text-white no-underline" href="#">Active</a>

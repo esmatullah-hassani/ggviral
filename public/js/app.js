@@ -39095,7 +39095,8 @@ var render = function() {
   return _c(
     "div",
     {
-      staticClass: "main-content flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5"
+      staticClass:
+        "font-serif main-content flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5"
     },
     [
       _vm._m(0),
@@ -39489,7 +39490,7 @@ var render = function() {
     "nav",
     {
       staticClass:
-        "bg-indigo-900 pt-2 md:pt-1 pb-1 px-1 mt-0 h-auto fixed w-full z-20 top-0"
+        "font-serif bg-indigo-300 pt-2 md:pt-1 pb-1 px-1 mt-0 h-auto fixed w-full z-20 top-0"
     },
     [
       _c("div", { staticClass: "flex flex-wrap items-center" }, [
@@ -39513,7 +39514,7 @@ var render = function() {
           "div",
           {
             staticClass:
-              "flex flex-1 md:w-1/3 justify-center md:justify-start text-black px-2"
+              "font-serif flex flex-1 md:w-1/3 justify-center md:justify-start text-black px-2"
           },
           [
             _c("span", { staticClass: "relative w-full" }, [
@@ -39559,7 +39560,7 @@ var render = function() {
           "div",
           {
             staticClass:
-              "flex w-full pt-2 content-center justify-between md:w-1/3 md:justify-end"
+              "font-serif flex w-full pt-2 content-center justify-between md:w-1/3 md:justify-end"
           },
           [
             _c(
@@ -39743,7 +39744,7 @@ var render = function() {
     "div",
     {
       staticClass:
-        "shadow-lg h-16 fixed bottom-0 mt-12 md:relative md:h-screen z-10 w-full md:w-48 "
+        "font-serif shadow-lg h-16 fixed bottom-0 mt-12 md:relative md:h-screen z-10 w-full md:w-48 "
     },
     [
       _c(
