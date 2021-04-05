@@ -8,7 +8,7 @@
         <meta property="og:image" content="{{URL::asset('ggvirallogo.jpg') }}">
         <meta property="og:description" content="GGviral is a web site for connection and good videos."/>
         <meta property="og:type" content="GGviral"/>
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ config('app.name', 'GGviral') }}</title>
 
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
