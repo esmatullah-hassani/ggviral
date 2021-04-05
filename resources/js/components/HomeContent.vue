@@ -16,10 +16,15 @@
                                 <img class="w-7 h-7 rounded-full inline"  :src="post.user.social_path" v-else> 
                                 <span class="text-gray-600">{{post.user.name}}</span>
                             </router-link>
+                            
                         </div>
                         <div class="p-5">
                             <router-link :to="'/video/'+post.id">
-                                <video :id="'video'+post.id" width="420" class="cursor-pointer h-56" v-on:mouseover="playVideo(post.id);" v-on:mouseout="stopVideo(post.id)">
+                                <video :id="'video'+post.id"  class="cursor-pointer w-full h-60"
+                                 v-on:mouseover="playVideo(post.id);" 
+                                 v-on:mouseout="stopVideo(post.id)"
+                                 v-on:scroll.passive="onScroll"
+                                 >
                                     <source :src="post.video_path" type="video/mp4">
                                     <source src="" type="video/ogg">
                                     Your browser does not support HTML video.
@@ -56,7 +61,9 @@ export default {
     },
     
     methods:{
-
+        onScroll(){
+            alert("hi");
+        },
         /**
          * Display all post
          */

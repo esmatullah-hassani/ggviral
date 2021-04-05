@@ -4,7 +4,10 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-
+        <meta property="og:title" content="GGviral"/>
+        <meta property="og:image" content="{{URL::asset('ggvirallogo.jpg') }}">
+        <meta property="og:description" content="GGviral is a web site for connection and good videos."/>
+        <meta property="og:type" content="GGviral"/>
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->

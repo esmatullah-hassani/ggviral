@@ -1,7 +1,7 @@
 <x-guest-layout>
     <x-jet-authentication-card>
         <x-slot name="logo">
-            <x-jet-authentication-card-logo />
+            <img src="ggvirallogo.jpg" class="rounded-full w-20 h-20">
         </x-slot>
         <script  src="{{asset('css/font.js')}}"></script>
 

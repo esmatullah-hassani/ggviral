@@ -3925,6 +3925,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "HomeContent",
@@ -3940,6 +3945,10 @@ __webpack_require__.r(__webpack_exports__);
     this.getPost();
   },
   methods: {
+    onScroll: function onScroll() {
+      alert("hi");
+    },
+
     /**
      * Display all post
      */
@@ -4780,6 +4789,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_api_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../services/api.service */ "./resources/js/services/api.service.js");
+//
 //
 //
 //
@@ -39032,14 +39042,17 @@ var render = function() {
                           _c(
                             "video",
                             {
-                              staticClass: "cursor-pointer h-56",
-                              attrs: { id: "video" + post.id, width: "420" },
+                              staticClass: "cursor-pointer w-full h-60",
+                              attrs: { id: "video" + post.id },
                               on: {
                                 mouseover: function($event) {
                                   return _vm.playVideo(post.id)
                                 },
                                 mouseout: function($event) {
                                   return _vm.stopVideo(post.id)
+                                },
+                                "&scroll": function($event) {
+                                  return _vm.onScroll($event)
                                 }
                               }
                             },

@@ -16,6 +16,7 @@
                                 <img class="w-7 h-7 rounded-full inline"  :src="user.social_path" v-else> 
                                 <span class="text-gray-600">{{user.name}}</span>
                             </router-link>
+                            
                         </div>
                         <div class="p-5">
                             <router-link :to="'/video/'+post.id">
