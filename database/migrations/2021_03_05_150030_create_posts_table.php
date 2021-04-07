@@ -18,6 +18,7 @@ class CreatePostsTable extends Migration
             $table->text('video_path');
             $table->text('discription')->nullable();
             $table->foreignId("user_id")->constrained("users")->onDelete("cascade");
+            $table->integer("status")->default(1);
             $table->timestamps();
         });
     }

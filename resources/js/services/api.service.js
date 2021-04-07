@@ -65,4 +65,26 @@ export default class ApiService{
         .catch(errors => errors.response.data.errors);
     }
 
+    /**
+     * delete post 
+     * @param id
+     */
+    deletePost(id){
+        return request()
+        .delete(`/posts/${id}/destroy`)
+        .then(response => response)
+        .catch(errors => errors.response.data.errors);
+    }
+
+    /**
+     * hide post
+     * @param id
+     */
+     hidePost(id){
+        return request()
+        .delete(`/posts/${id}/hide`)
+        .then(response => response)
+        .catch(errors => errors.response.data.errors);
+     }
+
 }

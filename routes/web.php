@@ -8,6 +8,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -66,3 +67,8 @@ Route::get("/video-detail/{id}",[PostController::class,'show']);
 //Comment route
 Route::post("/comments",[CommentController::class,'store']);
 Route::get("/comments/{id}",[CommentController::class,"show"]);
+
+Route::delete("/posts/{id}/destroy",[PostController::class,'destroy']);
+
+Route::delete("/posts/{id}/hide",[PostController::class,'hidePost']);
+

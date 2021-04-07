@@ -16,7 +16,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::with("user")->orderBy("created_at",'desc')->paginate(6);
+        $posts = Post::with("user")->orderBy("created_at",'desc')->where("status",1)->paginate(6);
         return response(['status' => true,'posts' => $posts]);
     }
 
@@ -89,9 +89,14 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy($id)
     {
-        //
+        if(Post::find($id)->delete()){
+            return response(['status' => true, 'message' => 'Successfully delete']);
+        }
+        else{
+            return response(['status' => false,'message' => "Oops has ben problem"]);
+        }
     }
 
     /**
@@ -124,4 +129,21 @@ class PostController extends Controller
         
         return response(['status' => true,'posts' => $posts,'user' => $user]);
     }
+
+    /**
+     * hide post from another person
+     * @param id
+     */
+    public function hidePost($id)
+    {
+        $post = Post::find($id);
+        $post->status = 0;
+        if($post->save()){
+            return response(['status' => true, 'message' => "Successfully hide your post from another persone"]);
+        }
+        else{
+            return response(['status' => false,'message' => "Oops problem"]);
+        }
+    }
+
 }
