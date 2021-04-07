@@ -39257,7 +39257,7 @@ var render = function() {
                             "button",
                             {
                               staticClass:
-                                "drop-button text-black focus:outline-none",
+                                "drop-button text-black focus:outline-none font-bold",
                               on: {
                                 click: function($event) {
                                   return _vm.toggleDDd("myDropdown" + post.id)
@@ -39283,7 +39283,7 @@ var render = function() {
                                 "a",
                                 {
                                   staticClass:
-                                    "p-2 hover:bg-gray-800 text-black text-sm no-underline hover:no-underline block cursor-pointer"
+                                    "p-2 hover:bg-gray-800 text-blue-700 text-sm no-underline hover:no-underline block cursor-pointer"
                                 },
                                 [_vm._v(" Share to facebook ")]
                               ),
@@ -39292,7 +39292,7 @@ var render = function() {
                                 "a",
                                 {
                                   staticClass:
-                                    "p-2 hover:bg-gray-800 text-black text-sm no-underline hover:no-underline block cursor-pointer text-red-700"
+                                    "p-2 hover:bg-gray-800 text-black text-sm no-underline hover:no-underline block cursor-pointer "
                                 },
                                 [_vm._v(" Share to tw ")]
                               ),
@@ -39406,7 +39406,7 @@ var staticRenderFns = [
       "a",
       {
         staticClass:
-          "p-2 hover:bg-gray-800 text-red-700 text-sm no-underline hover:no-underline block cursor-pointer"
+          "p-2 hover:bg-gray-800 text-black text-sm no-underline hover:no-underline block cursor-pointer"
       },
       [_c("i", { staticClass: "    fa-cog fa-fw" }), _vm._v(" Copy")]
     )
@@ -40320,7 +40320,7 @@ var render = function() {
                               "button",
                               {
                                 staticClass:
-                                  "drop-button text-black focus:outline-none",
+                                  "drop-button text-black focus:outline-none font-bold",
                                 on: {
                                   click: function($event) {
                                     return _vm.toggleDDd("myDropdown" + post.id)

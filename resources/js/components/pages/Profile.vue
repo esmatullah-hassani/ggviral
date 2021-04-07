@@ -17,7 +17,7 @@
                                 <span class="text-gray-600">{{user.name}}</span>
                             </router-link>
 						        <div class="relative float-right inline-block">
-                                    <button @click="toggleDDd('myDropdown'+post.id)" class="drop-button text-black focus:outline-none">
+                                    <button @click="toggleDDd('myDropdown'+post.id)" class="drop-button text-black focus:outline-none font-bold">
                                         ...
                                     </button>
                                     <div :id="'myDropdown'+post.id" class="dropdownlist absolute w-60 bg-gray-400 rounded-tl-lg rounded-tr-lg text-black right-0 mt-3 p-3 overflow-auto z-30 invisible">

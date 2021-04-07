@@ -18,13 +18,13 @@
                             </router-link>
 
                             <div class="relative float-right inline-block">
-                                <button @click="toggleDDd('myDropdown'+post.id)" class="drop-button text-black focus:outline-none">
+                                <button @click="toggleDDd('myDropdown'+post.id)" class="drop-button text-black focus:outline-none font-bold">
                                     ...
                                 </button>
                                 <div :id="'myDropdown'+post.id" class="dropdownlist absolute w-60 bg-gray-400 rounded-tl-lg rounded-tr-lg text-black right-0 mt-3 p-3 overflow-auto z-30 invisible">
-                                    <a  class="p-2 hover:bg-gray-800 text-black text-sm no-underline hover:no-underline block cursor-pointer" > Share to facebook </a>
-                                    <a  class="p-2 hover:bg-gray-800 text-black text-sm no-underline hover:no-underline block cursor-pointer text-red-700" > Share to tw </a>
-                                    <a   class="p-2 hover:bg-gray-800 text-red-700 text-sm no-underline hover:no-underline block cursor-pointer" ><i class="    fa-cog fa-fw" ></i> Copy</a>
+                                    <a  class="p-2 hover:bg-gray-800 text-blue-700 text-sm no-underline hover:no-underline block cursor-pointer" > Share to facebook </a>
+                                    <a  class="p-2 hover:bg-gray-800 text-black text-sm no-underline hover:no-underline block cursor-pointer " > Share to tw </a>
+                                    <a   class="p-2 hover:bg-gray-800 text-black text-sm no-underline hover:no-underline block cursor-pointer" ><i class="    fa-cog fa-fw" ></i> Copy</a>
                                     <div class="border border-gray-800"></div>
                                     <a href="/logout" class="p-2 hover:bg-gray-800 text-black text-sm no-underline hover:no-underline block"><i class="fas fa-sign-out-alt fa-fw"></i> Share</a>
                             
