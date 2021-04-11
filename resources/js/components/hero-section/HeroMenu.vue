@@ -5,7 +5,7 @@
         <div class="flex flex-wrap items-center">
             <div class="flex flex-shrink md:w-1/3 justify-center md:justify-start text-white">
                 <router-link to="/">
-                    <span class="text-xl pl-2"><i class="em em-grinning">Home</i></span>
+                    <span class="text-xl pl-2"><i class="em em-grinning "></i>GGviral</span>
                 </router-link>
             </div>
 
