@@ -17,6 +17,7 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::with("user")->orderBy("created_at",'desc')->where("status",1)->paginate(6);
+       
         return response(['status' => true,'posts' => $posts]);
     }
 

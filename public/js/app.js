@@ -3944,6 +3944,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "HomeContent",
@@ -39358,6 +39359,8 @@ var render = function() {
                       _vm._v(
                         "        \n                     \n                          " +
                           _vm._s(post.discription.substring(0, 40)) +
+                          "\n                          " +
+                          _vm._s(post.created_at.diffForHumans) +
                           "\n                      "
                       )
                     ],
@@ -40024,7 +40027,7 @@ var render = function() {
                           staticClass:
                             "pb-1 md:pb-0 text-xs md:text-base text-black md:text-black block md:inline-block"
                         },
-                        [_vm._v("Messages")]
+                        [_vm._v("Follow")]
                       )
                     ]
                   )
@@ -40065,7 +40068,7 @@ var staticRenderFns = [
               staticClass:
                 "pb-1 md:pb-0 text-xs md:text-base text-black md:text-black block md:inline-block"
             },
-            [_vm._v("Analytics")]
+            [_vm._v("Following")]
           )
         ]
       )

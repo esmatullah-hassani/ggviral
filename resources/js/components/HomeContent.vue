@@ -46,6 +46,7 @@
                             </router-link>        
                        
                             {{post.discription.substring(0,40)}}
+                            {{post.created_at.diffForHumans}}
                         </div>
                     </div>
                     <!--/Graph Card-->
