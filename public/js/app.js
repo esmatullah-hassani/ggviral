@@ -4302,7 +4302,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "HeroMenu",
@@ -4332,6 +4331,14 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -39677,7 +39684,7 @@ var render = function() {
     "nav",
     {
       staticClass:
-        "bg-indigo-900 pt-2 md:pt-1 pb-1 px-1 mt-0 h-auto fixed w-full z-20 top-0"
+        "bg-indigo-200 pt-2 md:pt-1 pb-1 px-1 mt-0 h-auto fixed w-full z-20 top-0"
     },
     [
       _c("div", { staticClass: "flex flex-wrap items-center" }, [
@@ -39690,7 +39697,8 @@ var render = function() {
           [
             _c("router-link", { attrs: { to: "/" } }, [
               _c("span", { staticClass: "text-xl pl-2" }, [
-                _c("i", { staticClass: "em em-grinning" }, [_vm._v("Home")])
+                _c("i", { staticClass: "em em-grinning " }),
+                _vm._v("GGvirl")
               ])
             ])
           ],
@@ -39957,17 +39965,46 @@ var render = function() {
                     {
                       staticClass:
                         "block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-pink-500",
-                      attrs: { to: "/posts/create" }
+                      attrs: { to: "/" }
                     },
                     [
                       _c("i", {
-                        staticClass: "fas fa-upload pr-0 md:pr-3 text-blue-600"
+                        staticClass: "fas fa-home pr-0 md:pr-0 text-blue-600"
                       }),
                       _c(
                         "span",
                         {
                           staticClass:
-                            "pb-1 md:pb-0 text-xs md:text-base text-black md:text-black block md:inline-block"
+                            "pb-1 md:pb-0 text-xs      md:text-base text-black md:text-black block md:inline-block pl-5"
+                        },
+                        [_vm._v("Home")]
+                      )
+                    ]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "li",
+                { staticClass: "mr-3 flex-1" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass:
+                        "block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-pink-500",
+                      attrs: { to: "/posts/create" }
+                    },
+                    [
+                      _c("i", {
+                        staticClass: "fas fa-upload pr-0 md:pr-0 text-blue-600"
+                      }),
+                      _c(
+                        "span",
+                        {
+                          staticClass:
+                            "pb-1 md:pb-0 text-xs md:text-base text-black md:text-black block md:inline-block pl-5"
                         },
                         [_vm._v("Upload")]
                       )
@@ -39990,13 +40027,13 @@ var render = function() {
                     },
                     [
                       _c("i", {
-                        staticClass: "fa fa-video pr-0 md:pr-3 text-blue-600"
+                        staticClass: "fa fa-video pr-0 md:pr-0 text-blue-600"
                       }),
                       _c(
                         "span",
                         {
                           staticClass:
-                            "pb-1 md:pb-0 text-xs md:text-base text-black md:text-black block md:inline-block"
+                            "pb-1 md:pb-0 text-xs md:text-base text-black md:text-black block md:inline-block pl-5"
                         },
                         [_vm._v("Live")]
                       )
@@ -40087,12 +40124,12 @@ var staticRenderFns = [
           attrs: { href: "#" }
         },
         [
-          _c("i", { staticClass: "fa fa-wallet pr-0 md:pr-3 text-blue-600" }),
+          _c("i", { staticClass: "fa fa-wallet pr-0 md:pr-0 text-blue-600" }),
           _c(
             "span",
             {
               staticClass:
-                "pb-1 md:pb-0 text-xs md:text-base text-black md:text-black block md:inline-block"
+                "pb-1 md:pb-0 text-xs md:text-base text-black md:text-black block md:inline-block pl-5"
             },
             [_vm._v("Payments")]
           )
