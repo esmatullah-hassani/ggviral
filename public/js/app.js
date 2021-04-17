@@ -3945,15 +3945,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "HomeContent",
+  props: ["authuser"],
   data: function data() {
     return {
       currentpage: 1,
       posts: [],
       services: new _services_api_service__WEBPACK_IMPORTED_MODULE_0__["default"](),
-      nextLink: true
+      nextLink: true,
+      follow_collor: "bg-pink-500 hover:bg-blue-700",
+      follows: null
     };
   },
   created: function created() {
@@ -3976,8 +3988,13 @@ __webpack_require__.r(__webpack_exports__);
       var pageNumber = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
       this.services.getPost(pageNumber).then(function (response) {
         if (response.data.status) {
+          if (response.data.posts.data.length == 0) {
+            _this.nextLink = false;
+          }
+
           if (pageNumber == null) {
             _this.posts = response.data.posts.data;
+            _this.follows = response.data.follows;
           } else {
             for (var x = 0; x < response.data.posts.data.length; x++) {
               _this.posts.push(response.data.posts.data[x]);
@@ -4024,6 +4041,31 @@ __webpack_require__.r(__webpack_exports__);
     stopVideo: function stopVideo(id) {
       var myVideo = document.getElementById("video" + id);
       myVideo.pause();
+    },
+
+    /**
+     * follow
+     */
+    userFollow: function userFollow(user_2) {
+      var _this2 = this;
+
+      var formData = new FormData();
+      formData.append("user_1", this.authuser.id);
+      formData.append("user_2", user_2);
+      this.services.userFollow(formData).then(function (response) {
+        if (response.data.status) {
+          _this2.getPost(_this2.currentpage); // if(response.data.message == 1){
+          // }
+          // else if(response.data.message == 2){
+          //     var dd = document.getElementById("follow_class"+user_2);
+          //     dd = "UnFollow";
+          //     console.log(dd);
+          // }
+
+        }
+      })["catch"](function (errors) {
+        console.log(errors);
+      });
     }
   }
 });
@@ -4798,6 +4840,202 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       setTimeout(function () {
         _this6.callPlaced = false;
       }, 3000);
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/Follow.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pages/Follow.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _services_api_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../services/api.service */ "./resources/js/services/api.service.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "Follow",
+  props: ["authuser"],
+  data: function data() {
+    return {
+      currentpage: 1,
+      posts: [],
+      services: new _services_api_service__WEBPACK_IMPORTED_MODULE_0__["default"](),
+      nextLink: true,
+      follow_collor: "bg-pink-500 hover:bg-blue-700"
+    };
+  },
+  created: function created() {
+    this.getFollowPost();
+  },
+  methods: {
+    toggleDDd: function toggleDDd(myDropMenu) {
+      document.getElementById(myDropMenu).classList.toggle("invisible");
+    },
+    onScroll: function onScroll() {
+      alert("hi");
+    },
+
+    /**
+     * Display all post
+     */
+    getFollowPost: function getFollowPost() {
+      var _this = this;
+
+      var pageNumber = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+      this.services.getFollowPost(pageNumber).then(function (response) {
+        if (response.data.status) {
+          if (response.data.posts.data.length == 0) {
+            _this.nextLink = false;
+          }
+
+          if (pageNumber == null) {
+            _this.posts = response.data.posts.data;
+          } else {
+            for (var x = 0; x < response.data.posts.data.length; x++) {
+              _this.posts.push(response.data.posts.data[x]);
+            }
+          }
+
+          if (response.data.posts.to == response.data.posts.total) _this.nextLink = false;
+        }
+      })["catch"](function (errors) {
+        console.log(errors + " errors");
+      });
+    },
+
+    /**
+     * scroll pagination
+     */
+    onNextPage: function onNextPage() {
+      ++this.currentpage, this.getFollowPost(this.currentpage);
+    },
+    getPermissions: function getPermissions() {
+      return new Promise(function (res, rej) {
+        navigator.mediaDevices.getUserMedia({
+          video: true,
+          audio: true
+        }).then(function (stream) {
+          resolve(stream);
+        })["catch"](function (err) {
+          throw new Error("Unable to fetch stream ".concat(err));
+        });
+      });
+    },
+
+    /**
+     * Play video
+     */
+    playVideo: function playVideo(id) {
+      var myVideo = document.getElementById("video" + id);
+      myVideo.play();
+    },
+
+    /**
+     * stop video
+     */
+    stopVideo: function stopVideo(id) {
+      var myVideo = document.getElementById("video" + id);
+      myVideo.pause();
+    },
+
+    /**
+     * follow
+     */
+    userFollow: function userFollow(user_2) {
+      var _this2 = this;
+
+      var formData = new FormData();
+      formData.append("user_1", this.authuser.id);
+      formData.append("user_2", user_2);
+      this.services.userFollow(formData).then(function (response) {
+        if (response.data.status) {
+          _this2.getFollowPost(_this2.currentpage); // if(response.data.message == 1){
+          // }
+          // else if(response.data.message == 2){
+          //     var dd = document.getElementById("follow_class"+user_2);
+          //     dd = "UnFollow";
+          //     console.log(dd);
+          // }
+
+        }
+      })["catch"](function (errors) {
+        console.log(errors);
+      });
     }
   }
 });
@@ -39363,13 +39601,38 @@ var render = function() {
                           )
                         ]
                       ),
-                      _vm._v(
-                        "        \n                     \n                          " +
-                          _vm._s(post.discription.substring(0, 40)) +
-                          "\n                          " +
-                          _vm._s(post.created_at.diffForHumans) +
-                          "\n                      "
-                      )
+                      _vm._v(" "),
+                      _c("span", {}, [
+                        _vm._v(
+                          "\n                              " +
+                            _vm._s(post.discription.substring(0, 30)) +
+                            "\n                              " +
+                            _vm._s(post.created_at.diffForHumans) +
+                            "   \n                          "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "float-right" }, [
+                        _c(
+                          "button",
+                          {
+                            class:
+                              "text-white font-bold  px-4 rounded-full focus:outline-none " +
+                              _vm.follow_collor,
+                            attrs: { id: "follow_class" + post.user.id },
+                            on: {
+                              click: function($event) {
+                                return _vm.userFollow(post.user.id)
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                              Follow\n                              "
+                            )
+                          ]
+                        )
+                      ])
                     ],
                     1
                   )
@@ -40052,7 +40315,7 @@ var render = function() {
                     {
                       staticClass:
                         "block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-purple-500",
-                      attrs: { to: "/message" }
+                      attrs: { to: "/following" }
                     },
                     [
                       _c("i", {
@@ -40259,6 +40522,293 @@ var render = function() {
     : _vm._e()
 }
 var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/Follow.vue?vue&type=template&id=1bb32647&":
+/*!***************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pages/Follow.vue?vue&type=template&id=1bb32647& ***!
+  \***************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "main-content flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5"
+    },
+    [
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "infinite-scroll",
+              rawName: "v-infinite-scroll",
+              value: _vm.onNextPage,
+              expression: "onNextPage"
+            }
+          ],
+          staticClass: "flex flex-row flex-wrap flex-grow mt-2"
+        },
+        _vm._l(_vm.posts, function(post) {
+          return _c(
+            "div",
+            { key: post.id, staticClass: "w-full md:w-1/2 xl:w-1/3 p-3" },
+            [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "bg-white border-transparent rounded-lg shadow-lg"
+                },
+                [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "bg-gray-400  text-gray-800 border-b-2 border-gray-500 rounded-tl-lg rounded-tr-lg p-2"
+                    },
+                    [
+                      _c(
+                        "router-link",
+                        { attrs: { to: "/users/" + post.user.id } },
+                        [
+                          post.user.social_path == null
+                            ? _c("img", {
+                                staticClass: "w-7 h-7 rounded-full inline",
+                                attrs: {
+                                  src: "/uploads/users/photo/" + post.user.photo
+                                }
+                              })
+                            : _c("img", {
+                                staticClass: "w-7 h-7 rounded-full inline",
+                                attrs: { src: post.user.social_path }
+                              }),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "text-gray-600" }, [
+                            _vm._v(_vm._s(post.user.name))
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "relative float-right inline-block" },
+                        [
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "drop-button text-black focus:outline-none font-bold",
+                              on: {
+                                click: function($event) {
+                                  return _vm.toggleDDd("myDropdown" + post.id)
+                                }
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                  ...\n                              "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "dropdownlist absolute w-60 bg-gray-400 rounded-tl-lg rounded-tr-lg text-black right-0 mt-3 p-3 overflow-auto z-30 invisible",
+                              attrs: { id: "myDropdown" + post.id }
+                            },
+                            [
+                              _c(
+                                "a",
+                                {
+                                  staticClass:
+                                    "p-2 hover:bg-gray-800 text-blue-700 text-sm no-underline hover:no-underline block cursor-pointer"
+                                },
+                                [_vm._v(" Share to facebook ")]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "a",
+                                {
+                                  staticClass:
+                                    "p-2 hover:bg-gray-800 text-black text-sm no-underline hover:no-underline block cursor-pointer "
+                                },
+                                [_vm._v(" Share to tw ")]
+                              ),
+                              _vm._v(" "),
+                              _vm._m(1, true),
+                              _vm._v(" "),
+                              _c("div", {
+                                staticClass: "border border-gray-800"
+                              }),
+                              _vm._v(" "),
+                              _vm._m(2, true)
+                            ]
+                          )
+                        ]
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "p-5" },
+                    [
+                      _c(
+                        "router-link",
+                        { attrs: { to: "/video/" + post.id } },
+                        [
+                          _c(
+                            "video",
+                            {
+                              staticClass: "cursor-pointer w-full h-60",
+                              attrs: { id: "video" + post.id },
+                              on: {
+                                mouseover: function($event) {
+                                  return _vm.playVideo(post.id)
+                                },
+                                mouseout: function($event) {
+                                  return _vm.stopVideo(post.id)
+                                },
+                                "&scroll": function($event) {
+                                  return _vm.onScroll($event)
+                                }
+                              }
+                            },
+                            [
+                              _c("source", {
+                                attrs: {
+                                  src: post.video_path,
+                                  type: "video/mp4"
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("source", {
+                                attrs: { src: "", type: "video/ogg" }
+                              }),
+                              _vm._v(
+                                "\n                                  Your browser does not support HTML video.\n                              "
+                              )
+                            ]
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("span", {}, [
+                        _vm._v(
+                          "\n                              " +
+                            _vm._s(post.discription.substring(0, 30)) +
+                            "\n                              " +
+                            _vm._s(post.created_at.diffForHumans) +
+                            "   \n                          "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "float-right" }, [
+                        _c(
+                          "button",
+                          {
+                            class:
+                              "text-white font-bold  px-4 rounded-full focus:outline-none " +
+                              _vm.follow_collor,
+                            attrs: { id: "follow_class" + post.user.id },
+                            on: {
+                              click: function($event) {
+                                return _vm.userFollow(post.user.id)
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                              UnFollow\n                              "
+                            )
+                          ]
+                        )
+                      ])
+                    ],
+                    1
+                  )
+                ]
+              )
+            ]
+          )
+        }),
+        0
+      ),
+      _vm._v(" "),
+      _vm.nextLink
+        ? _c(
+            "span",
+            [
+              _c("center", [
+                _c("i", {
+                  staticClass: "fas fa-spinner fa-pulse text-blue-600"
+                })
+              ])
+            ],
+            1
+          )
+        : _vm._e()
+    ]
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "bg-indigo-900 p-2 shadow text-xl text-white" },
+      [_c("h3", { staticClass: "font-bold pl-2" }, [_vm._v("Your following")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        staticClass:
+          "p-2 hover:bg-gray-800 text-black text-sm no-underline hover:no-underline block cursor-pointer"
+      },
+      [_c("i", { staticClass: "    fa-cog fa-fw" }), _vm._v(" Copy")]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        staticClass:
+          "p-2 hover:bg-gray-800 text-black text-sm no-underline hover:no-underline block",
+        attrs: { href: "/logout" }
+      },
+      [_c("i", { staticClass: "fas fa-sign-out-alt fa-fw" }), _vm._v(" Share")]
+    )
+  }
+]
 render._withStripped = true
 
 
@@ -57065,6 +57615,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/pages/Follow.vue":
+/*!**************************************************!*\
+  !*** ./resources/js/components/pages/Follow.vue ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Follow_vue_vue_type_template_id_1bb32647___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Follow.vue?vue&type=template&id=1bb32647& */ "./resources/js/components/pages/Follow.vue?vue&type=template&id=1bb32647&");
+/* harmony import */ var _Follow_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Follow.vue?vue&type=script&lang=js& */ "./resources/js/components/pages/Follow.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Follow_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Follow_vue_vue_type_template_id_1bb32647___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Follow_vue_vue_type_template_id_1bb32647___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/pages/Follow.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/pages/Follow.vue?vue&type=script&lang=js&":
+/*!***************************************************************************!*\
+  !*** ./resources/js/components/pages/Follow.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Follow_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Follow.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/Follow.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Follow_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/pages/Follow.vue?vue&type=template&id=1bb32647&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/pages/Follow.vue?vue&type=template&id=1bb32647& ***!
+  \*********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Follow_vue_vue_type_template_id_1bb32647___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Follow.vue?vue&type=template&id=1bb32647& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/Follow.vue?vue&type=template&id=1bb32647&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Follow_vue_vue_type_template_id_1bb32647___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Follow_vue_vue_type_template_id_1bb32647___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/pages/Profile.vue":
 /*!***************************************************!*\
   !*** ./resources/js/components/pages/Profile.vue ***!
@@ -57385,6 +58004,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_pages_ChatContent__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/pages/ChatContent */ "./resources/js/components/pages/ChatContent.vue");
 /* harmony import */ var _components_pages_UploadContent__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/pages/UploadContent */ "./resources/js/components/pages/UploadContent.vue");
 /* harmony import */ var _components_VideoDetail__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/VideoDetail */ "./resources/js/components/VideoDetail.vue");
+/* harmony import */ var _components_pages_Follow__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/pages/Follow */ "./resources/js/components/pages/Follow.vue");
+
 
 
 
@@ -57413,6 +58034,9 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
   }, {
     path: "/video/:id",
     component: _components_VideoDetail__WEBPACK_IMPORTED_MODULE_7__["default"]
+  }, {
+    path: '/following',
+    component: _components_pages_Follow__WEBPACK_IMPORTED_MODULE_8__["default"]
   }]
 });
 /* harmony default export */ __webpack_exports__["default"] = (router);
@@ -57549,6 +58173,32 @@ var ApiService = /*#__PURE__*/function () {
     key: "hidePost",
     value: function hidePost(id) {
       return Object(_environment_request__WEBPACK_IMPORTED_MODULE_0__["default"])()["delete"]("/posts/".concat(id, "/hide")).then(function (response) {
+        return response;
+      })["catch"](function (errors) {
+        return errors.response.data.errors;
+      });
+    }
+    /**
+     * follow
+     */
+
+  }, {
+    key: "userFollow",
+    value: function userFollow(data) {
+      return Object(_environment_request__WEBPACK_IMPORTED_MODULE_0__["default"])().post("/follows", data).then(function (response) {
+        return response;
+      })["catch"](function (errors) {
+        return errors.response.data.errors;
+      });
+    }
+    /**
+     * get following post
+     */
+
+  }, {
+    key: "getFollowPost",
+    value: function getFollowPost(page) {
+      return Object(_environment_request__WEBPACK_IMPORTED_MODULE_0__["default"])().get("/posts-following?page=".concat(page)).then(function (response) {
         return response;
       })["catch"](function (errors) {
         return errors.response.data.errors;

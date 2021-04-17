@@ -6,6 +6,7 @@ import Video from '../components/pages/Video';
 import ChatContent from '../components/pages/ChatContent';
 import UploadContent from '../components/pages/UploadContent';
 import VideoDetail from '../components/VideoDetail';
+import Follow from '../components/pages/Follow';
 
 Vue.use(VueRouter)
 
@@ -17,6 +18,7 @@ const router = new VueRouter({
     {path:'/chats',component:ChatContent},
     {path:'/posts/create',component:UploadContent},
     {path:"/video/:id",component:VideoDetail},
+    {path:'/following',component:Follow}
   ]
 });
 

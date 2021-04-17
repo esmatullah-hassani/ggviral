@@ -2,7 +2,7 @@
   <div class="main-content flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5">
 
             <div class="bg-indigo-900 p-2 shadow text-xl text-white">
-                <h3 class="font-bold pl-2">Analytics</h3>
+                <h3 class="font-bold pl-2">Your following</h3>
             </div>
 
             <div class="flex flex-row flex-wrap flex-grow mt-2" v-infinite-scroll="onNextPage">
@@ -52,7 +52,7 @@
                             <span class="float-right">
 
                                 <button @click="userFollow(post.user.id)" :class="'text-white font-bold  px-4 rounded-full focus:outline-none '+follow_collor" :id="'follow_class'+post.user.id">
-                                Follow
+                                UnFollow
                                 </button>
 
                             </span>
@@ -69,9 +69,9 @@
 </template>
 
 <script>
-import ApiService from '../services/api.service'
+import ApiService from '../../services/api.service';
 export default {
-    name:"HomeContent",
+    name:"Follow",
     props:["authuser"],
     data(){
         return{
@@ -80,11 +80,11 @@ export default {
             services:new ApiService(),
             nextLink:true,
             follow_collor:"bg-pink-500 hover:bg-blue-700",
-            follows:null,
+            
         }
     },
     created(){
-        this.getPost();
+        this.getFollowPost();
     },
     
     methods:{
@@ -97,8 +97,8 @@ export default {
         /**
          * Display all post
          */
-        getPost(pageNumber = null){
-            this.services.getPost(pageNumber)
+        getFollowPost(pageNumber = null){
+            this.services.getFollowPost(pageNumber)
             .then((response)=> {
                 if(response.data.status){
                     if(response.data.posts.data.length == 0){
@@ -106,7 +106,7 @@ export default {
                     }
                     if(pageNumber == null){
                         this.posts = response.data.posts.data;
-                        this.follows = response.data.follows;
+                        
                     }
                     else{
                         for(let x =0;x<response.data.posts.data.length;x++){
@@ -127,7 +127,7 @@ export default {
          * scroll pagination
          */
         onNextPage: function() {
-            ++this.currentpage, this.getPost(this.currentpage);
+            ++this.currentpage, this.getFollowPost(this.currentpage);
         },
 
         getPermissions(){
@@ -168,7 +168,7 @@ export default {
             this.services.userFollow(formData)
             .then((response) => {
                 if(response.data.status){
-                    this.getPost(this.currentpage);
+                    this.getFollowPost(this.currentpage);
                     // if(response.data.message == 1){
                         
                     // }
