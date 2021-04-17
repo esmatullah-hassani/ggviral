@@ -3982,9 +3982,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "HomeContent",
@@ -39333,8 +39330,6 @@ var render = function() {
       staticClass: "main-content flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5"
     },
     [
-      _vm._m(0),
-      _vm._v(" "),
       _c(
         "div",
         {
@@ -39364,7 +39359,7 @@ var render = function() {
                     "div",
                     {
                       staticClass:
-                        "bg-gray-400  text-gray-800 border-b-2 border-gray-500 rounded-tl-lg rounded-tr-lg p-2"
+                        "bg-gray-200  text-gray-800 border-b-2 border-gray-500 rounded-tl-lg rounded-tr-lg p-2"
                     },
                     [
                       _c(
@@ -39437,13 +39432,13 @@ var render = function() {
                                 [_vm._v(" Share to tw ")]
                               ),
                               _vm._v(" "),
-                              _vm._m(1, true),
+                              _vm._m(0, true),
                               _vm._v(" "),
                               _c("div", {
                                 staticClass: "border border-gray-800"
                               }),
                               _vm._v(" "),
-                              _vm._m(2, true)
+                              _vm._m(1, true)
                             ]
                           )
                         ]
@@ -39528,16 +39523,6 @@ var render = function() {
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "bg-indigo-900 p-2 shadow text-xl text-white" },
-      [_c("h3", { staticClass: "font-bold pl-2" }, [_vm._v("Analytics")])]
-    )
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -39814,7 +39799,7 @@ var render = function() {
     "nav",
     {
       staticClass:
-        "bg-indigo-200 pt-2 md:pt-1 pb-1 px-1 mt-0 h-auto fixed w-full z-20 top-0"
+        "bg-gray-200 pt-2 md:pt-1 pb-1 px-1 mt-0 h-auto fixed w-full z-20 top-0"
     },
     [
       _c("div", { staticClass: "flex flex-wrap items-center" }, [
