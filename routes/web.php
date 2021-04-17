@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\VideoController;
 use App\Http\Controllers\ChatsController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\FollowController;
 use App\Http\Controllers\LoginWithSocialiteController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
@@ -71,4 +72,8 @@ Route::get("/comments/{id}",[CommentController::class,"show"]);
 Route::delete("/posts/{id}/destroy",[PostController::class,'destroy']);
 
 Route::delete("/posts/{id}/hide",[PostController::class,'hidePost']);
+
+Route::post("/follows",[FollowController::class,'store']);
+
+Route::get('/posts-following',[FollowController::class,'index']);
 

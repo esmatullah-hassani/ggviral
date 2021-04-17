@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Follow;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -16,8 +17,12 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::with("user")->orderBy("created_at",'desc')->where("status",1)->paginate(6);
-        return response(['status' => true,'posts' => $posts]);
+        $follows = Follow::where('user_1',Auth::id())->get();
+        $posts = Post::with("user")
+       
+        ->orderBy("created_at",'desc')->where("status",1)->paginate(6);
+       
+        return response(['status' => true,'posts' => $posts,'follows' => $follows]);
     }
 
     /**

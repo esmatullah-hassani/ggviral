@@ -87,4 +87,24 @@ export default class ApiService{
         .catch(errors => errors.response.data.errors);
      }
 
+    /**
+     * follow
+     */
+    userFollow(data){
+        return request()
+        .post("/follows",data)
+        .then(response => response)
+        .catch(errors => errors.response.data.errors);
+    }
+
+    /**
+     * get following post
+     */
+     getFollowPost(page){
+        return request()
+            .get(`/posts-following?page=${page}`)
+            .then(response => response)
+            .catch(errors => errors.response.data.errors);
+    }
+
 }
