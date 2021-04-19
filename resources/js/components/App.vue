@@ -31,6 +31,13 @@ export default {
     name:'App',
     created(){
 
+    },
+
+    mounted(){
+    Echo.private("presence-video-channel")
+        .listen("StartVideoChat",(e)=>{
+            console.log(e);
+		});
     }
   }
 </script>

@@ -1,5 +1,10 @@
 <template>
-  <div class="col-12 video-container" v-if="callPlaced">
+  <div class="main-content flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5">
+    <div class="bg-indigo-900 p-2 shadow text-xl text-white">
+      <h3 class="font-bold pl-2">Live</h3>
+    </div>
+    <center><button @click="getLive">Live</button></center>
+    <div class="col-12 video-container" v-if="callPlaced">
     <video
       ref="userVideo"
       muted
@@ -41,13 +46,12 @@
         EndCall
       </button>
     </div><br>
-    <button class="py-2 px-2 bg-green-400" @click="getUser">Clik</button>
+  </div>
   </div>
 </template>
 <script>
 import Peer from "simple-peer";
 import { getPermissions } from "../../helper";
-import Echo from 'laravel-echo';
 import axios from 'axios';
 export default {
      props: [
@@ -81,11 +85,15 @@ export default {
     };
   },
   created(){
-    this.placeVideoCall(this.authuser.id,this.authuser.name);
+    
   },
   mounted() {
+  // this.videoCallParams.channel=Echo.private("presence-video-channel")
+  //       .listen("StartVideoChat",(e)=>{
+  //           console.log(e);
+	// 	});
     this.initializeChannel(); // this initializes laravel echo
-    this.initializeCallListeners(); // subscribes to video presence channel and listens to video events
+     this.initializeCallListeners(); // subscribes to video presence channel and listens to video events
   },
   computed: {
     incomingCallDialog() {
@@ -343,13 +351,16 @@ export default {
         this.videoCallParams.peer2.destroy();
       }
       this.videoCallParams.channel.pusher.channels.channels[
-        "presence-presence-video-channel"
+        "private-presence-video-channel"
       ].disconnect();
 
       setTimeout(() => {
         this.callPlaced = false;
       }, 3000);
     },
+    getLive(){
+      this.placeVideoCall(this.authuser.id,this.authuser.name);
+    }
   },
 };
 </script>

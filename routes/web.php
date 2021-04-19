@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\VideoController;
-use App\Http\Controllers\ChatsController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\LoginWithSocialiteController;
@@ -51,10 +51,9 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 // Endpoints to call or receive calls.
-Route::post('/video/call-user', function(){
-    echo "hello";
-});
+Route::post('/video/call-user', [ChatController::class,'callUser']);
 Route::post('/video/accept-call', [ChatController::class,'acceptCall']);
+
 Route::post("/upload",[PostController::class,'uploadVideo']);
 
 Route::post("/posts",[PostController::class,'store']);
@@ -77,3 +76,4 @@ Route::post("/follows",[FollowController::class,'store']);
 
 Route::get('/posts-following',[FollowController::class,'index']);
 
+Route::get('/posts-follower',[FollowController::class,'postFollower']);

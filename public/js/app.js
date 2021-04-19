@@ -3869,7 +3869,12 @@ __webpack_require__.r(__webpack_exports__);
     HeroMenu: _hero_section_HeroMenu_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   name: 'App',
-  created: function created() {}
+  created: function created() {},
+  mounted: function mounted() {
+    Echo["private"]("presence-video-channel").listen("StartVideoChat", function (e) {
+      console.log(e);
+    });
+  }
 });
 
 /***/ }),
@@ -4453,9 +4458,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var simple_peer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! simple-peer */ "./node_modules/simple-peer/index.js");
 /* harmony import */ var simple_peer__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(simple_peer__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _helper__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../helper */ "./resources/js/helper.js");
-/* harmony import */ var laravel_echo__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! laravel-echo */ "./node_modules/laravel-echo/dist/echo.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -4514,7 +4518,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-
+//
+//
+//
+//
+//
 
 
 
@@ -4542,10 +4550,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       user: []
     };
   },
-  created: function created() {
-    this.placeVideoCall(this.authuser.id, this.authuser.name);
-  },
+  created: function created() {},
   mounted: function mounted() {
+    // this.videoCallParams.channel=Echo.private("presence-video-channel")
+    //       .listen("StartVideoChat",(e)=>{
+    //           console.log(e);
+    // 	});
     this.initializeChannel(); // this initializes laravel echo
 
     this.initializeCallListeners(); // subscribes to video presence channel and listens to video events
@@ -4581,7 +4591,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
      */
     getUser: function getUser() {
       alert("hello");
-      axios__WEBPACK_IMPORTED_MODULE_4___default.a.get("/users-get").then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_3___default.a.get("/users-get").then(function (response) {
         console.log(response);
       });
     },
@@ -4662,7 +4672,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
                 _this4.videoCallParams.peer1.on("signal", function (data) {
                   // send user call signal
-                  axios__WEBPACK_IMPORTED_MODULE_4___default.a.post("/video/call-user", {
+                  axios__WEBPACK_IMPORTED_MODULE_3___default.a.post("/video/call-user", {
                     user_to_call: id,
                     signal_data: data,
                     from: _this4.authuser.id.id
@@ -4741,7 +4751,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 _this5.videoCallParams.receivingCall = false;
 
                 _this5.videoCallParams.peer2.on("signal", function (data) {
-                  axios__WEBPACK_IMPORTED_MODULE_4___default.a.post("/video/accept-call", {
+                  axios__WEBPACK_IMPORTED_MODULE_3___default.a.post("/video/accept-call", {
                     signal: data,
                     to: _this5.videoCallParams.caller
                   }).then(function () {})["catch"](function (error) {
@@ -4836,10 +4846,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         this.videoCallParams.peer2.destroy();
       }
 
-      this.videoCallParams.channel.pusher.channels.channels["presence-presence-video-channel"].disconnect();
+      this.videoCallParams.channel.pusher.channels.channels["private-presence-video-channel"].disconnect();
       setTimeout(function () {
         _this6.callPlaced = false;
       }, 3000);
+    },
+    getLive: function getLive() {
+      this.placeVideoCall(this.authuser.id, this.authuser.name);
     }
   }
 });
@@ -40327,7 +40340,7 @@ var render = function() {
                           staticClass:
                             "pb-1 md:pb-0 text-xs md:text-base text-black md:text-black block md:inline-block"
                         },
-                        [_vm._v("Follow")]
+                        [_vm._v("Following")]
                       )
                     ]
                   )
@@ -40335,9 +40348,37 @@ var render = function() {
                 1
               ),
               _vm._v(" "),
-              _vm._m(0),
+              _c(
+                "li",
+                { staticClass: "mr-3 flex-1" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass:
+                        "block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-blue-600",
+                      attrs: { to: "/follower" }
+                    },
+                    [
+                      _c("i", {
+                        staticClass:
+                          "fas fa-chart-area pr-0 md:pr-3 text-blue-600"
+                      }),
+                      _c(
+                        "span",
+                        {
+                          staticClass:
+                            "pb-1 md:pb-0 text-xs md:text-base text-black md:text-black block md:inline-block"
+                        },
+                        [_vm._v("Follower")]
+                      )
+                    ]
+                  )
+                ],
+                1
+              ),
               _vm._v(" "),
-              _vm._m(1)
+              _vm._m(0)
             ]
           )
         ]
@@ -40346,34 +40387,6 @@ var render = function() {
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "mr-3 flex-1" }, [
-      _c(
-        "a",
-        {
-          staticClass:
-            "block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-blue-600",
-          attrs: { href: "#" }
-        },
-        [
-          _c("i", {
-            staticClass: "fas fa-chart-area pr-0 md:pr-3 text-blue-600"
-          }),
-          _c(
-            "span",
-            {
-              staticClass:
-                "pb-1 md:pb-0 text-xs md:text-base text-black md:text-black block md:inline-block"
-            },
-            [_vm._v("Following")]
-          )
-        ]
-      )
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -40446,82 +40459,107 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.callPlaced
-    ? _c("div", { staticClass: "col-12 video-container" }, [
-        _c("video", {
-          ref: "userVideo",
-          staticClass: "cursor-pointer",
-          class: _vm.isFocusMyself === true ? "user-video" : "partner-video",
-          attrs: { muted: "", playsinline: "", autoplay: "" },
-          domProps: { muted: true },
-          on: { click: _vm.toggleCameraArea }
-        }),
-        _vm._v(" "),
-        _vm.videoCallParams.callAccepted
-          ? _c("video", {
-              ref: "partnerVideo",
+  return _c(
+    "div",
+    {
+      staticClass: "main-content flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5"
+    },
+    [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("center", [
+        _c("button", { on: { click: _vm.getLive } }, [_vm._v("Live")])
+      ]),
+      _vm._v(" "),
+      _vm.callPlaced
+        ? _c("div", { staticClass: "col-12 video-container" }, [
+            _c("video", {
+              ref: "userVideo",
               staticClass: "cursor-pointer",
               class:
-                _vm.isFocusMyself === true ? "partner-video" : "user-video",
-              attrs: { playsinline: "", autoplay: "" },
+                _vm.isFocusMyself === true ? "user-video" : "partner-video",
+              attrs: { muted: "", playsinline: "", autoplay: "" },
+              domProps: { muted: true },
               on: { click: _vm.toggleCameraArea }
-            })
-          : _c("div", { staticClass: "partner-video" }, [
-              _vm.callPartner
-                ? _c("div", { staticClass: "column items-center q-pt-xl" }, [
-                    _c(
-                      "div",
-                      { staticClass: "col q-gutter-y-md text-center" },
-                      [
-                        _c("p", { staticClass: "q-pt-md" }, [
-                          _c("strong", [_vm._v(_vm._s(_vm.callPartner))])
-                        ]),
-                        _vm._v(" "),
-                        _c("p", [_vm._v("calling...")])
-                      ]
-                    )
-                  ])
-                : _vm._e()
-            ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "action-btns " }, [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-primary mx-4",
-              attrs: { type: "button" },
-              on: { click: _vm.toggleMuteVideo }
-            },
-            [
-              _vm._v(
-                "\n      " +
-                  _vm._s(_vm.mutedVideo ? "ShowVideo" : "HideVideo") +
-                  "\n    "
+            }),
+            _vm._v(" "),
+            _vm.videoCallParams.callAccepted
+              ? _c("video", {
+                  ref: "partnerVideo",
+                  staticClass: "cursor-pointer",
+                  class:
+                    _vm.isFocusMyself === true ? "partner-video" : "user-video",
+                  attrs: { playsinline: "", autoplay: "" },
+                  on: { click: _vm.toggleCameraArea }
+                })
+              : _c("div", { staticClass: "partner-video" }, [
+                  _vm.callPartner
+                    ? _c(
+                        "div",
+                        { staticClass: "column items-center q-pt-xl" },
+                        [
+                          _c(
+                            "div",
+                            { staticClass: "col q-gutter-y-md text-center" },
+                            [
+                              _c("p", { staticClass: "q-pt-md" }, [
+                                _c("strong", [_vm._v(_vm._s(_vm.callPartner))])
+                              ]),
+                              _vm._v(" "),
+                              _c("p", [_vm._v("calling...")])
+                            ]
+                          )
+                        ]
+                      )
+                    : _vm._e()
+                ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "action-btns " }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary mx-4",
+                  attrs: { type: "button" },
+                  on: { click: _vm.toggleMuteVideo }
+                },
+                [
+                  _vm._v(
+                    "\n      " +
+                      _vm._s(_vm.mutedVideo ? "ShowVideo" : "HideVideo") +
+                      "\n    "
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-danger",
+                  attrs: { type: "button" },
+                  on: { click: _vm.endCall }
+                },
+                [_vm._v("\n      EndCall\n    ")]
               )
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-danger",
-              attrs: { type: "button" },
-              on: { click: _vm.endCall }
-            },
-            [_vm._v("\n      EndCall\n    ")]
-          )
-        ]),
-        _c("br"),
-        _vm._v(" "),
-        _c(
-          "button",
-          { staticClass: "py-2 px-2 bg-green-400", on: { click: _vm.getUser } },
-          [_vm._v("Clik")]
-        )
-      ])
-    : _vm._e()
+            ]),
+            _c("br")
+          ])
+        : _vm._e()
+    ],
+    1
+  )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "bg-indigo-900 p-2 shadow text-xl text-white" },
+      [_c("h3", { staticClass: "font-bold pl-2" }, [_vm._v("Live")])]
+    )
+  }
+]
 render._withStripped = true
 
 

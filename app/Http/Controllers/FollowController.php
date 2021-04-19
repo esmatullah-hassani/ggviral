@@ -27,6 +27,22 @@ class FollowController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function pstFollower()
+    {
+        $posts = Post::with("user")
+        ->whereIn('user_id', function ($query) {
+            return $query->select('user_1')->from('follows')->where('user_2', Auth::id());
+        })
+        ->orderBy("created_at",'desc')->where("status",1)->paginate(6);
+       
+        return response(['status' => true,'posts' => $posts]);
+    }
+
+    /**
      * store follow
      * @param request
      * 
