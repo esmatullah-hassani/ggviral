@@ -21,7 +21,6 @@ class PostController extends Controller
         $posts = Post::with("user")
        
         ->orderBy("created_at",'desc')->where("status",1)->paginate(6);
-       
         return response(['status' => true,'posts' => $posts,'follows' => $follows]);
     }
 
@@ -131,8 +130,9 @@ class PostController extends Controller
         $posts = Post::where("user_id",$request->user_id)->orderBy("created_at",'desc')->paginate(6);
 
         $user = User::find($request->user_id);
-        
-        return response(['status' => true,'posts' => $posts,'user' => $user]);
+        $following = count(User::select('follows.user_1')->leftJoin('follows','users.id','follows.user_1')->where('follows.user_1',auth()->id())->groupBy('user_1')->get());
+        $follower = count(User::select('follows.user_2')->leftJoin('follows','users.id','follows.user_2')->where('follows.user_2',auth()->id())->groupBy('user_2')->get());
+        return response(['status' => true,'posts' => $posts,'user' => $user,'follower' => $follower,'following' => $following]);
     }
 
     /**

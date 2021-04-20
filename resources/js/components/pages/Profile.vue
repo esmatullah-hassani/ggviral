@@ -4,9 +4,33 @@
             <div class="bg-indigo-900 p-2 shadow text-xl text-white">
                 <h3 class="font-bold pl-2">Welcome to {{user.name}} profile</h3>
             </div>
+            <center>
+                <div class="bg-white w-full  md:w-2/3 mt-3 lg:w-1/2 xl:w-1/2 border-transparent rounded-lg shadow-lg" v-if="user_id == authuser.id">
+                    <div >
+                    <img class="w-40 h-40 rounded-full inline"  :src="'/uploads/users/photo/'+authuser.photo" v-if="authuser.social_path == null">
+                    <img class="w-40 h-40 rounded-full inline"  :src="authuser.social_path" v-else> 
+                    </div>
+                    <div>
+                        <span class="text-gray-600">{{authuser.name}}</span>
+                    </div>
+                    <div class="pb-5">
+                        <span class="mr-32">Followers:
+                            <button class="bg-gray-500 w-4 h-4 text-orange-400 rounded-full">
+                                {{follower}}
+                            </button>
+                        </span>
+                        <span class="ml-0">Following:
+                            <button class="bg-gray-500 text-blue-600 w-4 h-4 rounded-full">
+                                {{following}}
+                            </button>
+                        </span>
 
+                    </div>
+                    
+                </div>
+            </center>
             <div class="flex flex-row flex-wrap flex-grow mt-2" v-infinite-scroll="onNextPage">
-
+                
                 <div class="w-full md:w-1/2 xl:w-1/3 p-3" v-for="post in posts" v-bind:key="post.id" >
                     <!--Graph Card-->
                     <div class="bg-white border-transparent rounded-lg shadow-lg">
@@ -184,6 +208,8 @@
 import ApiService from '../../services/api.service';
 export default {
     name:'Profile',
+   
+    props:['authuser'],
     data(){
       return{
         services:new ApiService(),
@@ -195,6 +221,8 @@ export default {
         showdeletemodal:false,
         post_id:null,
         showhidemodal:false,
+        follower:null,
+        following:null,
       }
     },
     created(){
@@ -210,8 +238,9 @@ export default {
         formData.append("user_id",user_id);
         this.services.getUserPost(formData,pageNumber)
         .then((response) => {
-          console.log(response);
           if(response.data.status){
+            this.follower = response.data.follower;
+            this.following = response.data.following;
             this.user  = response.data.user;
              if(pageNumber == null){
                   this.posts = response.data.posts.data;
