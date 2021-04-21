@@ -5268,6 +5268,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Profile',
@@ -5284,7 +5292,10 @@ __webpack_require__.r(__webpack_exports__);
       post_id: null,
       showhidemodal: false,
       follower: null,
-      following: null
+      following: null,
+      uploadPercentage: 0,
+      progrescount: false,
+      image: null
     };
   },
   created: function created() {
@@ -5401,6 +5412,53 @@ __webpack_require__.r(__webpack_exports__);
         })["catch"](function (error) {
           console.log(error);
         });
+      }
+    },
+
+    /*
+    Submits the file to the server
+    */
+    editImage: function editImage() {
+      var _this4 = this;
+
+      this.image = this.$refs.image.files[0];
+
+      if (this.image != "") {
+        this.progrescount = true;
+        /*
+            Initialize the form data
+        */
+
+        var formData = new FormData();
+        /*
+            Add the form data we need to submit
+        */
+
+        formData.append('photo', this.image);
+        /*
+            Make the request to the POST /single-file URL
+        */
+
+        axios.post("/edit-image/".concat(this.authuser.id), formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          },
+          onUploadProgress: function (progressEvent) {
+            this.uploadPercentage = parseInt(Math.round(progressEvent.loaded / progressEvent.total * 100));
+          }.bind(this)
+        }).then(function (data) {
+          console.log(data);
+
+          if (data.data.status) {
+            _this4.progrescount = false;
+            _this4.authuser = data.data.user;
+            window.location.href = "/";
+          }
+        })["catch"](function (err) {
+          console.log(err);
+        });
+      } else {
+        this.error = "Something was wrong! try again";
       }
     }
   }
@@ -40916,10 +40974,51 @@ var render = function() {
                     : _c("img", {
                         staticClass: "w-40 h-40 rounded-full inline",
                         attrs: { src: _vm.authuser.social_path }
+                      }),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.progrescount,
+                          expression: "progrescount"
+                        }
+                      ],
+                      staticClass:
+                        "overflow-hidden w-40 h-2 mb-4 text-xs flex rounded bg-pink-200"
+                    },
+                    [
+                      _c("div", {
+                        staticClass:
+                          "shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-pink-500",
+                        style: "width:" + _vm.uploadPercentage + "%"
                       })
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    {
+                      staticClass:
+                        "w-10 flex flex-col text-blue-600  items-center px-2 py-2 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-white mb-4"
+                    },
+                    [
+                      _c("i", { staticClass: "fa fa-edit" }),
+                      _vm._v(" "),
+                      _c("input", {
+                        ref: "image",
+                        staticClass: "hidden",
+                        attrs: { type: "file", name: "image", id: "image" },
+                        on: { change: _vm.editImage }
+                      })
+                    ]
+                  )
                 ]),
                 _vm._v(" "),
-                _c("div", [
+                _c("div", { staticClass: "mb-2" }, [
                   _c("span", { staticClass: "text-gray-600" }, [
                     _vm._v(_vm._s(_vm.authuser.name))
                   ])

@@ -9,8 +9,16 @@
                     <div >
                     <img class="w-40 h-40 rounded-full inline"  :src="'/uploads/users/photo/'+authuser.photo" v-if="authuser.social_path == null">
                     <img class="w-40 h-40 rounded-full inline"  :src="authuser.social_path" v-else> 
+                    <div v-show="progrescount" class="overflow-hidden w-40 h-2 mb-4 text-xs flex rounded bg-pink-200">
+                        <div :style="'width:'+uploadPercentage+'%'" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-pink-500"></div>
                     </div>
-                    <div>
+                    <label class="w-10 flex flex-col text-blue-600  items-center px-2 py-2 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-white mb-4">
+                        <i class="fa fa-edit"></i>
+                        <input type="file" class="hidden" name="image" id="image" ref="image" v-on:change="editImage">
+                    </label>
+                    
+                    </div>
+                    <div class="mb-2">
                         <span class="text-gray-600">{{authuser.name}}</span>
                     </div>
                     <div class="pb-5">
@@ -223,6 +231,9 @@ export default {
         showhidemodal:false,
         follower:null,
         following:null,
+        uploadPercentage: 0,
+        progrescount:false,
+        image:null,
       }
     },
     created(){
@@ -338,7 +349,58 @@ export default {
                     console.log(error);
                 });
             }
+        },
+
+
+        /*
+        Submits the file to the server
+        */
+        editImage(){
+            this.image = this.$refs.image.files[0];
+            
+        if( this.image != ""){
+            this.progrescount = true;
+            /*
+                Initialize the form data
+            */
+            let formData = new FormData();
+
+            /*
+                Add the form data we need to submit
+            */
+            formData.append('photo', this.image);
+            
+
+            /*
+                Make the request to the POST /single-file URL
+            */
+            axios.post(`/edit-image/${this.authuser.id}`,
+                formData,
+                {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                },
+                onUploadProgress: function( progressEvent ) {
+                    this.uploadPercentage = parseInt( Math.round( ( progressEvent.loaded / progressEvent.total ) * 100 ));
+                }.bind(this)
+                }
+            )
+            .then((data) => {
+                console.log(data);
+                if(data.data.status){
+                    this.progrescount = false;
+                    this.authuser = data.data.user;
+                    window.location.href = "/";
+                }
+            })
+            .catch(function(err){
+                console.log(err);
+            });
         }
+        else{
+            this.error = "Something was wrong! try again";
+        }
+        },
     }
 }
 </script>

@@ -77,3 +77,5 @@ Route::post("/follows",[FollowController::class,'store']);
 Route::get('/posts-following',[FollowController::class,'index']);
 
 Route::get('/posts-follower',[FollowController::class,'postFollower']);
+
+Route::post("/edit-image/{id}",[UserController::class,'editImage']);

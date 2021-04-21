@@ -6,6 +6,7 @@ use App\Mail\VerifyEmailCode;
 use App\Models\NotVerifyUser;
 use App\Models\User;
 use Exception;
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -90,4 +91,36 @@ class UserController extends Controller
         Auth::logout();
         return redirect("/");
     }
+
+    /**
+     * change photo
+     * @param id
+     * @param request
+     */
+    public function editImage(Request $request,$id)
+    {
+        $user = User::find($id);
+        if($user->photo != "default.png"){
+            File::delete('uploads/users/photo/'.$user->photo);
+        }
+        if (null !== $request->photo) {
+            $photoName = time().'.'.$request->photo->getClientOriginalExtension();
+
+            $request->photo->move('uploads/users/photo/', $photoName);
+
+            $user->photo = $photoName;
+            $user->social_path = null;
+        }
+        else{
+            $user->photo = "default.png";
+        }
+        if($user->save()){
+            $user = User::find($id);
+            return response()->json(['status' => true,'user' => $user]);
+        }
+        else{
+            return response()->json(['status' => false]);
+        }
+    }
+
 }
