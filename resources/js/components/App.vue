@@ -10,6 +10,8 @@
         :turn_url="turn_url"
         :turn_username="turn_username"
         :turn_credential="turn_credential"
+        :userLive="userLive"
+        :livedata="livedata"
         />
     </div>
   </div>
@@ -29,15 +31,29 @@ export default {
   ],
   components: { HeroSidebar, HerroFooter, HeroMenu },
     name:'App',
-    created(){
-
+    data(){
+      return {
+        userLive:false,
+        livedata:null,
+      }
     },
+   
 
     mounted(){
-    Echo.private("presence-video-channel")
-        .listen("StartVideoChat",(e)=>{
-            console.log(e);
-		});
+      Echo.private("presence-video-channel")
+          .listen("StartVideoChat",(e)=>{
+              console.log(e);
+      });
+      this.initializeChannel();
+    },
+    methods:{
+      initializeChannel() {
+        window.Echo.join("presence-video-channel").listen("StartVideoChat", ({ data }) => {
+         this.userLive = true;
+         this.livedata = data;
+        alert("Comming live from "+data.name);
+        });
+      },
     }
   }
 </script>

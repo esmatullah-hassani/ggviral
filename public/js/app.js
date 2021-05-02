@@ -3858,6 +3858,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -3869,11 +3871,29 @@ __webpack_require__.r(__webpack_exports__);
     HeroMenu: _hero_section_HeroMenu_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   name: 'App',
-  created: function created() {},
+  data: function data() {
+    return {
+      userLive: false,
+      livedata: null
+    };
+  },
   mounted: function mounted() {
     Echo["private"]("presence-video-channel").listen("StartVideoChat", function (e) {
       console.log(e);
     });
+    this.initializeChannel();
+  },
+  methods: {
+    initializeChannel: function initializeChannel() {
+      var _this = this;
+
+      window.Echo.join("presence-video-channel").listen("StartVideoChat", function (_ref) {
+        var data = _ref.data;
+        _this.userLive = true;
+        _this.livedata = data;
+        alert("Comming live from " + data.name);
+      });
+    }
   }
 });
 
@@ -4420,7 +4440,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['userLive', 'livedata'],
+  data: function data() {
+    return {
+      showEye: false
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    window.Echo.join("presence-video-channel").listen("StartVideoChat", function (_ref) {
+      var data = _ref.data;
+      _this.showEye = true;
+    });
+  }
+});
 
 /***/ }),
 
@@ -4520,11 +4556,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ["allusers", "authuser", "turn_url", "turn_username", "turn_credential"],
+  props: ["allusers", "authuser", "turn_url", "turn_username", "turn_credential", 'livedata', 'userLive'],
   data: function data() {
     return {
       isFocusMyself: true,
@@ -4547,24 +4584,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       user: []
     };
   },
-  created: function created() {},
+  created: function created() {
+    if (this.userLive) {
+      this.incommingLive(this.livedata);
+    }
+  },
   mounted: function mounted() {
-    // this.videoCallParams.channel=Echo.private("presence-video-channel")
-    //       .listen("StartVideoChat",(e)=>{
-    //           console.log(e);
-    // 	});
     this.initializeChannel(); // this initializes laravel echo
 
     this.initializeCallListeners(); // subscribes to video presence channel and listens to video events
   },
   computed: {
-    incomingCallDialog: function incomingCallDialog() {
-      if (this.videoCallParams.receivingCall && this.videoCallParams.caller !== this.authuser.id.id) {
-        return true;
-      }
-
-      return false;
-    },
     callerDetails: function callerDetails() {
       var _this = this;
 
@@ -4637,15 +4667,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
         if (data.type === "incomingCall") {
           // add a new line to the sdp to take care of error
-          var updatedSignal = _objectSpread(_objectSpread({}, data.signalData), {}, {
-            sdp: "".concat(data.signalData.sdp, "\n")
-          });
-
-          _this3.videoCallParams.receivingCall = true;
-          _this3.videoCallParams.caller = data.from;
-          _this3.videoCallParams.callerSignal = updatedSignal;
+          _this3.incommingLive(data);
         }
       });
+    },
+    incommingLive: function incommingLive(data) {
+      var updatedSignal = _objectSpread(_objectSpread({}, data.signalData), {}, {
+        sdp: "".concat(data.signalData.sdp, "\n")
+      });
+
+      this.videoCallParams.receivingCall = true;
+      this.videoCallParams.caller = data.from;
+      this.videoCallParams.callerSignal = updatedSignal;
+
+      if (this.videoCallParams.receivingCall && this.videoCallParams.caller !== this.authuser.id.id) {
+        this.acceptCall();
+      }
     },
     placeVideoCall: function placeVideoCall(id, name) {
       var _this4 = this;
@@ -4736,10 +4773,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               case 0:
                 _this5.callPlaced = true;
                 _this5.videoCallParams.callAccepted = true;
-                _context2.next = 4;
-                return _this5.getMediaPermission();
-
-              case 4:
                 _this5.videoCallParams.peer2 = new simple_peer__WEBPACK_IMPORTED_MODULE_1___default.a({
                   initiator: false,
                   trickle: false,
@@ -4776,7 +4809,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
                 _this5.videoCallParams.peer2.signal(_this5.videoCallParams.callerSignal);
 
-              case 12:
+              case 10:
               case "end":
                 return _context2.stop();
             }
@@ -39496,7 +39529,9 @@ var render = function() {
               authuser: _vm.authuser,
               turn_url: _vm.turn_url,
               turn_username: _vm.turn_username,
-              turn_credential: _vm.turn_credential
+              turn_credential: _vm.turn_credential,
+              userLive: _vm.userLive,
+              livedata: _vm.livedata
             }
           })
         ],
@@ -40373,7 +40408,8 @@ var render = function() {
                     },
                     [
                       _c("i", {
-                        staticClass: "fa fa-video pr-0 md:pr-0 text-blue-600"
+                        staticClass: "fa fa-video pr-0 md:pr-0 text-blue-600",
+                        attrs: { title: "live" }
                       }),
                       _c(
                         "span",
@@ -40382,7 +40418,19 @@ var render = function() {
                             "pb-1 md:pb-0 text-xs md:text-base text-black md:text-black block md:inline-block pl-5"
                         },
                         [_vm._v("Live")]
-                      )
+                      ),
+                      _vm._v(" "),
+                      _c("i", {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.showEye,
+                            expression: "showEye"
+                          }
+                        ],
+                        staticClass: "fa fa-eye pr-0 md:pr-0 text-orange-600"
+                      })
                     ]
                   )
                 ],
@@ -40608,7 +40656,7 @@ var render = function() {
                   attrs: { type: "button" },
                   on: { click: _vm.endCall }
                 },
-                [_vm._v("\n      EndCall\n    ")]
+                [_vm._v("\n      EndLive\n    ")]
               )
             ]),
             _c("br")

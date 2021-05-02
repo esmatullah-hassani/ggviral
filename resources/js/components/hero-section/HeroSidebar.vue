@@ -15,7 +15,8 @@
                     </li>
                     <li class="mr-3 flex-1">
                         <router-link to="/chats" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-purple-500">
-                            <i class="fa fa-video pr-0 md:pr-0 text-blue-600"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-black md:text-black block md:inline-block pl-5">Live</span>
+                            <i class="fa fa-video pr-0 md:pr-0 text-blue-600" title="live"></i><span class="pb-1 md:pb-0 text-xs md:text-base text-black md:text-black block md:inline-block pl-5">Live</span>
+                            <i v-show="showEye" class="fa fa-eye pr-0 md:pr-0 text-orange-600"></i>
                         </router-link>
                     </li>
                     <li class="mr-3 flex-1">
@@ -45,7 +46,20 @@
 
 <script>
 export default {
-
+    props:['userLive','livedata'],
+    data(){
+        return{
+            showEye:false,
+        }
+    },
+    mounted(){
+      
+        window.Echo.join("presence-video-channel").listen("StartVideoChat", ({ data }) => {
+            this.showEye = true;
+            
+        });
+    },
+   
 }
 </script>
 

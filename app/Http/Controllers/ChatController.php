@@ -46,7 +46,8 @@ class ChatController extends Controller
         $data['userToCall'] = $request->user_to_call;
         $data['signalData'] = $request->signal_data;
         $data['from'] = Auth::id();
-        $data['type'] = 'incomingCall';
+        $data['name'] = Auth::user()->name;
+        $data['type'] = 'incomingLive';
 
         broadcast(new StartVideoChat($data,$request->user_to_call))->toOthers();
     }

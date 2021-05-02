@@ -4,6 +4,7 @@
       <h3 class="font-bold pl-2">Live</h3>
     </div>
     <center><button @click="getLive">Live</button></center>
+    
     <div class="col-12 video-container" v-if="callPlaced">
     <video
       ref="userVideo"
@@ -43,7 +44,7 @@
         {{ mutedVideo ? "ShowVideo" : "HideVideo" }}
       </button>
       <button type="button" class="btn btn-danger" @click="endCall">
-        EndCall
+        EndLive
       </button>
     </div><br>
   </div>
@@ -60,6 +61,8 @@ export default {
     "turn_url",
     "turn_username",
     "turn_credential",
+    'livedata',
+    'userLive',
     
   ],
   data() {
@@ -85,26 +88,19 @@ export default {
     };
   },
   created(){
-    
+    if(this.userLive){
+      this.incommingLive(this.livedata);
+    }
   },
   mounted() {
-  // this.videoCallParams.channel=Echo.private("presence-video-channel")
-  //       .listen("StartVideoChat",(e)=>{
-  //           console.log(e);
-	// 	});
+  
     this.initializeChannel(); // this initializes laravel echo
      this.initializeCallListeners(); // subscribes to video presence channel and listens to video events
+    
+     
   },
   computed: {
-    incomingCallDialog() {
-      if (
-        this.videoCallParams.receivingCall &&
-        this.videoCallParams.caller !== this.authuser.id.id
-      ) {
-        return true;
-      }
-      return false;
-    },
+    
 
     callerDetails() {
       if (
@@ -138,6 +134,7 @@ export default {
      },
     initializeChannel() {
       this.videoCallParams.channel = window.Echo.join("presence-video-channel");
+      
     },
 
     getMediaPermission() {
@@ -178,16 +175,27 @@ export default {
       this.videoCallParams.channel.listen("StartVideoChat", ({ data }) => {
         if (data.type === "incomingCall") {
           // add a new line to the sdp to take care of error
-          const updatedSignal = {
-            ...data.signalData,
-            sdp: `${data.signalData.sdp}\n`,
-          };
-
-          this.videoCallParams.receivingCall = true;
-          this.videoCallParams.caller = data.from;
-          this.videoCallParams.callerSignal = updatedSignal;
+          this.incommingLive(data);
         }
       });
+      
+    },
+    incommingLive(data){
+      const updatedSignal = {
+        ...data.signalData,
+        sdp: `${data.signalData.sdp}\n`,
+      };
+
+      this.videoCallParams.receivingCall = true;
+      this.videoCallParams.caller = data.from;
+      this.videoCallParams.callerSignal = updatedSignal;
+        if (
+          this.videoCallParams.receivingCall &&
+          this.videoCallParams.caller !== this.authuser.id.id
+        ) {
+          this.acceptCall();
+          
+        }
     },
     async placeVideoCall(id, name) {
       this.callPlaced = true;
@@ -253,7 +261,6 @@ export default {
     async acceptCall() {
       this.callPlaced = true;
       this.videoCallParams.callAccepted = true;
-      await this.getMediaPermission();
       this.videoCallParams.peer2 = new Peer({
         initiator: false,
         trickle: false,
