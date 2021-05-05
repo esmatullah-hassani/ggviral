@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\VideoController;
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\CoinController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\FollowController;
 use App\Http\Controllers\LoginWithSocialiteController;
@@ -79,3 +80,10 @@ Route::get('/posts-following',[FollowController::class,'index']);
 Route::get('/posts-follower',[FollowController::class,'postFollower']);
 
 Route::post("/edit-image/{id}",[UserController::class,'editImage']);
+
+//
+Route::post("/check-coin",[CoinController::class,'checkCoin']);
+
+Route::post("/bye-coin",[CoinController::class,'store']);
+
+Route::post("/set-gift",[CoinController::class,'setGift']);

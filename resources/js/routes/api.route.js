@@ -7,6 +7,7 @@ import ChatContent from '../components/pages/ChatContent';
 import UploadContent from '../components/pages/UploadContent';
 import VideoDetail from '../components/VideoDetail';
 import Follow from '../components/pages/Follow';
+import BuyCoin from '../components/pages/BuyCoin';
 
 Vue.use(VueRouter)
 
@@ -18,7 +19,8 @@ const router = new VueRouter({
     {path:'/chats',component:ChatContent},
     {path:'/posts/create',component:UploadContent},
     {path:"/video/:id",component:VideoDetail},
-    {path:'/following',component:Follow}
+    {path:'/following',component:Follow},
+    {path:'/buy-coin/:id',component:BuyCoin,}
   ]
 });
 

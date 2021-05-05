@@ -51,7 +51,7 @@ export default {
         window.Echo.join("presence-video-channel").listen("StartVideoChat", ({ data }) => {
          this.userLive = true;
          this.livedata = data;
-        alert("Comming live from "+data.name);
+        alert(data.title);
         });
       },
     }

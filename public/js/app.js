@@ -3891,7 +3891,7 @@ __webpack_require__.r(__webpack_exports__);
         var data = _ref.data;
         _this.userLive = true;
         _this.livedata = data;
-        alert("Comming live from " + data.name);
+        alert(data.title);
       });
     }
   }
@@ -4477,6 +4477,129 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/BuyCoin.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pages/BuyCoin.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "ByeCoin",
+  props: ['authuser'],
+  data: function data() {
+    return {
+      product: {
+        price: 1,
+        description: "Bye"
+      }
+    };
+  },
+  mounted: function mounted() {
+    var script = document.createElement("script");
+    script.src = "https://www.paypal.com/sdk/js?client-id=ASyBLrCpsjB4fKGdtshk9gYl2LukxGtom0EKNX_AQ2ONJZ9utCJx78047JX9I5pDZjYoTE6PUKda0Y6v";
+    script.addEventListener("load", this.setLoaded);
+    document.body.appendChild(script);
+  },
+  methods: {
+    setLoaded: function setLoaded() {
+      var _this = this;
+
+      window.paypal.Buttons({
+        createOrder: function createOrder(data, actions) {
+          // This function sets up the details of the transaction, including the amount and line item details.
+          return actions.order.create({
+            purchase_units: [{
+              amount: {
+                value: _this.product.price
+              }
+            }]
+          });
+        },
+        onApprove: function () {
+          var _onApprove = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(data, actions) {
+            var order;
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+              while (1) {
+                switch (_context.prev = _context.next) {
+                  case 0:
+                    _context.next = 2;
+                    return actions.order.capture();
+
+                  case 2:
+                    order = _context.sent;
+
+                    _this.submitPayment();
+
+                  case 4:
+                  case "end":
+                    return _context.stop();
+                }
+              }
+            }, _callee);
+          }));
+
+          function onApprove(_x, _x2) {
+            return _onApprove.apply(this, arguments);
+          }
+
+          return onApprove;
+        }()
+      }).render('#paypal-button-container');
+    },
+    submitPayment: function submitPayment() {
+      var _this2 = this;
+
+      var formData = new FormData();
+      formData.append('price', this.product.price);
+      formData.append('user_id', this.authuser.id);
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post("/bye-coin", formData).then(function (response) {
+        console.log(response);
+
+        _this2.$router.push("/chats")["catch"](function (er) {});
+      })["catch"](function (err) {
+        console.log("error " + err);
+      });
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/ChatContent.vue?vue&type=script&lang=js&":
 /*!****************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pages/ChatContent.vue?vue&type=script&lang=js& ***!
@@ -4557,6 +4680,69 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4581,12 +4767,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         peer2: null
       },
       allMessages: [],
-      user: []
+      user: [],
+      showpaymentmodal: false,
+      controlCall: true,
+      giftdiv: false
     };
   },
   created: function created() {
     if (this.userLive) {
       this.incommingLive(this.livedata);
+      this.controlCall = false;
+      this.giftdiv = true;
     }
   },
   mounted: function mounted() {
@@ -4613,6 +4804,61 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   methods: {
     /**
+       * Hide delete modal
+       */
+    hideDeleteModal: function hideDeleteModal() {
+      this.showpaymentmodal = false;
+    },
+    checkGift: function checkGift(price) {
+      var _this2 = this;
+
+      var formData = new FormData();
+      formData.append("user_id", this.authuser.id);
+      formData.append("price", price);
+      axios__WEBPACK_IMPORTED_MODULE_3___default.a.post("/check-coin", formData).then(function (response) {
+        if (response.data.status) {
+          if (response.data.message >= price) {
+            return true;
+          } else {
+            _this2.showpaymentmodal = true;
+          }
+        } else {
+          _this2.showpaymentmodal = true;
+        }
+      })["catch"](function (error) {
+        console(error);
+      });
+    },
+    buyCoin: function buyCoin() {
+      this.showdiv = false;
+      this.$router.push("/buy-coin/" + this.authuser.id)["catch"](function (er) {});
+    },
+    setGift: function setGift(price) {
+      var _this3 = this;
+
+      var formData = new FormData();
+      formData.append("user_id", this.authuser.id);
+      formData.append("price", price);
+      axios__WEBPACK_IMPORTED_MODULE_3___default.a.post("/check-coin", formData).then(function (response) {
+        if (response.data.status) {
+          if (response.data.message >= price) {
+            axios__WEBPACK_IMPORTED_MODULE_3___default.a.post("/set-gift", formData).then(function (response) {
+              if (response.data.status) {
+                alert("Thanks");
+              }
+            })["catch"](function (err) {});
+          } else {
+            _this3.showpaymentmodal = true;
+          }
+        } else {
+          _this3.showpaymentmodal = true;
+        }
+      })["catch"](function (error) {
+        console(error);
+      });
+    },
+
+    /**
      * get spicific user
      * @param id
      */
@@ -4626,48 +4872,51 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.videoCallParams.channel = window.Echo.join("presence-video-channel");
     },
     getMediaPermission: function getMediaPermission() {
-      var _this2 = this;
+      var _this4 = this;
 
       return Object(_helper__WEBPACK_IMPORTED_MODULE_2__["getPermissions"])().then(function (stream) {
-        _this2.videoCallParams.stream = stream;
+        _this4.videoCallParams.stream = stream;
 
-        if (_this2.$refs.userVideo) {
-          _this2.$refs.userVideo.srcObject = stream;
+        if (_this4.$refs.userVideo) {
+          _this4.$refs.userVideo.srcObject = stream;
         }
       })["catch"](function (error) {
         console.log(error);
       });
     },
     initializeCallListeners: function initializeCallListeners() {
-      var _this3 = this;
+      var _this5 = this;
 
       this.videoCallParams.channel.here(function (users) {
-        _this3.videoCallParams.users = users;
+        _this5.videoCallParams.users = users;
       });
       this.videoCallParams.channel.joining(function (user) {
         // check user availability
-        var joiningUserIndex = _this3.videoCallParams.users.findIndex(function (data) {
+        var joiningUserIndex = _this5.videoCallParams.users.findIndex(function (data) {
           return data.id === user.id;
         });
 
         if (joiningUserIndex < 0) {
-          _this3.videoCallParams.users.push(user);
+          _this5.videoCallParams.users.push(user);
         }
       });
       this.videoCallParams.channel.leaving(function (user) {
-        var leavingUserIndex = _this3.videoCallParams.users.findIndex(function (data) {
+        var leavingUserIndex = _this5.videoCallParams.users.findIndex(function (data) {
           return data.id === user.id;
         });
 
-        _this3.videoCallParams.users.splice(leavingUserIndex, 1);
+        _this5.videoCallParams.users.splice(leavingUserIndex, 1);
       }); // listen to incomming call
 
       this.videoCallParams.channel.listen("StartVideoChat", function (_ref) {
         var data = _ref.data;
 
-        if (data.type === "incomingCall") {
+        if (data.type === "incomingLive") {
           // add a new line to the sdp to take care of error
-          _this3.incommingLive(data);
+          _this5.incommingLive(data);
+
+          _this5.controlCall = false;
+          _this5.giftdiv = true;
         }
       });
     },
@@ -4685,57 +4934,57 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     },
     placeVideoCall: function placeVideoCall(id, name) {
-      var _this4 = this;
+      var _this6 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _this4.callPlaced = true;
-                _this4.callPartner = name;
+                _this6.callPlaced = true;
+                _this6.callPartner = name;
                 _context.next = 4;
-                return _this4.getMediaPermission();
+                return _this6.getMediaPermission();
 
               case 4:
-                _this4.videoCallParams.peer1 = new simple_peer__WEBPACK_IMPORTED_MODULE_1___default.a({
+                _this6.videoCallParams.peer1 = new simple_peer__WEBPACK_IMPORTED_MODULE_1___default.a({
                   initiator: true,
                   trickle: false,
-                  stream: _this4.videoCallParams.stream
+                  stream: _this6.videoCallParams.stream
                 });
 
-                _this4.videoCallParams.peer1.on("signal", function (data) {
+                _this6.videoCallParams.peer1.on("signal", function (data) {
                   // send user call signal
                   axios__WEBPACK_IMPORTED_MODULE_3___default.a.post("/video/call-user", {
                     user_to_call: id,
                     signal_data: data,
-                    from: _this4.authuser.id.id
+                    from: _this6.authuser.id.id
                   }).then(function () {})["catch"](function (error) {
                     console.log("error" + error);
                   });
                 });
 
-                _this4.videoCallParams.peer1.on("stream", function (stream) {
+                _this6.videoCallParams.peer1.on("stream", function (stream) {
                   console.log("call streaming");
 
-                  if (_this4.$refs.partnerVideo) {
-                    _this4.$refs.partnerVideo.srcObject = stream;
+                  if (_this6.$refs.partnerVideo) {
+                    _this6.$refs.partnerVideo.srcObject = stream;
                   }
                 });
 
-                _this4.videoCallParams.peer1.on("connect", function () {
+                _this6.videoCallParams.peer1.on("connect", function () {
                   console.log("peer connected");
                 });
 
-                _this4.videoCallParams.peer1.on("error", function (err) {
+                _this6.videoCallParams.peer1.on("error", function (err) {
                   console.log("Peer " + err);
                 });
 
-                _this4.videoCallParams.peer1.on("close", function () {
+                _this6.videoCallParams.peer1.on("close", function () {
                   console.log("call closed caller");
                 });
 
-                _this4.videoCallParams.channel.listen("StartVideoChat", function (_ref2) {
+                _this6.videoCallParams.channel.listen("StartVideoChat", function (_ref2) {
                   var data = _ref2.data;
 
                   if (data.type === "callAccepted") {
@@ -4744,13 +4993,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                     }
 
                     if (data.signal.sdp) {
-                      _this4.videoCallParams.callAccepted = true;
+                      _this6.videoCallParams.callAccepted = true;
 
                       var updatedSignal = _objectSpread(_objectSpread({}, data.signal), {}, {
                         sdp: "".concat(data.signal.sdp, "\n")
                       });
 
-                      _this4.videoCallParams.peer1.signal(updatedSignal);
+                      _this6.videoCallParams.peer1.signal(updatedSignal);
                     }
                   }
                 });
@@ -4764,50 +5013,53 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }))();
     },
     acceptCall: function acceptCall() {
-      var _this5 = this;
+      var _this7 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _this5.callPlaced = true;
-                _this5.videoCallParams.callAccepted = true;
-                _this5.videoCallParams.peer2 = new simple_peer__WEBPACK_IMPORTED_MODULE_1___default.a({
+                _this7.callPlaced = true;
+                _this7.videoCallParams.callAccepted = true;
+                _this7.videoCallParams.peer2 = new simple_peer__WEBPACK_IMPORTED_MODULE_1___default.a({
                   initiator: false,
                   trickle: false,
-                  stream: _this5.videoCallParams.stream
+                  stream: _this7.videoCallParams.stream
                 });
-                _this5.videoCallParams.receivingCall = false;
+                _this7.videoCallParams.receivingCall = false;
 
-                _this5.videoCallParams.peer2.on("signal", function (data) {
+                _this7.videoCallParams.peer2.on("signal", function (data) {
                   axios__WEBPACK_IMPORTED_MODULE_3___default.a.post("/video/accept-call", {
                     signal: data,
-                    to: _this5.videoCallParams.caller
+                    to: _this7.videoCallParams.caller
                   }).then(function () {})["catch"](function (error) {
                     console.log(error);
                   });
                 });
 
-                _this5.videoCallParams.peer2.on("stream", function (stream) {
-                  _this5.videoCallParams.callAccepted = true;
-                  _this5.$refs.partnerVideo.srcObject = stream;
+                _this7.videoCallParams.peer2.on("stream", function (stream) {
+                  _this7.videoCallParams.callAccepted = true;
+                  _this7.$refs.partnerVideo.srcObject = stream;
                 });
 
-                _this5.videoCallParams.peer2.on("connect", function () {
+                _this7.videoCallParams.peer2.on("connect", function () {
                   console.log("peer connected");
-                  _this5.videoCallParams.callAccepted = true;
+                  _this7.videoCallParams.callAccepted = true;
                 });
 
-                _this5.videoCallParams.peer2.on("error", function (err) {
+                _this7.videoCallParams.peer2.on("error", function (err) {
                   console.log(err);
                 });
 
-                _this5.videoCallParams.peer2.on("close", function () {
+                _this7.videoCallParams.peer2.on("close", function () {
                   console.log("call closed accepter");
+                  _this7.controlCall = true;
+                  _this7.giftdiv = false;
+                  _this7.userLive = false;
                 });
 
-                _this5.videoCallParams.peer2.signal(_this5.videoCallParams.callerSignal);
+                _this7.videoCallParams.peer2.signal(_this7.videoCallParams.callerSignal);
 
               case 10:
               case "end":
@@ -4863,7 +5115,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       videoElem.srcObject = null;
     },
     endCall: function endCall() {
-      var _this6 = this;
+      var _this8 = this;
 
       // if video or audio is muted, enable it so that the stopStreamedVideo method will work
       if (!this.mutedVideo) this.toggleMuteVideo();
@@ -4878,7 +5130,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       this.videoCallParams.channel.pusher.channels.channels["private-presence-video-channel"].disconnect();
       setTimeout(function () {
-        _this6.callPlaced = false;
+        _this8.callPlaced = false;
       }, 3000);
     },
     getLive: function getLive() {
@@ -5095,43 +5347,6 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_api_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../services/api.service */ "./resources/js/services/api.service.js");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -7694,7 +7909,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "#video-row[data-v-1ff6365b] {\n  width: 100%;\n  max-width: 90vw;\n}\n#incoming-call-card[data-v-1ff6365b] {\n  border: 1px solid #0acf83;\n}\n.video-container[data-v-1ff6365b] {\n  width: 1000px;\n  height: 7000px;\n  max-width: 90vw;\n  max-height: 50vh;\n  margin: 0 auto;\n  border: 1px solid #0acf83;\n  position: relative;\n  box-shadow: 1px 1px 11px #9e9e9e;\n  background-color: #fff;\n}\n.video-container .user-video[data-v-1ff6365b] {\n  width: 20%;\n  position: absolute;\n  left: 10px;\n  bottom: 10px;\n  border: 1px solid #fff;\n  border-radius: 6px;\n  z-index: 2;\n}\n.video-container .partner-video[data-v-1ff6365b] {\n  width: 100%;\n  height: 100%;\n  position: absolute;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  top: 0;\n  z-index: 1;\n  margin: 0;\n  padding: 0;\n}\n.video-container .action-btns[data-v-1ff6365b] {\n  position: absolute;\n  bottom: 20px;\n  left: 50%;\n  margin-left: -50px;\n  z-index: 3;\n  display: flex;\n  flex-direction: row;\n  align-content: center;\n}\n\n/* Mobiel Styles */\n@media only screen and (max-width: 768px) {\n.video-container[data-v-1ff6365b] {\n    height: 50vh;\n}\n}\n", ""]);
+exports.push([module.i, "#video-row[data-v-1ff6365b] {\n  width: 100%;\n  max-width: 90vw;\n}\n#incoming-call-card[data-v-1ff6365b] {\n  border: 1px solid #0acf83;\n}\n.video-container[data-v-1ff6365b] {\n  width: 1000px;\n  height: 7000px;\n  max-width: 90vw;\n  max-height: 50vh;\n  margin: 0 auto;\n  border: 1px solid #0acf83;\n  position: relative;\n  box-shadow: 1px 1px 11px #9e9e9e;\n  background-color: #fff;\n}\n.video-container .user-video[data-v-1ff6365b] {\n  width: 20%;\n  position: absolute;\n  left: 10px;\n  bottom: 10px;\n  border: 1px solid #fff;\n  border-radius: 6px;\n  z-index: 2;\n}\n.video-container .partner-video[data-v-1ff6365b] {\n  width: 100%;\n  height: 100%;\n  position: absolute;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  top: 0;\n  z-index: 1;\n  margin: 0;\n  padding: 0;\n}\n.video-container .action-btns[data-v-1ff6365b] {\n  position: absolute;\n  bottom: 20px;\n  left: 50%;\n  margin-left: -50px;\n  z-index: 3;\n  display: flex;\n  flex-direction: row;\n  align-content: center;\n}\n\n/* Mobiel Styles */\n@media only screen and (max-width: 768px) {\n.video-container[data-v-1ff6365b] {\n    height: 50vh;\n}\n}\n\n", ""]);
 
 // exports
 
@@ -40562,6 +40777,77 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/BuyCoin.vue?vue&type=template&id=de7b76de&":
+/*!****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pages/BuyCoin.vue?vue&type=template&id=de7b76de& ***!
+  \****************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "main-content flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5"
+    },
+    [
+      _c("center", [
+        _c("div", { staticClass: "w-full md:w-1/2 xl:w-1/3" }, [
+          _c("p", { staticStyle: { color: "blue" } }, [
+            _vm._v("\n          Please choose how much to buy\n        ")
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group" }, [
+            _c("label", [_vm._v("Price : $")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.product.price,
+                  expression: "product.price"
+                }
+              ],
+              staticClass:
+                " border rounded-md w-96 h-10 focus:outline-none focus:shadow-outline",
+              attrs: { type: "number", placeholder: "Gift Price :" },
+              domProps: { value: _vm.product.price },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.product, "price", $event.target.value)
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", {
+            staticClass: "mt-10",
+            attrs: { id: "paypal-button-container" }
+          })
+        ])
+      ])
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/ChatContent.vue?vue&type=template&id=1ff6365b&scoped=true&":
 /*!********************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pages/ChatContent.vue?vue&type=template&id=1ff6365b&scoped=true& ***!
@@ -40624,7 +40910,7 @@ var render = function() {
                                 _c("strong", [_vm._v(_vm._s(_vm.callPartner))])
                               ]),
                               _vm._v(" "),
-                              _c("p", [_vm._v("calling...")])
+                              _c("p", [_vm._v("In live...")])
                             ]
                           )
                         ]
@@ -40634,33 +40920,241 @@ var render = function() {
             _vm._v(" "),
             _c("div", { staticClass: "action-btns " }, [
               _c(
-                "button",
+                "div",
                 {
-                  staticClass: "btn btn-primary mx-4",
-                  attrs: { type: "button" },
-                  on: { click: _vm.toggleMuteVideo }
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.controlCall,
+                      expression: "controlCall"
+                    }
+                  ],
+                  staticClass: "user-button"
                 },
                 [
-                  _vm._v(
-                    "\n      " +
-                      _vm._s(_vm.mutedVideo ? "ShowVideo" : "HideVideo") +
-                      "\n    "
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-primary mx-4",
+                      attrs: { type: "button" },
+                      on: { click: _vm.toggleMuteVideo }
+                    },
+                    [
+                      _vm._v(
+                        "\n        " +
+                          _vm._s(_vm.mutedVideo ? "ShowVideo" : "HideVideo") +
+                          "\n      "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-danger",
+                      attrs: { type: "button" },
+                      on: { click: _vm.endCall }
+                    },
+                    [_vm._v("\n        EndLive\n      ")]
                   )
                 ]
               ),
               _vm._v(" "),
               _c(
-                "button",
+                "div",
                 {
-                  staticClass: "btn btn-danger",
-                  attrs: { type: "button" },
-                  on: { click: _vm.endCall }
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.giftdiv,
+                      expression: "giftdiv"
+                    }
+                  ],
+                  staticClass: "buttons coin-div"
                 },
-                [_vm._v("\n      EndLive\n    ")]
+                [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "cursor-pointer",
+                      staticStyle: { color: "blue" },
+                      on: {
+                        click: function($event) {
+                          return _vm.setGift(10)
+                        }
+                      }
+                    },
+                    [
+                      _c("span", [_vm._v("10$")]),
+                      _vm._v(" "),
+                      _c("i", { staticClass: "fas fa-gift" })
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    {
+                      staticClass: "cursor-pointer",
+                      staticStyle: { color: "red", "padding-left": "10%" },
+                      on: {
+                        click: function($event) {
+                          return _vm.setGift(8)
+                        }
+                      }
+                    },
+                    [
+                      _c("span", [_vm._v("8$")]),
+                      _vm._v(" "),
+                      _c("i", { staticClass: "fas fa-heart mp" })
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    {
+                      staticClass: "cursor-pointer",
+                      staticStyle: {
+                        color: "rgb(51, 255, 0)",
+                        "padding-left": "10%"
+                      },
+                      on: {
+                        click: function($event) {
+                          return _vm.setGift(5)
+                        }
+                      }
+                    },
+                    [
+                      _c("span", [_vm._v("5$")]),
+                      _vm._v(" "),
+                      _c("img", {
+                        staticClass: "w-8 cursor-pointer",
+                        attrs: { src: "/images/gift-image.jpeg" }
+                      })
+                    ]
+                  )
+                ]
               )
             ]),
+            _vm._v(" "),
             _c("br")
           ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.showpaymentmodal
+        ? _c(
+            "div",
+            {
+              staticClass: "fixed z-10 inset-0 overflow-y-auto",
+              attrs: {
+                "aria-labelledby": "modal-title",
+                role: "dialog",
+                "aria-modal": "true"
+              }
+            },
+            [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0"
+                },
+                [
+                  _c("div", {
+                    staticClass:
+                      "fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity",
+                    attrs: { "aria-hidden": "true" }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "span",
+                    {
+                      staticClass:
+                        "hidden sm:inline-block sm:align-middle sm:h-screen",
+                      attrs: { "aria-hidden": "true" }
+                    },
+                    [_vm._v("​")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
+                    },
+                    [
+                      _c(
+                        "div",
+                        {
+                          staticClass: "bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4"
+                        },
+                        [
+                          _c("div", { staticClass: "sm:flex sm:items-start" }, [
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10"
+                              },
+                              [
+                                _c("path", {
+                                  attrs: {
+                                    "stroke-linecap": "round",
+                                    "stroke-linejoin": "round",
+                                    "stroke-width": "2",
+                                    d:
+                                      "M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                                  }
+                                })
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _vm._m(1)
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse"
+                        },
+                        [
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm",
+                              attrs: { type: "button" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.buyCoin()
+                                }
+                              }
+                            },
+                            [_vm._v("\n              Yes Buy\n              ")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm",
+                              attrs: { type: "button" },
+                              on: { click: _vm.hideDeleteModal }
+                            },
+                            [_vm._v("\n              Cancel\n              ")]
+                          )
+                        ]
+                      )
+                    ]
+                  )
+                ]
+              )
+            ]
+          )
         : _vm._e()
     ],
     1
@@ -40675,6 +41169,33 @@ var staticRenderFns = [
       "div",
       { staticClass: "bg-indigo-900 p-2 shadow text-xl text-white" },
       [_c("h3", { staticClass: "font-bold pl-2" }, [_vm._v("Live")])]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left" },
+      [
+        _c(
+          "h3",
+          {
+            staticClass: "text-lg leading-6 font-medium text-gray-900",
+            attrs: { id: "modal-title" }
+          },
+          [_vm._v("\n                  Buy coins\n                  ")]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "mt-2" }, [
+          _c("p", { staticClass: "text-sm text-gray-500" }, [
+            _vm._v(
+              "\n                      You need to buy some coin,Please buy \n                  "
+            )
+          ])
+        ])
+      ]
     )
   }
 ]
@@ -41421,7 +41942,7 @@ var render = function() {
                                 },
                                 [
                                   _vm._v(
-                                    "\n                        Yes delete\n                        "
+                                    "\n                            Yes delete\n                            "
                                   )
                                 ]
                               ),
@@ -41436,7 +41957,7 @@ var render = function() {
                                 },
                                 [
                                   _vm._v(
-                                    "\n                        Cancel\n                        "
+                                    "\n                            Cancel\n                            "
                                   )
                                 ]
                               )
@@ -41560,7 +42081,7 @@ var render = function() {
                                 },
                                 [
                                   _vm._v(
-                                    "\n                        Deactive\n                        "
+                                    "\n                            Deactive\n                            "
                                   )
                                 ]
                               ),
@@ -41575,7 +42096,7 @@ var render = function() {
                                 },
                                 [
                                   _vm._v(
-                                    "\n                        Cancel\n                        "
+                                    "\n                            Cancel\n                            "
                                   )
                                 ]
                               )
@@ -41640,7 +42161,7 @@ var staticRenderFns = [
           },
           [
             _vm._v(
-              "\n                            Delete post\n                            "
+              "\n                                Delete post\n                                "
             )
           ]
         ),
@@ -41648,7 +42169,7 @@ var staticRenderFns = [
         _c("div", { staticClass: "mt-2" }, [
           _c("p", { staticClass: "text-sm text-gray-500" }, [
             _vm._v(
-              "\n                                Are you sure you want to delete your post? your data will be permanently removed. This action cannot be undone.\n                            "
+              "\n                                    Are you sure you want to delete your post? your data will be permanently removed. This action cannot be undone.\n                                "
             )
           ])
         ])
@@ -41671,7 +42192,7 @@ var staticRenderFns = [
           },
           [
             _vm._v(
-              "\n                            Hide post\n                            "
+              "\n                                Hide post\n                                "
             )
           ]
         ),
@@ -41679,7 +42200,7 @@ var staticRenderFns = [
         _c("div", { staticClass: "mt-2" }, [
           _c("p", { staticClass: "text-sm text-gray-500" }, [
             _vm._v(
-              "\n                                Are you sure you want to deactive your post? your data will be permanently deactive for another.\n                            "
+              "\n                                    Are you sure you want to deactive your post? your data will be permanently deactive for another.\n                                "
             )
           ])
         ])
@@ -57797,6 +58318,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/pages/BuyCoin.vue":
+/*!***************************************************!*\
+  !*** ./resources/js/components/pages/BuyCoin.vue ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _BuyCoin_vue_vue_type_template_id_de7b76de___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BuyCoin.vue?vue&type=template&id=de7b76de& */ "./resources/js/components/pages/BuyCoin.vue?vue&type=template&id=de7b76de&");
+/* harmony import */ var _BuyCoin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./BuyCoin.vue?vue&type=script&lang=js& */ "./resources/js/components/pages/BuyCoin.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _BuyCoin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _BuyCoin_vue_vue_type_template_id_de7b76de___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _BuyCoin_vue_vue_type_template_id_de7b76de___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/pages/BuyCoin.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/pages/BuyCoin.vue?vue&type=script&lang=js&":
+/*!****************************************************************************!*\
+  !*** ./resources/js/components/pages/BuyCoin.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BuyCoin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./BuyCoin.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/BuyCoin.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_BuyCoin_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/pages/BuyCoin.vue?vue&type=template&id=de7b76de&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/components/pages/BuyCoin.vue?vue&type=template&id=de7b76de& ***!
+  \**********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BuyCoin_vue_vue_type_template_id_de7b76de___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./BuyCoin.vue?vue&type=template&id=de7b76de& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/BuyCoin.vue?vue&type=template&id=de7b76de&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BuyCoin_vue_vue_type_template_id_de7b76de___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_BuyCoin_vue_vue_type_template_id_de7b76de___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/pages/ChatContent.vue":
 /*!*******************************************************!*\
   !*** ./resources/js/components/pages/ChatContent.vue ***!
@@ -58274,6 +58864,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_pages_UploadContent__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/pages/UploadContent */ "./resources/js/components/pages/UploadContent.vue");
 /* harmony import */ var _components_VideoDetail__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/VideoDetail */ "./resources/js/components/VideoDetail.vue");
 /* harmony import */ var _components_pages_Follow__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/pages/Follow */ "./resources/js/components/pages/Follow.vue");
+/* harmony import */ var _components_pages_BuyCoin__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../components/pages/BuyCoin */ "./resources/js/components/pages/BuyCoin.vue");
+
 
 
 
@@ -58306,6 +58898,9 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
   }, {
     path: '/following',
     component: _components_pages_Follow__WEBPACK_IMPORTED_MODULE_8__["default"]
+  }, {
+    path: '/buy-coin/:id',
+    component: _components_pages_BuyCoin__WEBPACK_IMPORTED_MODULE_9__["default"]
   }]
 });
 /* harmony default export */ __webpack_exports__["default"] = (router);

@@ -30,24 +30,87 @@
           <p class="q-pt-md">
             <strong>{{ callPartner }}</strong>
           </p>
-          <p>calling...</p>
+          <p>In live...</p>
         </div>
       </div>
     </div>
     <div class="action-btns ">
       
-      <button
+      <div class="user-button" v-show="controlCall">
+        <button
         type="button"
         class="btn btn-primary mx-4"
         @click="toggleMuteVideo"
-      >
-        {{ mutedVideo ? "ShowVideo" : "HideVideo" }}
-      </button>
-      <button type="button" class="btn btn-danger" @click="endCall">
-        EndLive
-      </button>
-    </div><br>
+        >
+          {{ mutedVideo ? "ShowVideo" : "HideVideo" }}
+        </button>
+        <button type="button" class="btn btn-danger" @click="endCall">
+          EndLive
+        </button>
+      </div>
+      <div class="buttons coin-div" v-show="giftdiv">
+            <a style="color:blue;" class="cursor-pointer" @click="setGift(10)">
+              <span>10$</span>
+              <i class="fas fa-gift"></i>
+            </a>
+            <a style="color:red; padding-left:10%;" class="cursor-pointer" @click="setGift(8)">
+              <span>8$</span>
+              <i class="fas fa-heart mp" ></i>
+            </a>
+            <a style="color: rgb(51, 255, 0); padding-left:10%;" class="cursor-pointer" @click="setGift(5)">
+              <span>5$</span>
+              <img src="/images/gift-image.jpeg" class="w-8 cursor-pointer">
+            </a>
+      </div>
+    </div>
+    
+    <br>
+    
+
   </div>
+  <!-- Start coin modal -->
+      <!-- This example requires Tailwind CSS v2.0+ -->
+    <div class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true" v-if="showpaymentmodal">
+        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            
+            <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+
+            <!-- This element is to trick the browser into centering the modal contents. -->
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+
+        
+            <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full" >
+            <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <div class="sm:flex sm:items-start">
+                <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+                    <!-- Heroicon name: outline/exclamation -->
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                </div>
+                <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+                    Buy coins
+                    </h3>
+                    <div class="mt-2">
+                    <p class="text-sm text-gray-500">
+                        You need to buy some coin,Please buy 
+                    </p>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                <button type="button" @click="buyCoin()"  class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">
+                Yes Buy
+                </button>
+                <button type="button" @click="hideDeleteModal" class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                Cancel
+                </button>
+            </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of coin modal -->
   </div>
 </template>
 <script>
@@ -84,12 +147,17 @@ export default {
         peer2: null,
       },
       allMessages:[],
-      user:[]
+      user:[],
+      showpaymentmodal:false,
+      controlCall:true,
+      giftdiv:false,
     };
   },
   created(){
     if(this.userLive){
       this.incommingLive(this.livedata);
+      this.controlCall = false;
+      this.giftdiv = true;
     }
   },
   mounted() {
@@ -120,6 +188,76 @@ export default {
     },
   },
   methods: {
+
+    /**
+       * Hide delete modal
+       */
+      hideDeleteModal(){
+          this.showpaymentmodal = false;
+      },
+
+     checkGift(price){
+      var formData = new FormData();
+      formData.append("user_id",this.authuser.id);
+      formData.append("price",price);
+      axios.post("/check-coin",formData)
+      .then((response) => {
+        if(response.data.status){
+          if(response.data.message >= price){
+            return true;
+          }
+          else{
+              this.showpaymentmodal = true;
+          }
+        }
+        else{
+          this.showpaymentmodal = true; 
+          
+        }
+      })
+      .catch((error)=>{
+        console(error);
+      });
+    },
+
+    buyCoin(){
+      this.showdiv=false;
+      this.$router.push("/buy-coin/"+this.authuser.id)
+      .catch((er)=>{})
+      ;
+    },
+
+    setGift(price){
+      var formData = new FormData();
+      formData.append("user_id",this.authuser.id);
+      formData.append("price",price);
+      axios.post("/check-coin",formData)
+      .then((response) => {
+        if(response.data.status){
+          if(response.data.message >= price){
+            axios.post("/set-gift",formData)
+            .then((response)=>{
+              if(response.data.status){
+                alert("Thanks");
+              }
+            })
+            .catch((err)=>{
+
+            })
+          }
+          else{
+              this.showpaymentmodal = true;
+          }
+        }
+        else{
+          this.showpaymentmodal = true; 
+          
+        }
+      })
+      .catch((error)=>{
+        console(error);
+      });
+    },
 
     /**
      * get spicific user
@@ -173,9 +311,11 @@ export default {
       });
       // listen to incomming call
       this.videoCallParams.channel.listen("StartVideoChat", ({ data }) => {
-        if (data.type === "incomingCall") {
+        if (data.type === "incomingLive") {
           // add a new line to the sdp to take care of error
           this.incommingLive(data);
+          this.controlCall = false;
+          this.giftdiv = true;
         }
       });
       
@@ -239,6 +379,7 @@ export default {
 
       this.videoCallParams.peer1.on("close", () => {
         console.log("call closed caller");
+        
       });
 
       this.videoCallParams.channel.listen("StartVideoChat", ({ data }) => {
@@ -296,6 +437,9 @@ export default {
 
       this.videoCallParams.peer2.on("close", () => {
         console.log("call closed accepter");
+        this.controlCall = true;
+        this.giftdiv = false;
+        this.userLive = false;
       });
 
       this.videoCallParams.peer2.signal(this.videoCallParams.callerSignal);
@@ -434,4 +578,5 @@ export default {
     height: 50vh;
   }
 }
+
 </style>
