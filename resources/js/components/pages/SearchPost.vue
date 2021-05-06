@@ -65,9 +65,9 @@
 </template>
 
 <script>
-import ApiService from '../services/api.service'
+import ApiService from '../../services/api.service'
 export default {
-    name:"HomeContent",
+    name:"SearchPost",
     props:["authuser"],
     data(){
         return{
@@ -77,10 +77,12 @@ export default {
             nextLink:true,
             follow_collor:"bg-pink-500 hover:bg-blue-700",
             follows:null,
+            post_data:'',
         }
     },
     created(){
-        this.getPost();
+        this.post_data = this.$route.params.post;
+        this.searchPost();
     },
     
     methods:{
@@ -126,8 +128,10 @@ export default {
         /**
          * Display all post
          */
-        getPost(pageNumber = null){
-            this.services.getPost(pageNumber)
+        searchPost(pageNumber = null){
+            var formData = new FormData();
+            formData.append("discription",this.post_data);
+            this.services.searchPost(formData,pageNumber)
             .then((response)=> {
                 if(response.data.status){
                     if(response.data.posts.data.length == 0){
@@ -156,7 +160,7 @@ export default {
          * scroll pagination
          */
         onNextPage: function() {
-            ++this.currentpage, this.getPost(this.currentpage);
+            ++this.currentpage, this.searchPost(this.currentpage);
         },
 
         getPermissions(){
@@ -197,7 +201,7 @@ export default {
             this.services.userFollow(formData)
             .then((response) => {
                 if(response.data.status){
-                    this.getPost(this.currentpage);
+                    this.searchPost(this.currentpage);
                     // if(response.data.message == 1){
                         
                     // }

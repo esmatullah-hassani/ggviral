@@ -10,8 +10,8 @@
 
             <div class="flex flex-1 md:w-1/3 justify-center md:justify-start text-black px-2">
                 <span class="relative w-full">
-                    <input type="search" placeholder="Search" class="w-full  text-sm text-black transition border border-transparent focus:outline-none focus:border-gray-700 rounded py-1 px-2 pl-10 appearance-none leading-normal">
-                    <div class="absolute search-icon cursor-pointer" style="top: .5rem; left: .8rem;">
+                    <input type="search" @keyup="checkKey" placeholder="Search" v-model="search_post" class="w-full  text-sm text-black transition border border-transparent focus:outline-none focus:border-gray-700 rounded py-1 px-2 pl-10 appearance-none leading-normal">
+                    <div @click="searchPost" class="absolute search-icon cursor-pointer" style="top: .5rem; left: .8rem;">
                         <svg class="fill-current pointer-events-none text-black w-4 h-4 "  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                             <path d="M12.9 14.32a8 8 0 1 1 1.41-1.41l5.35 5.33-1.42 1.42-5.33-5.34zM8 14A6 6 0 1 0 8 2a6 6 0 0 0 0 12z"></path>
                         </svg>
@@ -58,6 +58,7 @@ export default {
     data(){
         return{
             services:new ApiService(),
+            search_post:"",
         }
     },
     methods:{
@@ -66,7 +67,23 @@ export default {
                 .then(reqponse => {
                     console.log(response);
                 });
-        }
+        },
+        searchPost(){
+            if(this.search_post != "" ){
+                this.$router.push("/"+this.search_post)
+                .catch((er)=>{})
+                ;
+            }
+        },
+
+        /**
+         * Submit if press enter button
+         */
+        checkKey(e){
+            if(e.keyCode == 13){
+                this.searchPost();
+            }
+        },
     }
 }
 

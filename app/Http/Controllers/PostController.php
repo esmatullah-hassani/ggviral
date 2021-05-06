@@ -151,4 +151,15 @@ class PostController extends Controller
         }
     }
 
+    /**
+     * search post
+     */
+    public function searchPost(Request $request){
+        $follows = Follow::where('user_1',Auth::id())->get();
+        $posts = Post::with("user")->where("discription",'like','%'.$request->discription."%")
+       
+        ->orderBy("created_at",'desc')->where("status",1)->paginate(6);
+        return response(['status' => true,'posts' => $posts,'follows' => $follows]);
+    }
+
 }

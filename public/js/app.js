@@ -3860,6 +3860,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -3975,7 +3976,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "HomeContent",
@@ -3994,6 +3994,38 @@ __webpack_require__.r(__webpack_exports__);
     this.getPost();
   },
   methods: {
+    //share to facebook
+    shareOnfacebook: function shareOnfacebook(video, name) {
+      var url = "https://www.facebook.com/sharer/sharer.php?u=ggviral.com/#/video/".concat(video);
+      window.open(url, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');
+      return false;
+    },
+    //share to twitter
+    shareOntwitter: function shareOntwitter(video, name) {
+      var url = "https://twitter.com/intent/tweet?url=".concat(video, "&via=").concat(name, "&text=See this image");
+      TwitterWindow = window.open(url, 'TwitterWindow', width = 600, height = 300);
+      return false;
+    },
+    //coppy the link
+    copyToClipboard: function copyToClipboard(video) {
+      var input = document.body.appendChild(document.createElement("input"));
+      input.value = "ggviral.com/#/video/" + video;
+      input.select();
+      document.execCommand('copy');
+      input.parentNode.removeChild(input);
+    },
+    //show toast
+    showToast: function showToast(text) {
+      // Get the snackbar DIV
+      var x = document.getElementById("snackbar");
+      x.innerText = text; // Add the "show" class to DIV
+
+      x.className = "show"; // After 3 seconds, remove the show class from DIV
+
+      setTimeout(function () {
+        x.className = x.className.replace("show", "");
+      }, 3000);
+    },
     toggleDDd: function toggleDDd(myDropMenu) {
       document.getElementById(myDropMenu).classList.toggle("invisible");
     },
@@ -4372,7 +4404,8 @@ __webpack_require__.r(__webpack_exports__);
   props: ['authuser'],
   data: function data() {
     return {
-      services: new _services_api_service__WEBPACK_IMPORTED_MODULE_0__["default"]()
+      services: new _services_api_service__WEBPACK_IMPORTED_MODULE_0__["default"](),
+      search_post: ""
     };
   },
   methods: {
@@ -4380,6 +4413,20 @@ __webpack_require__.r(__webpack_exports__);
       this.services.logoutUser().then(function (reqponse) {
         console.log(response);
       });
+    },
+    searchPost: function searchPost() {
+      if (this.search_post != "") {
+        this.$router.push("/" + this.search_post)["catch"](function (er) {});
+      }
+    },
+
+    /**
+     * Submit if press enter button
+     */
+    checkKey: function checkKey(e) {
+      if (e.keyCode == 13) {
+        this.searchPost();
+      }
     }
   }
 });
@@ -4628,7 +4675,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
 //
 //
 //
@@ -5708,6 +5754,236 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         this.error = "Something was wrong! try again";
       }
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/SearchPost.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pages/SearchPost.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _services_api_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../services/api.service */ "./resources/js/services/api.service.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "SearchPost",
+  props: ["authuser"],
+  data: function data() {
+    return {
+      currentpage: 1,
+      posts: [],
+      services: new _services_api_service__WEBPACK_IMPORTED_MODULE_0__["default"](),
+      nextLink: true,
+      follow_collor: "bg-pink-500 hover:bg-blue-700",
+      follows: null,
+      post_data: ''
+    };
+  },
+  created: function created() {
+    this.post_data = this.$route.params.post;
+    this.searchPost();
+  },
+  methods: {
+    //share to facebook
+    shareOnfacebook: function shareOnfacebook(video, name) {
+      var url = "https://www.facebook.com/sharer/sharer.php?u=ggviral.com/#/video/".concat(video);
+      window.open(url, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');
+      return false;
+    },
+    //share to twitter
+    shareOntwitter: function shareOntwitter(video, name) {
+      var url = "https://twitter.com/intent/tweet?url=".concat(video, "&via=").concat(name, "&text=See this image");
+      TwitterWindow = window.open(url, 'TwitterWindow', width = 600, height = 300);
+      return false;
+    },
+    //coppy the link
+    copyToClipboard: function copyToClipboard(video) {
+      var input = document.body.appendChild(document.createElement("input"));
+      input.value = "ggviral.com/#/video/" + video;
+      input.select();
+      document.execCommand('copy');
+      input.parentNode.removeChild(input);
+    },
+    //show toast
+    showToast: function showToast(text) {
+      // Get the snackbar DIV
+      var x = document.getElementById("snackbar");
+      x.innerText = text; // Add the "show" class to DIV
+
+      x.className = "show"; // After 3 seconds, remove the show class from DIV
+
+      setTimeout(function () {
+        x.className = x.className.replace("show", "");
+      }, 3000);
+    },
+    toggleDDd: function toggleDDd(myDropMenu) {
+      document.getElementById(myDropMenu).classList.toggle("invisible");
+    },
+    onScroll: function onScroll() {
+      alert("hi");
+    },
+
+    /**
+     * Display all post
+     */
+    searchPost: function searchPost() {
+      var _this = this;
+
+      var pageNumber = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+      var formData = new FormData();
+      formData.append("discription", this.post_data);
+      this.services.searchPost(formData, pageNumber).then(function (response) {
+        if (response.data.status) {
+          if (response.data.posts.data.length == 0) {
+            _this.nextLink = false;
+          }
+
+          if (pageNumber == null) {
+            _this.posts = response.data.posts.data;
+            _this.follows = response.data.follows;
+          } else {
+            for (var x = 0; x < response.data.posts.data.length; x++) {
+              _this.posts.push(response.data.posts.data[x]);
+            }
+          }
+
+          if (response.data.posts.to == response.data.posts.total) _this.nextLink = false;
+        }
+      })["catch"](function (errors) {
+        console.log(errors + " errors");
+      });
+    },
+
+    /**
+     * scroll pagination
+     */
+    onNextPage: function onNextPage() {
+      ++this.currentpage, this.searchPost(this.currentpage);
+    },
+    getPermissions: function getPermissions() {
+      return new Promise(function (res, rej) {
+        navigator.mediaDevices.getUserMedia({
+          video: true,
+          audio: true
+        }).then(function (stream) {
+          resolve(stream);
+        })["catch"](function (err) {
+          throw new Error("Unable to fetch stream ".concat(err));
+        });
+      });
+    },
+
+    /**
+     * Play video
+     */
+    playVideo: function playVideo(id) {
+      var myVideo = document.getElementById("video" + id);
+      myVideo.play();
+    },
+
+    /**
+     * stop video
+     */
+    stopVideo: function stopVideo(id) {
+      var myVideo = document.getElementById("video" + id);
+      myVideo.pause();
+    },
+
+    /**
+     * follow
+     */
+    userFollow: function userFollow(user_2) {
+      var _this2 = this;
+
+      var formData = new FormData();
+      formData.append("user_1", this.authuser.id);
+      formData.append("user_2", user_2);
+      this.services.userFollow(formData).then(function (response) {
+        if (response.data.status) {
+          _this2.searchPost(_this2.currentpage); // if(response.data.message == 1){
+          // }
+          // else if(response.data.message == 2){
+          //     var dd = document.getElementById("follow_class"+user_2);
+          //     dd = "UnFollow";
+          //     console.log(dd);
+          // }
+
+        }
+      })["catch"](function (errors) {
+        console.log(errors);
+      });
     }
   }
 });
@@ -39872,27 +40148,59 @@ var render = function() {
                                 "a",
                                 {
                                   staticClass:
-                                    "p-2 hover:bg-gray-800 text-blue-700 text-sm no-underline hover:no-underline block cursor-pointer"
+                                    "p-2 hover:bg-gray-800 text-blue-700 text-sm no-underline hover:no-underline block cursor-pointer",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.shareOnfacebook(
+                                        post.id,
+                                        post.user.name
+                                      )
+                                    }
+                                  }
                                 },
-                                [_vm._v(" Share to facebook ")]
+                                [
+                                  _c("i", { staticClass: "fab fa-facebook" }),
+                                  _vm._v(" Share")
+                                ]
                               ),
                               _vm._v(" "),
                               _c(
                                 "a",
                                 {
                                   staticClass:
-                                    "p-2 hover:bg-gray-800 text-black text-sm no-underline hover:no-underline block cursor-pointer "
+                                    "p-2 hover:bg-gray-800 text-blue-500 text-sm no-underline hover:no-underline block cursor-pointer ",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.shareOntwitter(
+                                        post.id,
+                                        post.user.name
+                                      )
+                                    }
+                                  }
                                 },
-                                [_vm._v(" Share to tw ")]
+                                [
+                                  _c("i", { staticClass: "fab fa-twitter" }),
+                                  _vm._v(" Share ")
+                                ]
                               ),
                               _vm._v(" "),
-                              _vm._m(0, true),
-                              _vm._v(" "),
-                              _c("div", {
-                                staticClass: "border border-gray-800"
-                              }),
-                              _vm._v(" "),
-                              _vm._m(1, true)
+                              _c(
+                                "a",
+                                {
+                                  staticClass:
+                                    "p-2 hover:bg-gray-800 text-black text-sm no-underline hover:no-underline block cursor-pointer",
+                                  on: {
+                                    click: function($event) {
+                                      _vm.copyToClipboard(post.id)
+                                      _vm.showToast("Link copied to clipboard.")
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("i", { staticClass: "fa fa-copy" }),
+                                  _vm._v(" Copy")
+                                ]
+                              )
                             ]
                           )
                         ]
@@ -40003,35 +40311,7 @@ var render = function() {
     ]
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      {
-        staticClass:
-          "p-2 hover:bg-gray-800 text-black text-sm no-underline hover:no-underline block cursor-pointer"
-      },
-      [_c("i", { staticClass: "    fa-cog fa-fw" }), _vm._v(" Copy")]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      {
-        staticClass:
-          "p-2 hover:bg-gray-800 text-black text-sm no-underline hover:no-underline block",
-        attrs: { href: "/logout" }
-      },
-      [_c("i", { staticClass: "fas fa-sign-out-alt fa-fw" }), _vm._v(" Share")]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -40310,16 +40590,35 @@ var render = function() {
           [
             _c("span", { staticClass: "relative w-full" }, [
               _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.search_post,
+                    expression: "search_post"
+                  }
+                ],
                 staticClass:
                   "w-full  text-sm text-black transition border border-transparent focus:outline-none focus:border-gray-700 rounded py-1 px-2 pl-10 appearance-none leading-normal",
-                attrs: { type: "search", placeholder: "Search" }
+                attrs: { type: "search", placeholder: "Search" },
+                domProps: { value: _vm.search_post },
+                on: {
+                  keyup: _vm.checkKey,
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.search_post = $event.target.value
+                  }
+                }
               }),
               _vm._v(" "),
               _c(
                 "div",
                 {
                   staticClass: "absolute search-icon cursor-pointer",
-                  staticStyle: { top: ".5rem", left: ".8rem" }
+                  staticStyle: { top: ".5rem", left: ".8rem" },
+                  on: { click: _vm.searchPost }
                 },
                 [
                   _c(
@@ -41084,36 +41383,7 @@ var render = function() {
                         "inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
                     },
                     [
-                      _c(
-                        "div",
-                        {
-                          staticClass: "bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4"
-                        },
-                        [
-                          _c("div", { staticClass: "sm:flex sm:items-start" }, [
-                            _c(
-                              "div",
-                              {
-                                staticClass:
-                                  "mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10"
-                              },
-                              [
-                                _c("path", {
-                                  attrs: {
-                                    "stroke-linecap": "round",
-                                    "stroke-linejoin": "round",
-                                    "stroke-width": "2",
-                                    d:
-                                      "M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-                                  }
-                                })
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _vm._m(1)
-                          ])
-                        ]
-                      ),
+                      _vm._m(1),
                       _vm._v(" "),
                       _c(
                         "div",
@@ -41177,23 +41447,40 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c(
       "div",
-      { staticClass: "mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left" },
+      { staticClass: "bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4" },
       [
-        _c(
-          "h3",
-          {
-            staticClass: "text-lg leading-6 font-medium text-gray-900",
-            attrs: { id: "modal-title" }
-          },
-          [_vm._v("\n                  Buy coins\n                  ")]
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "mt-2" }, [
-          _c("p", { staticClass: "text-sm text-gray-500" }, [
-            _vm._v(
-              "\n                      You need to buy some coin,Please buy \n                  "
-            )
-          ])
+        _c("div", { staticClass: "sm:flex sm:items-start" }, [
+          _c(
+            "div",
+            {
+              staticClass:
+                "mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10"
+            },
+            [_c("img", { attrs: { src: "/images/buy-for-change.png" } })]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left" },
+            [
+              _c(
+                "h3",
+                {
+                  staticClass: "text-lg leading-6 font-medium text-gray-900",
+                  attrs: { id: "modal-title" }
+                },
+                [_vm._v("\n                  Buy coins\n                  ")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "mt-2" }, [
+                _c("p", { staticClass: "text-sm text-gray-500" }, [
+                  _vm._v(
+                    "\n                      You need to buy some coin,Please buy \n                  "
+                  )
+                ])
+              ])
+            ]
+          )
         ])
       ]
     )
@@ -42208,6 +42495,285 @@ var staticRenderFns = [
     )
   }
 ]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/SearchPost.vue?vue&type=template&id=adbeb304&":
+/*!*******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pages/SearchPost.vue?vue&type=template&id=adbeb304& ***!
+  \*******************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "main-content flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5"
+    },
+    [
+      _c(
+        "div",
+        {
+          directives: [
+            {
+              name: "infinite-scroll",
+              rawName: "v-infinite-scroll",
+              value: _vm.onNextPage,
+              expression: "onNextPage"
+            }
+          ],
+          staticClass: "flex flex-row flex-wrap flex-grow mt-2"
+        },
+        _vm._l(_vm.posts, function(post) {
+          return _c(
+            "div",
+            { key: post.id, staticClass: "w-full md:w-1/2 xl:w-1/3 p-3" },
+            [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "bg-white border-transparent rounded-lg shadow-lg"
+                },
+                [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "bg-gray-200  text-gray-800 border-b-2 border-gray-500 rounded-tl-lg rounded-tr-lg p-2"
+                    },
+                    [
+                      _c(
+                        "router-link",
+                        { attrs: { to: "/users/" + post.user.id } },
+                        [
+                          post.user.social_path == null
+                            ? _c("img", {
+                                staticClass: "w-7 h-7 rounded-full inline",
+                                attrs: {
+                                  src: "/uploads/users/photo/" + post.user.photo
+                                }
+                              })
+                            : _c("img", {
+                                staticClass: "w-7 h-7 rounded-full inline",
+                                attrs: { src: post.user.social_path }
+                              }),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "text-gray-600" }, [
+                            _vm._v(_vm._s(post.user.name))
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "relative float-right inline-block" },
+                        [
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "drop-button text-black focus:outline-none font-bold",
+                              on: {
+                                click: function($event) {
+                                  return _vm.toggleDDd("myDropdown" + post.id)
+                                }
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                  ...\n                              "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "dropdownlist absolute w-60 bg-gray-400 rounded-tl-lg rounded-tr-lg text-black right-0 mt-3 p-3 overflow-auto z-30 invisible",
+                              attrs: { id: "myDropdown" + post.id }
+                            },
+                            [
+                              _c(
+                                "a",
+                                {
+                                  staticClass:
+                                    "p-2 hover:bg-gray-800 text-blue-700 text-sm no-underline hover:no-underline block cursor-pointer",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.shareOnfacebook(
+                                        post.id,
+                                        post.user.name
+                                      )
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("i", { staticClass: "fab fa-facebook" }),
+                                  _vm._v(" Share")
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "a",
+                                {
+                                  staticClass:
+                                    "p-2 hover:bg-gray-800 text-blue-500 text-sm no-underline hover:no-underline block cursor-pointer ",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.shareOntwitter(
+                                        post.id,
+                                        post.user.name
+                                      )
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("i", { staticClass: "fab fa-twitter" }),
+                                  _vm._v(" Share ")
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "a",
+                                {
+                                  staticClass:
+                                    "p-2 hover:bg-gray-800 text-black text-sm no-underline hover:no-underline block cursor-pointer",
+                                  on: {
+                                    click: function($event) {
+                                      _vm.copyToClipboard(post.id)
+                                      _vm.showToast("Link copied to clipboard.")
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("i", { staticClass: "fa fa-copy" }),
+                                  _vm._v(" Copy")
+                                ]
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "p-5" },
+                    [
+                      _c(
+                        "router-link",
+                        { attrs: { to: "/video/" + post.id } },
+                        [
+                          _c(
+                            "video",
+                            {
+                              staticClass: "cursor-pointer w-full h-60",
+                              attrs: { id: "video" + post.id },
+                              on: {
+                                mouseover: function($event) {
+                                  return _vm.playVideo(post.id)
+                                },
+                                mouseout: function($event) {
+                                  return _vm.stopVideo(post.id)
+                                },
+                                "&scroll": function($event) {
+                                  return _vm.onScroll($event)
+                                }
+                              }
+                            },
+                            [
+                              _c("source", {
+                                attrs: {
+                                  src: post.video_path,
+                                  type: "video/mp4"
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("source", {
+                                attrs: { src: "", type: "video/ogg" }
+                              }),
+                              _vm._v(
+                                "\n                                  Your browser does not support HTML video.\n                              "
+                              )
+                            ]
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("span", {}, [
+                        _vm._v(
+                          "\n                              " +
+                            _vm._s(post.discription.substring(0, 30)) +
+                            "\n                              " +
+                            _vm._s(post.created_at.diffForHumans) +
+                            "   \n                          "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "float-right" }, [
+                        _c(
+                          "button",
+                          {
+                            class:
+                              "text-white font-bold  px-4 rounded-full focus:outline-none " +
+                              _vm.follow_collor,
+                            attrs: { id: "follow_class" + post.user.id },
+                            on: {
+                              click: function($event) {
+                                return _vm.userFollow(post.user.id)
+                              }
+                            }
+                          },
+                          [
+                            _vm._v(
+                              "\n                              Follow\n                              "
+                            )
+                          ]
+                        )
+                      ])
+                    ],
+                    1
+                  )
+                ]
+              )
+            ]
+          )
+        }),
+        0
+      ),
+      _vm._v(" "),
+      _vm.nextLink
+        ? _c(
+            "span",
+            [
+              _c("center", [
+                _c("i", {
+                  staticClass: "fas fa-spinner fa-pulse text-blue-600"
+                })
+              ])
+            ],
+            1
+          )
+        : _vm._e()
+    ]
+  )
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -58612,6 +59178,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/pages/SearchPost.vue":
+/*!******************************************************!*\
+  !*** ./resources/js/components/pages/SearchPost.vue ***!
+  \******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _SearchPost_vue_vue_type_template_id_adbeb304___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SearchPost.vue?vue&type=template&id=adbeb304& */ "./resources/js/components/pages/SearchPost.vue?vue&type=template&id=adbeb304&");
+/* harmony import */ var _SearchPost_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SearchPost.vue?vue&type=script&lang=js& */ "./resources/js/components/pages/SearchPost.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _SearchPost_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _SearchPost_vue_vue_type_template_id_adbeb304___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _SearchPost_vue_vue_type_template_id_adbeb304___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/pages/SearchPost.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/pages/SearchPost.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/pages/SearchPost.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchPost_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./SearchPost.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/SearchPost.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchPost_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/pages/SearchPost.vue?vue&type=template&id=adbeb304&":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/components/pages/SearchPost.vue?vue&type=template&id=adbeb304& ***!
+  \*************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchPost_vue_vue_type_template_id_adbeb304___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./SearchPost.vue?vue&type=template&id=adbeb304& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/SearchPost.vue?vue&type=template&id=adbeb304&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchPost_vue_vue_type_template_id_adbeb304___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SearchPost_vue_vue_type_template_id_adbeb304___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/pages/UploadContent.vue":
 /*!*********************************************************!*\
   !*** ./resources/js/components/pages/UploadContent.vue ***!
@@ -58865,6 +59500,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_VideoDetail__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/VideoDetail */ "./resources/js/components/VideoDetail.vue");
 /* harmony import */ var _components_pages_Follow__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../components/pages/Follow */ "./resources/js/components/pages/Follow.vue");
 /* harmony import */ var _components_pages_BuyCoin__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../components/pages/BuyCoin */ "./resources/js/components/pages/BuyCoin.vue");
+/* harmony import */ var _components_pages_SearchPost__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../components/pages/SearchPost */ "./resources/js/components/pages/SearchPost.vue");
+
 
 
 
@@ -58901,6 +59538,9 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
   }, {
     path: '/buy-coin/:id',
     component: _components_pages_BuyCoin__WEBPACK_IMPORTED_MODULE_9__["default"]
+  }, {
+    path: '/:post',
+    component: _components_pages_SearchPost__WEBPACK_IMPORTED_MODULE_10__["default"]
   }]
 });
 /* harmony default export */ __webpack_exports__["default"] = (router);
@@ -59063,6 +59703,19 @@ var ApiService = /*#__PURE__*/function () {
     key: "getFollowPost",
     value: function getFollowPost(page) {
       return Object(_environment_request__WEBPACK_IMPORTED_MODULE_0__["default"])().get("/posts-following?page=".concat(page)).then(function (response) {
+        return response;
+      })["catch"](function (errors) {
+        return errors.response.data.errors;
+      });
+    }
+    /**
+     * get all video
+     */
+
+  }, {
+    key: "searchPost",
+    value: function searchPost(post_data, page) {
+      return Object(_environment_request__WEBPACK_IMPORTED_MODULE_0__["default"])().post("/search-post?page=".concat(page), post_data).then(function (response) {
         return response;
       })["catch"](function (errors) {
         return errors.response.data.errors;

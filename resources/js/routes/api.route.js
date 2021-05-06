@@ -8,6 +8,7 @@ import UploadContent from '../components/pages/UploadContent';
 import VideoDetail from '../components/VideoDetail';
 import Follow from '../components/pages/Follow';
 import BuyCoin from '../components/pages/BuyCoin';
+import SearchPost from "../components/pages/SearchPost";
 
 Vue.use(VueRouter)
 
@@ -20,7 +21,9 @@ const router = new VueRouter({
     {path:'/posts/create',component:UploadContent},
     {path:"/video/:id",component:VideoDetail},
     {path:'/following',component:Follow},
-    {path:'/buy-coin/:id',component:BuyCoin,}
+    {path:'/buy-coin/:id',component:BuyCoin,},
+    {path:'/:post',component:SearchPost,}
+
   ]
 });
 

@@ -107,4 +107,15 @@ export default class ApiService{
             .catch(errors => errors.response.data.errors);
     }
 
+    /**
+     * get all video
+     */
+     searchPost(post_data,page){
+        return request()
+            .post(`/search-post?page=${page}`,post_data)
+            .then(response => response)
+            .catch(errors => errors.response.data.errors);
+    }
+    
+
 }
