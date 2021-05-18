@@ -3839,8 +3839,9 @@ module.exports = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _hero_section_HeroMenu_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./hero-section/HeroMenu.vue */ "./resources/js/components/hero-section/HeroMenu.vue");
-/* harmony import */ var _hero_section_HeroSidebar_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./hero-section/HeroSidebar.vue */ "./resources/js/components/hero-section/HeroSidebar.vue");
-/* harmony import */ var _hero_section_HerroFooter_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./hero-section/HerroFooter.vue */ "./resources/js/components/hero-section/HerroFooter.vue");
+/* harmony import */ var _hero_section_HeroRightSidebar_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./hero-section/HeroRightSidebar.vue */ "./resources/js/components/hero-section/HeroRightSidebar.vue");
+/* harmony import */ var _hero_section_HeroSidebar_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./hero-section/HeroSidebar.vue */ "./resources/js/components/hero-section/HeroSidebar.vue");
+/* harmony import */ var _hero_section_HerroFooter_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./hero-section/HerroFooter.vue */ "./resources/js/components/hero-section/HerroFooter.vue");
 //
 //
 //
@@ -3861,15 +3862,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["allusers", "authuser", "turn_url", "turn_username", "turn_credential"],
   components: {
-    HeroSidebar: _hero_section_HeroSidebar_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
-    HerroFooter: _hero_section_HerroFooter_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
-    HeroMenu: _hero_section_HeroMenu_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+    HeroSidebar: _hero_section_HeroSidebar_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+    HerroFooter: _hero_section_HerroFooter_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+    HeroMenu: _hero_section_HeroMenu_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+    HeroRightSidebar: _hero_section_HeroRightSidebar_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   name: 'App',
   data: function data() {
@@ -4429,6 +4434,41 @@ __webpack_require__.r(__webpack_exports__);
       }
     }
   }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/hero-section/HeroRightSidebar.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/hero-section/HeroRightSidebar.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "HeroRightSidebar",
+  props: ['allusers']
 });
 
 /***/ }),
@@ -40024,7 +40064,9 @@ var render = function() {
               userLive: _vm.userLive,
               livedata: _vm.livedata
             }
-          })
+          }),
+          _vm._v(" "),
+          _c("hero-right-sidebar", { attrs: { allusers: _vm.allusers } })
         ],
         1
       )
@@ -40074,223 +40116,211 @@ var render = function() {
           staticClass: "flex flex-row flex-wrap flex-grow mt-2"
         },
         _vm._l(_vm.posts, function(post) {
-          return _c(
-            "div",
-            { key: post.id, staticClass: "w-full md:w-1/2 xl:w-1/3 p-3" },
-            [
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "bg-white border-transparent rounded-lg shadow-lg"
-                },
-                [
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "bg-gray-200  text-gray-800 border-b-2 border-gray-500 rounded-tl-lg rounded-tr-lg p-2"
-                    },
-                    [
-                      _c(
-                        "router-link",
-                        { attrs: { to: "/users/" + post.user.id } },
-                        [
-                          post.user.social_path == null
-                            ? _c("img", {
-                                staticClass: "w-7 h-7 rounded-full inline",
-                                attrs: {
-                                  src: "/uploads/users/photo/" + post.user.photo
-                                }
-                              })
-                            : _c("img", {
-                                staticClass: "w-7 h-7 rounded-full inline",
-                                attrs: { src: post.user.social_path }
-                              }),
-                          _vm._v(" "),
-                          _c("span", { staticClass: "text-gray-600" }, [
-                            _vm._v(_vm._s(post.user.name))
-                          ])
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "relative float-right inline-block" },
-                        [
-                          _c(
-                            "button",
-                            {
-                              staticClass:
-                                "drop-button text-black focus:outline-none font-bold",
-                              on: {
-                                click: function($event) {
-                                  return _vm.toggleDDd("myDropdown" + post.id)
-                                }
+          return _c("div", { key: post.id, staticClass: "w-full  p-3" }, [
+            _c(
+              "div",
+              {
+                staticClass: "bg-white border-transparent rounded-lg shadow-lg"
+              },
+              [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "bg-gray-200  text-gray-800 border-b-2 border-gray-500 rounded-tl-lg rounded-tr-lg p-2"
+                  },
+                  [
+                    _c(
+                      "router-link",
+                      { attrs: { to: "/users/" + post.user.id } },
+                      [
+                        post.user.social_path == null
+                          ? _c("img", {
+                              staticClass: "w-7 h-7 rounded-full inline",
+                              attrs: {
+                                src: "/uploads/users/photo/" + post.user.photo
                               }
-                            },
-                            [
-                              _vm._v(
-                                "\n                                  ...\n                              "
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            {
-                              staticClass:
-                                "dropdownlist absolute w-60 bg-gray-400 rounded-tl-lg rounded-tr-lg text-black right-0 mt-3 p-3 overflow-auto z-30 invisible",
-                              attrs: { id: "myDropdown" + post.id }
-                            },
-                            [
-                              _c(
-                                "a",
-                                {
-                                  staticClass:
-                                    "p-2 hover:bg-gray-800 text-blue-700 text-sm no-underline hover:no-underline block cursor-pointer",
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.shareOnfacebook(
-                                        post.id,
-                                        post.user.name
-                                      )
-                                    }
-                                  }
-                                },
-                                [
-                                  _c("i", { staticClass: "fab fa-facebook" }),
-                                  _vm._v(" Share")
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "a",
-                                {
-                                  staticClass:
-                                    "p-2 hover:bg-gray-800 text-blue-500 text-sm no-underline hover:no-underline block cursor-pointer ",
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.shareOntwitter(
-                                        post.id,
-                                        post.user.name
-                                      )
-                                    }
-                                  }
-                                },
-                                [
-                                  _c("i", { staticClass: "fab fa-twitter" }),
-                                  _vm._v(" Share ")
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "a",
-                                {
-                                  staticClass:
-                                    "p-2 hover:bg-gray-800 text-black text-sm no-underline hover:no-underline block cursor-pointer",
-                                  on: {
-                                    click: function($event) {
-                                      _vm.copyToClipboard(post.id)
-                                      _vm.showToast("Link copied to clipboard.")
-                                    }
-                                  }
-                                },
-                                [
-                                  _c("i", { staticClass: "fa fa-copy" }),
-                                  _vm._v(" Copy")
-                                ]
-                              )
-                            ]
-                          )
-                        ]
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "p-5" },
-                    [
-                      _c(
-                        "router-link",
-                        { attrs: { to: "/video/" + post.id } },
-                        [
-                          _c(
-                            "video",
-                            {
-                              staticClass: "cursor-pointer w-full h-60",
-                              attrs: { id: "video" + post.id },
-                              on: {
-                                mouseover: function($event) {
-                                  return _vm.playVideo(post.id)
-                                },
-                                mouseout: function($event) {
-                                  return _vm.stopVideo(post.id)
-                                },
-                                "&scroll": function($event) {
-                                  return _vm.onScroll($event)
-                                }
-                              }
-                            },
-                            [
-                              _c("source", {
-                                attrs: {
-                                  src: post.video_path,
-                                  type: "video/mp4"
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c("source", {
-                                attrs: { src: "", type: "video/ogg" }
-                              }),
-                              _vm._v(
-                                "\n                                  Your browser does not support HTML video.\n                              "
-                              )
-                            ]
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c("span", {}, [
-                        _vm._v(
-                          "\n                              " +
-                            _vm._s(post.discription.substring(0, 30)) +
-                            "\n                              " +
-                            _vm._s(post.created_at.diffForHumans) +
-                            "   \n                          "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("span", { staticClass: "float-right" }, [
+                            })
+                          : _c("img", {
+                              staticClass: "w-7 h-7 rounded-full inline",
+                              attrs: { src: post.user.social_path }
+                            }),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "text-gray-600" }, [
+                          _vm._v(_vm._s(post.user.name))
+                        ])
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "relative float-right inline-block" },
+                      [
                         _c(
                           "button",
                           {
-                            class:
-                              "text-white font-bold  px-4 rounded-full focus:outline-none " +
-                              _vm.follow_collor,
-                            attrs: { id: "follow_class" + post.user.id },
+                            staticClass:
+                              "drop-button text-black focus:outline-none font-bold",
                             on: {
                               click: function($event) {
-                                return _vm.userFollow(post.user.id)
+                                return _vm.toggleDDd("myDropdown" + post.id)
                               }
                             }
                           },
                           [
                             _vm._v(
-                              "\n                              Follow\n                              "
+                              "\n                                  ...\n                              "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "dropdownlist absolute w-60 bg-gray-400 rounded-tl-lg rounded-tr-lg text-black right-0 mt-3 p-3 overflow-auto z-30 invisible",
+                            attrs: { id: "myDropdown" + post.id }
+                          },
+                          [
+                            _c(
+                              "a",
+                              {
+                                staticClass:
+                                  "p-2 hover:bg-gray-800 text-blue-700 text-sm no-underline hover:no-underline block cursor-pointer",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.shareOnfacebook(
+                                      post.id,
+                                      post.user.name
+                                    )
+                                  }
+                                }
+                              },
+                              [
+                                _c("i", { staticClass: "fab fa-facebook" }),
+                                _vm._v(" Share")
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "a",
+                              {
+                                staticClass:
+                                  "p-2 hover:bg-gray-800 text-blue-500 text-sm no-underline hover:no-underline block cursor-pointer ",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.shareOntwitter(
+                                      post.id,
+                                      post.user.name
+                                    )
+                                  }
+                                }
+                              },
+                              [
+                                _c("i", { staticClass: "fab fa-twitter" }),
+                                _vm._v(" Share ")
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "a",
+                              {
+                                staticClass:
+                                  "p-2 hover:bg-gray-800 text-black text-sm no-underline hover:no-underline block cursor-pointer",
+                                on: {
+                                  click: function($event) {
+                                    _vm.copyToClipboard(post.id)
+                                    _vm.showToast("Link copied to clipboard.")
+                                  }
+                                }
+                              },
+                              [
+                                _c("i", { staticClass: "fa fa-copy" }),
+                                _vm._v(" Copy")
+                              ]
                             )
                           ]
                         )
-                      ])
-                    ],
-                    1
-                  )
-                ]
-              )
-            ]
-          )
+                      ]
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "p-5" },
+                  [
+                    _c("router-link", { attrs: { to: "/video/" + post.id } }, [
+                      _c(
+                        "video",
+                        {
+                          staticClass: "cursor-pointer ",
+                          attrs: { id: "video" + post.id },
+                          on: {
+                            keydown: function($event) {
+                              return _vm.playVideo(post.id)
+                            },
+                            mouseout: function($event) {
+                              return _vm.stopVideo(post.id)
+                            },
+                            "&scroll": function($event) {
+                              return _vm.onScroll($event)
+                            }
+                          }
+                        },
+                        [
+                          _c("source", {
+                            attrs: { src: post.video_path, type: "video/mp4" }
+                          }),
+                          _vm._v(" "),
+                          _c("source", {
+                            attrs: { src: "", type: "video/ogg" }
+                          }),
+                          _vm._v(
+                            "\n                                  Your browser does not support HTML video.\n                              "
+                          )
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("span", {}, [
+                      _vm._v(
+                        "\n                              " +
+                          _vm._s(post.discription.substring(0, 30)) +
+                          "\n                              " +
+                          _vm._s(post.created_at.diffForHumans) +
+                          "   \n                          "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "float-right" }, [
+                      _c(
+                        "button",
+                        {
+                          class:
+                            "text-white font-bold  px-4 rounded-full focus:outline-none " +
+                            _vm.follow_collor,
+                          attrs: { id: "follow_class" + post.user.id },
+                          on: {
+                            click: function($event) {
+                              return _vm.userFollow(post.user.id)
+                            }
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n                              Follow\n                              "
+                          )
+                        ]
+                      )
+                    ])
+                  ],
+                  1
+                )
+              ]
+            )
+          ])
         }),
         0
       ),
@@ -40809,6 +40839,96 @@ var staticRenderFns = [
     )
   }
 ]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/hero-section/HeroRightSidebar.vue?vue&type=template&id=55f16d08&":
+/*!********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/hero-section/HeroRightSidebar.vue?vue&type=template&id=55f16d08& ***!
+  \********************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass:
+        "shadow-lg h-16 fixed bottom-0 mt-12 md:relative md:h-screen z-10 w-full md:w-1/4 "
+    },
+    [
+      _c(
+        "div",
+        {
+          staticClass:
+            "md:mt-12 md:w-1/4 md:fixed md:right-0 md:top-0 content-center md:content-start text-left justify-between"
+        },
+        [
+          _c(
+            "ul",
+            {
+              staticClass:
+                "list-reset flex flex-row md:flex-col py-0 md:py-3 px-2 md:px-2 text-center md:text-left"
+            },
+            _vm._l(_vm.allusers, function(user) {
+              return _c(
+                "li",
+                { key: user.id, staticClass: "mr-3 flex-1" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass:
+                        "block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white hover:border-pink-500",
+                      attrs: { to: "/" }
+                    },
+                    [
+                      user.social_path == null
+                        ? _c("img", {
+                            staticClass: "w-7 h-7 rounded-full inline",
+                            attrs: { src: "/uploads/users/photo/" + user.photo }
+                          })
+                        : _c("img", {
+                            staticClass: "w-7 h-7 rounded-full inline",
+                            attrs: { src: user.social_path }
+                          }),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "text-gray-600" }, [
+                        _vm._v(_vm._s(user.name))
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass:
+                            "py-2 px-4 bg-orange-400 float-right rounded-xl"
+                        },
+                        [_vm._v("Follow")]
+                      )
+                    ]
+                  )
+                ],
+                1
+              )
+            }),
+            0
+          )
+        ]
+      )
+    ]
+  )
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -58741,6 +58861,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_HeroMenu_vue_vue_type_template_id_6c133c8a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_HeroMenu_vue_vue_type_template_id_6c133c8a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/hero-section/HeroRightSidebar.vue":
+/*!*******************************************************************!*\
+  !*** ./resources/js/components/hero-section/HeroRightSidebar.vue ***!
+  \*******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _HeroRightSidebar_vue_vue_type_template_id_55f16d08___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./HeroRightSidebar.vue?vue&type=template&id=55f16d08& */ "./resources/js/components/hero-section/HeroRightSidebar.vue?vue&type=template&id=55f16d08&");
+/* harmony import */ var _HeroRightSidebar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./HeroRightSidebar.vue?vue&type=script&lang=js& */ "./resources/js/components/hero-section/HeroRightSidebar.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _HeroRightSidebar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _HeroRightSidebar_vue_vue_type_template_id_55f16d08___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _HeroRightSidebar_vue_vue_type_template_id_55f16d08___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/hero-section/HeroRightSidebar.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/hero-section/HeroRightSidebar.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************!*\
+  !*** ./resources/js/components/hero-section/HeroRightSidebar.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_HeroRightSidebar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./HeroRightSidebar.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/hero-section/HeroRightSidebar.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_HeroRightSidebar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/hero-section/HeroRightSidebar.vue?vue&type=template&id=55f16d08&":
+/*!**************************************************************************************************!*\
+  !*** ./resources/js/components/hero-section/HeroRightSidebar.vue?vue&type=template&id=55f16d08& ***!
+  \**************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_HeroRightSidebar_vue_vue_type_template_id_55f16d08___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./HeroRightSidebar.vue?vue&type=template&id=55f16d08& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/hero-section/HeroRightSidebar.vue?vue&type=template&id=55f16d08&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_HeroRightSidebar_vue_vue_type_template_id_55f16d08___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_HeroRightSidebar_vue_vue_type_template_id_55f16d08___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

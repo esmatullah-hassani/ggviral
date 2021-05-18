@@ -13,6 +13,8 @@
         :userLive="userLive"
         :livedata="livedata"
         />
+      <hero-right-sidebar :allusers="allusers"/>
+
     </div>
     
   </div>
@@ -20,8 +22,10 @@
 
 <script>
 import HeroMenu from './hero-section/HeroMenu.vue'
+import HeroRightSidebar from './hero-section/HeroRightSidebar.vue'
 import HeroSidebar from './hero-section/HeroSidebar.vue'
 import HerroFooter from './hero-section/HerroFooter.vue'
+
 export default {
   props: [
     "allusers",
@@ -30,7 +34,7 @@ export default {
     "turn_username",
     "turn_credential",
   ],
-  components: { HeroSidebar, HerroFooter, HeroMenu },
+  components: { HeroSidebar, HerroFooter, HeroMenu, HeroRightSidebar },
     name:'App',
     data(){
       return {

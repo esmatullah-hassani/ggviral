@@ -4,7 +4,7 @@
 
             <div class="flex flex-row flex-wrap flex-grow mt-2" v-infinite-scroll="onNextPage">
 
-                <div class="w-full md:w-1/2 xl:w-1/3 p-3" v-for="post in posts" v-bind:key="post.id" >
+                <div class="w-full  p-3" v-for="post in posts" v-bind:key="post.id" >
                     <!--Graph Card-->
                     <div class="bg-white border-transparent rounded-lg shadow-lg">
                         <div class="bg-gray-200  text-gray-800 border-b-2 border-gray-500 rounded-tl-lg rounded-tr-lg p-2">
@@ -30,8 +30,8 @@
                         </div>
                         <div class="p-5">
                             <router-link :to="'/video/'+post.id">
-                                <video :id="'video'+post.id"  class="cursor-pointer w-full h-60"
-                                 v-on:mouseover="playVideo(post.id);" 
+                                <video :id="'video'+post.id"  class="cursor-pointer "
+                                 @keydown="playVideo(post.id);" 
                                  v-on:mouseout="stopVideo(post.id)"
                                  v-on:scroll.passive="onScroll"
                                  >
