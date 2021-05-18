@@ -1,5 +1,5 @@
 <template>
-  <div class="shadow-lg h-16 fixed bottom-0 mt-12 md:relative md:h-screen z-10 w-full md:w-1/4 ">
+  <div class="hidden-div shadow-lg h-16 fixed bottom-0 mt-12 md:relative md:h-screen z-10  md:w-1/4 ">
 
 <div class="md:mt-12 md:w-1/4 md:fixed md:right-0 md:top-0 content-center md:content-start text-left justify-between">
   <ul class="list-reset flex flex-row md:flex-col py-0 md:py-3 px-2 md:px-2 text-center md:text-left">
@@ -25,5 +25,10 @@ export default {
 </script>
 
 <style>
-
+@media (max-width: 768px)
+{
+    .hidden-div{
+        display: none;
+    }
+}
 </style>
