@@ -4565,10 +4565,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['userLive', 'livedata'],
   data: function data() {
@@ -41264,9 +41260,7 @@ var render = function() {
                   )
                 ],
                 1
-              ),
-              _vm._v(" "),
-              _vm._m(0)
+              )
             ]
           )
         ]
@@ -41274,34 +41268,7 @@ var render = function() {
     ]
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "mr-3 flex-1" }, [
-      _c(
-        "a",
-        {
-          staticClass:
-            "block py-1 md:py-3 pl-0 md:pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-red-500",
-          attrs: { href: "#" }
-        },
-        [
-          _c("i", { staticClass: "fa fa-wallet pr-0 md:pr-0 text-blue-600" }),
-          _c(
-            "span",
-            {
-              staticClass:
-                "pb-1 md:pb-0 text-xs md:text-base text-black md:text-black block md:inline-block pl-5"
-            },
-            [_vm._v("Payments")]
-          )
-        ]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
