@@ -4524,10 +4524,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['userLive', 'livedata'],
   data: function data() {
@@ -40639,7 +40635,7 @@ var render = function() {
     "nav",
     {
       staticClass:
-        "bg-gray-200 pt-2 md:pt-1 pb-1 px-1 mt-0 h-auto fixed w-full z-20 top-0"
+        "items-center bg-white p-6 border-b border-gray-300 pt-2 md:pt-1 pb-1 px-1 mt-0 h-16 fixed w-full z-20 top-0"
     },
     [
       _c("div", { staticClass: "flex flex-wrap items-center" }, [
@@ -40647,12 +40643,12 @@ var render = function() {
           "div",
           {
             staticClass:
-              "flex flex-shrink md:w-1/3 justify-center md:justify-start text-white"
+              "flex flex-shrink md:w-1/3 justify-center md:justify-start hover:text-gray-900 "
           },
           [
             _c("router-link", { attrs: { to: "/" } }, [
               _c("span", { staticClass: "text-xl pl-2" }, [
-                _c("i", { staticClass: "em em-grinning " }),
+                _c("i", { staticClass: "em em-grinning  " }),
                 _vm._v("GGvirl")
               ])
             ])
@@ -40678,7 +40674,7 @@ var render = function() {
                   }
                 ],
                 staticClass:
-                  "w-full  text-sm text-black transition border border-transparent focus:outline-none focus:border-gray-700 rounded py-1 px-2 pl-10 appearance-none leading-normal",
+                  "w-full  text-sm text-black transition border  focus:outline-none focus:border-gray-700 rounded py-1 px-2 pl-10 appearance-none leading-normal",
                 attrs: { type: "search", placeholder: "Search" },
                 domProps: { value: _vm.search_post },
                 on: {
@@ -40729,14 +40725,14 @@ var render = function() {
           "div",
           {
             staticClass:
-              "flex w-full pt-2 content-center justify-between md:w-1/3 md:justify-end"
+              "flex w-full pt-2 content-center justify-between md:w-1/3 md:justify-end "
           },
           [
             _c(
               "ul",
               {
                 staticClass:
-                  "list-reset flex justify-between flex-1 md:flex-none items-center"
+                  "list-reset flex justify-between flex-1 md:flex-none items-center "
               },
               [
                 _vm._m(0),
@@ -40755,13 +40751,13 @@ var render = function() {
                       })
                 ]),
                 _vm._v(" "),
-                _c("li", { staticClass: "flex-1 md:flex-none md:mr-3" }, [
+                _c("li", { staticClass: "flex-1 md:flex-none md:mr-3 " }, [
                   _c("div", { staticClass: "relative inline-block" }, [
                     _c(
                       "button",
                       {
                         staticClass:
-                          "drop-button text-white focus:outline-none",
+                          "drop-button  focus:outline-none hover:text-gray-900",
                         attrs: { onclick: "toggleDD('myDropdown')" }
                       },
                       [
@@ -40795,7 +40791,7 @@ var render = function() {
                       "div",
                       {
                         staticClass:
-                          "dropdownlist absolute bg-indigo-900 text-white right-0 mt-3 p-3 overflow-auto z-30 invisible",
+                          "dropdownlist absolute bg-indigo-900  right-0 mt-3 p-3 overflow-auto z-30 invisible",
                         attrs: { id: "myDropdown" }
                       },
                       [
@@ -40813,7 +40809,7 @@ var render = function() {
                           "router-link",
                           {
                             staticClass:
-                              "p-2 hover:bg-gray-800 text-white text-sm no-underline hover:no-underline block",
+                              "p-2 hover:bg-gray-800  text-sm no-underline hover:no-underline block",
                             attrs: { to: "/users/" + _vm.authuser.id }
                           },
                           [
@@ -40849,7 +40845,7 @@ var staticRenderFns = [
       _c(
         "a",
         {
-          staticClass: "inline-block py-2 px-4 text-white no-underline",
+          staticClass: "inline-block py-2 px-4  no-underline",
           attrs: { href: "#" }
         },
         [_vm._v("Active")]
@@ -40864,7 +40860,7 @@ var staticRenderFns = [
       "a",
       {
         staticClass:
-          "p-2 hover:bg-gray-800 text-white text-sm no-underline hover:no-underline block",
+          "p-2 hover:bg-gray-800  text-sm no-underline hover:no-underline block",
         attrs: { href: "/user/profile" }
       },
       [_c("i", { staticClass: "    fa-cog fa-fw" }), _vm._v(" Settings")]
@@ -40878,7 +40874,7 @@ var staticRenderFns = [
       "a",
       {
         staticClass:
-          "p-2 hover:bg-gray-800 text-white text-sm no-underline hover:no-underline block",
+          "p-2 hover:bg-gray-800  text-sm no-underline hover:no-underline block",
         attrs: { href: "/logout" }
       },
       [
@@ -41022,13 +41018,13 @@ var render = function() {
             [
               _c(
                 "li",
-                { staticClass: "mr-3 flex-1" },
+                { staticClass: "mr-3 flex-1 " },
                 [
                   _c(
                     "router-link",
                     {
                       staticClass:
-                        "block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-pink-500",
+                        "block py-1 md:py-3 pl-1 align-middle text-white no-underline border-b-2 border-gray-800 hover:border-pink-500  ",
                       attrs: { to: "/" }
                     },
                     [
@@ -41177,9 +41173,7 @@ var render = function() {
                   )
                 ],
                 1
-              ),
-              _vm._v(" "),
-              _vm._m(0)
+              )
             ]
           )
         ]
@@ -41187,34 +41181,7 @@ var render = function() {
     ]
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "mr-3 flex-1" }, [
-      _c(
-        "a",
-        {
-          staticClass:
-            "block py-1 md:py-3 pl-0 md:pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-red-500",
-          attrs: { href: "#" }
-        },
-        [
-          _c("i", { staticClass: "fa fa-wallet pr-0 md:pr-0 text-blue-600" }),
-          _c(
-            "span",
-            {
-              staticClass:
-                "pb-1 md:pb-0 text-xs md:text-base text-black md:text-black block md:inline-block pl-5"
-            },
-            [_vm._v("Payments")]
-          )
-        ]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
