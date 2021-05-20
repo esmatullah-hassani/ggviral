@@ -6,7 +6,7 @@
 
                 <div class="w-full  p-3" v-for="post in posts" v-bind:key="post.id" >
                     <!--Graph Card-->
-                    <div class="bg-white border-transparent rounded-lg shadow-lg">
+                    <div class="bg-white border-transparent rounded-lg shadow-lg ">
                         <div class="bg-gray-200  text-gray-800 border-b-2 border-gray-500 rounded-tl-lg rounded-tr-lg p-2">
                             <router-link :to="'/users/'+post.user.id">
                                 <img class="w-7 h-7 rounded-full inline"  :src="'/uploads/users/photo/'+post.user.photo" v-if="post.user.social_path == null">

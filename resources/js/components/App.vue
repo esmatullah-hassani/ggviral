@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <hero-menu :authuser="authuser"/>
+    <hero-menu :authuser="authuser" :allusers="allusers"/>
     <div class="flex flex-col md:flex-row mt-14">
      
       <hero-sidebar />
@@ -64,5 +64,10 @@ export default {
 </script>
 
 <style>
-
+@media (max-width: 768px)
+{
+    .hidden-div{
+        display: none;
+    }
+}
 </style>

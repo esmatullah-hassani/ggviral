@@ -39,7 +39,7 @@
             </center>
             <div class="flex flex-row flex-wrap flex-grow mt-2" v-infinite-scroll="onNextPage">
                 
-                <div class="w-full md:w-1/2 xl:w-1/3 p-3" v-for="post in posts" v-bind:key="post.id" >
+                <div class="w-full  p-3" v-for="post in posts" v-bind:key="post.id" >
                     <!--Graph Card-->
                     <div class="bg-white border-transparent rounded-lg shadow-lg">
                         <div class="bg-gray-400  text-gray-800 border-b-2 border-gray-500 rounded-tl-lg rounded-tr-lg p-2">
@@ -52,7 +52,7 @@
                                     <button @click="toggleDDd('myDropdown'+post.id)" class="drop-button text-black focus:outline-none font-bold">
                                         ...
                                     </button>
-                                    <div :id="'myDropdown'+post.id" class="dropdownlist absolute w-60 bg-gray-400 rounded-tl-lg rounded-tr-lg text-black right-0 mt-3 p-3 overflow-auto z-30 invisible">
+                                    <div :id="'myDropdown'+post.id" class="dropdownlist absolute  bg-gray-400 rounded-tl-lg rounded-tr-lg text-black right-0 mt-3 p-3 overflow-auto z-30 invisible">
                                         <a @click="showHideModal(post.id)" class="p-2 hover:bg-gray-800 text-black text-sm no-underline hover:no-underline block cursor-pointer" v-if="post.user_id == user.id && post.status ==1"> Deactive </a>
                                         <a  class="p-2 hover:bg-gray-800 text-black text-sm no-underline hover:no-underline block cursor-pointer text-red-700" v-else> Deactived </a>
                                         <a  @click="showDeleteModal(post.id)" class="p-2 hover:bg-gray-800 text-red-700 text-sm no-underline hover:no-underline block cursor-pointer" v-if="post.user_id == user.id"><i class="    fa-cog fa-fw" ></i> Delete</a>
@@ -65,7 +65,7 @@
                         </div>
                         <div class="p-5">
                             <router-link :to="'/video/'+post.id">
-                                <video :id="'video'+post.id" width="420" class="cursor-pointer h-56" v-on:mouseover="playVideo(post.id);" v-on:mouseout="stopVideo(post.id)">
+                                <video :id="'video'+post.id" width="420" class="cursor-pointer " v-on:mouseover="playVideo(post.id);" v-on:mouseout="stopVideo(post.id)">
                                     <source :src="post.video_path" type="video/mp4">
                                     <source src="" type="video/ogg">
                                     Your browser does not support HTML video.

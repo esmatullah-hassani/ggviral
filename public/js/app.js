@@ -4403,10 +4403,31 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "HeroMenu",
-  props: ['authuser'],
+  props: ['authuser', 'allusers'],
   data: function data() {
     return {
       services: new _services_api_service__WEBPACK_IMPORTED_MODULE_0__["default"](),
@@ -4414,6 +4435,26 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    toggleMobileMenu: function toggleMobileMenu(myDropMenu) {
+      var menu = "";
+      menu = document.getElementById(myDropMenu);
+      console.log(menu);
+      menu.style.visibility = "visible";
+      var openMenu = document.getElementById("openMenu");
+      var closeMenu = document.getElementById("closeMenu");
+      openMenu.style.visibility = "hidden";
+      closeMenu.style.visibility = "visible";
+    },
+    closeSidebarMenu: function closeSidebarMenu(myDropMenu) {
+      var menu = "";
+      menu = document.getElementById(myDropMenu);
+      console.log(menu);
+      menu.style.visibility = "hidden";
+      var openMenu = document.getElementById("openMenu");
+      var closeMenu = document.getElementById("closeMenu");
+      openMenu.style.visibility = "visible";
+      closeMenu.style.visibility = "hidden";
+    },
     logoutUser: function logoutUser() {
       this.services.logoutUser().then(function (reqponse) {
         console.log(response);
@@ -4447,6 +4488,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //
@@ -8209,10 +8251,29 @@ function isnan (val) {
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/hero-section/HeroRightSidebar.vue?vue&type=style&index=0&lang=css&":
-/*!***********************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/hero-section/HeroRightSidebar.vue?vue&type=style&index=0&lang=css& ***!
-  \***********************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/App.vue?vue&type=style&index=0&lang=css&":
+/*!*********************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/App.vue?vue&type=style&index=0&lang=css& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "@media (max-width: 768px)\n{\n.hidden-div{\n    display: none;\n}\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/hero-section/HeroMenu.vue?vue&type=style&index=0&lang=css&":
+/*!***************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/hero-section/HeroMenu.vue?vue&type=style&index=0&lang=css& ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -8221,7 +8282,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "@media (max-width: 768px)\n{\n.hidden-div{\n    display: none;\n}\n}\n", ""]);
+exports.push([module.i, "#myDropdownMenu{\n  visibility: hidden;\n}\n#closeMenu{\n  visibility: hidden;\n}\n", ""]);
 
 // exports
 
@@ -38995,15 +39056,45 @@ function simpleEnd(buf) {
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/hero-section/HeroRightSidebar.vue?vue&type=style&index=0&lang=css&":
-/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/hero-section/HeroRightSidebar.vue?vue&type=style&index=0&lang=css& ***!
-  \***************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/App.vue?vue&type=style&index=0&lang=css&":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/App.vue?vue&type=style&index=0&lang=css& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./HeroRightSidebar.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/hero-section/HeroRightSidebar.vue?vue&type=style&index=0&lang=css&");
+var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./App.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/App.vue?vue&type=style&index=0&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/hero-section/HeroMenu.vue?vue&type=style&index=0&lang=css&":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/hero-section/HeroMenu.vue?vue&type=style&index=0&lang=css& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./HeroMenu.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/hero-section/HeroMenu.vue?vue&type=style&index=0&lang=css&");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -40091,7 +40182,9 @@ var render = function() {
     "div",
     { staticClass: "container" },
     [
-      _c("hero-menu", { attrs: { authuser: _vm.authuser } }),
+      _c("hero-menu", {
+        attrs: { authuser: _vm.authuser, allusers: _vm.allusers }
+      }),
       _vm._v(" "),
       _c(
         "div",
@@ -40165,7 +40258,7 @@ var render = function() {
             _c(
               "div",
               {
-                staticClass: "bg-white border-transparent rounded-lg shadow-lg"
+                staticClass: "bg-white border-transparent rounded-lg shadow-lg "
               },
               [
                 _c(
@@ -40646,14 +40739,21 @@ var render = function() {
               "flex flex-shrink md:w-1/3 justify-center md:justify-start hover:text-gray-900 "
           },
           [
-            _c("router-link", { attrs: { to: "/" } }, [
-              _c("span", { staticClass: "text-xl pl-2" }, [
-                _c("i", { staticClass: "em em-grinning  " }),
-                _vm._v("GGvirl")
-              ])
-            ])
-          ],
-          1
+            _c(
+              "span",
+              {
+                staticClass:
+                  " visible sm:visible md:hidden text-xl pl-2 cursor-pointer drop-button ",
+                attrs: { id: "openMenu" },
+                on: {
+                  click: function($event) {
+                    return _vm.toggleMobileMenu("myDropdownMenu")
+                  }
+                }
+              },
+              [_c("i", { staticClass: "fa fa-bars " })]
+            )
+          ]
         ),
         _vm._v(" "),
         _c(
@@ -40725,7 +40825,7 @@ var render = function() {
           "div",
           {
             staticClass:
-              "flex w-full pt-2 content-center justify-between md:w-1/3 md:justify-end "
+              "flex w-full pt-2 content-center justify-between md:w-1/3 md:justify-end sm:float-right hidden-div"
           },
           [
             _c(
@@ -40735,8 +40835,6 @@ var render = function() {
                   "list-reset flex justify-between flex-1 md:flex-none items-center "
               },
               [
-                _vm._m(0),
-                _vm._v(" "),
                 _c("li", { staticClass: "flex-1 md:flex-none md:mr-3" }, [
                   _vm.authuser.social_path == null
                     ? _c("img", {
@@ -40751,8 +40849,8 @@ var render = function() {
                       })
                 ]),
                 _vm._v(" "),
-                _c("li", { staticClass: "flex-1 md:flex-none md:mr-3 " }, [
-                  _c("div", { staticClass: "relative inline-block" }, [
+                _c("li", { staticClass: "flex-1 md:flex-none sm:mr-0  " }, [
+                  _c("div", { staticClass: "relative inline-block right-0" }, [
                     _c(
                       "button",
                       {
@@ -40818,11 +40916,11 @@ var render = function() {
                           ]
                         ),
                         _vm._v(" "),
-                        _vm._m(1),
+                        _vm._m(0),
                         _vm._v(" "),
                         _c("div", { staticClass: "border border-gray-800" }),
                         _vm._v(" "),
-                        _vm._m(2)
+                        _vm._m(1)
                       ],
                       1
                     )
@@ -40832,7 +40930,102 @@ var render = function() {
             )
           ]
         )
-      ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass:
+            "visible sm:visible md:hidden dropdownlist top-0  bg-white left-0 mt-0 h-screen  w-1/2 z-30 shadow-inner",
+          attrs: { id: "myDropdownMenu" }
+        },
+        [
+          _c(
+            "span",
+            {
+              staticClass:
+                " visible sm:visible md:hidden text-xl pl-2 cursor-pointer drop-button float-right",
+              attrs: { id: "closeMenu" },
+              on: {
+                click: function($event) {
+                  return _vm.closeSidebarMenu("myDropdownMenu")
+                }
+              }
+            },
+            [_c("i", { staticClass: "fas fa-times" })]
+          ),
+          _vm._v(" "),
+          _c(
+            "router-link",
+            {
+              staticClass:
+                "p-2 hover:bg-gray-800  text-sm no-underline hover:no-underline block ",
+              attrs: { to: "/users/" + _vm.authuser.id }
+            },
+            [
+              _c("i", { staticClass: "fa fa-user-circle fa-fw" }),
+              _vm._v(" Profile")
+            ]
+          ),
+          _vm._v(" "),
+          _vm._m(2),
+          _vm._v(" "),
+          _vm._m(3),
+          _vm._v(" "),
+          _c("div", { staticClass: "border border-gray-800" }),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass:
+                "overflow-y-auto max-h-screen text-left justify-between"
+            },
+            _vm._l(_vm.allusers, function(user) {
+              return _c(
+                "div",
+                { key: user.id },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass:
+                        "block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white hover:border-pink-500",
+                      attrs: { to: "/" }
+                    },
+                    [
+                      user.social_path == null
+                        ? _c("img", {
+                            staticClass: "w-7 h-7 rounded-full inline",
+                            attrs: { src: "/uploads/users/photo/" + user.photo }
+                          })
+                        : _c("img", {
+                            staticClass: "w-7 h-7 rounded-full inline",
+                            attrs: { src: user.social_path }
+                          }),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "text-gray-600" }, [
+                        _vm._v(_vm._s(user.name))
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass:
+                            "py-2 px-4 text-blue-500 right-0 rounded-xl"
+                        },
+                        [_vm._v("Follow")]
+                      )
+                    ]
+                  )
+                ],
+                1
+              )
+            }),
+            0
+          )
+        ],
+        1
+      )
     ]
   )
 }
@@ -40841,16 +41034,32 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "flex-1 md:flex-none md:mr-3" }, [
-      _c(
-        "a",
-        {
-          staticClass: "inline-block py-2 px-4  no-underline",
-          attrs: { href: "#" }
-        },
-        [_vm._v("Active")]
-      )
-    ])
+    return _c(
+      "a",
+      {
+        staticClass:
+          "p-2 hover:bg-gray-800  text-sm no-underline hover:no-underline block",
+        attrs: { href: "/user/profile" }
+      },
+      [_c("i", { staticClass: "    fa-cog fa-fw" }), _vm._v(" Settings")]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        staticClass:
+          "p-2 hover:bg-gray-800  text-sm no-underline hover:no-underline block",
+        attrs: { href: "/logout" }
+      },
+      [
+        _c("i", { staticClass: "fas fa-sign-out-alt fa-fw" }),
+        _vm._v(" Log Out")
+      ]
+    )
   },
   function() {
     var _vm = this
@@ -40909,21 +41118,21 @@ var render = function() {
     "div",
     {
       staticClass:
-        "hidden-div shadow-lg h-16 fixed bottom-0 mt-12 md:relative md:h-screen z-10  md:w-1/4 "
+        "hidden-div shadow-lg h-16  bottom-0 mt-12 md:relative md:h-screen z-10  md:w-1/4 "
     },
     [
       _c(
         "div",
         {
           staticClass:
-            "md:mt-12 md:w-1/4 md:fixed md:right-0 md:top-0 content-center md:content-start text-left justify-between"
+            "md:mt-12 md:w-1/4 fixed md:right-0 md:top-0 content-center md:content-start text-left justify-between overflow-y-auto max-h-screen"
         },
         [
           _c(
             "ul",
             {
               staticClass:
-                "list-reset flex flex-row md:flex-col py-0 md:py-3 px-2 md:px-2 text-center md:text-left"
+                "list-reset flex flex-row md:flex-col py-0 md:py-3 px-2 md:px-2 text-center md:text-left mt-5"
             },
             _vm._l(_vm.allusers, function(user) {
               return _c(
@@ -40935,7 +41144,7 @@ var render = function() {
                     {
                       staticClass:
                         "block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white hover:border-pink-500",
-                      attrs: { to: "/" }
+                      attrs: { to: "#" }
                     },
                     [
                       user.social_path == null
@@ -40999,14 +41208,14 @@ var render = function() {
     "div",
     {
       staticClass:
-        "shadow-lg h-16 fixed bottom-0 mt-12 md:relative md:h-screen z-10 w-full md:w-48 "
+        "shadow-lg h-16 fixed bottom-0 mt-12 md:relative md:h-screen z-10 w-full md:w-48 sm:overflow-x-auto"
     },
     [
       _c(
         "div",
         {
           staticClass:
-            "md:mt-12 md:w-48 md:fixed md:left-0 md:top-0 content-center md:content-start text-left justify-between"
+            "md:mt-12 md:w-48 md:fixed md:left-0 md:top-0 content-center md:content-start text-left justify-between overflow-x-auto sm:overflow-x-auto md:overflow-y-auto"
         },
         [
           _c(
@@ -42073,186 +42282,181 @@ var render = function() {
         },
         [
           _vm._l(_vm.posts, function(post) {
-            return _c(
-              "div",
-              { key: post.id, staticClass: "w-full md:w-1/2 xl:w-1/3 p-3" },
-              [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "bg-white border-transparent rounded-lg shadow-lg"
-                  },
-                  [
-                    _c(
-                      "div",
-                      {
-                        staticClass:
-                          "bg-gray-400  text-gray-800 border-b-2 border-gray-500 rounded-tl-lg rounded-tr-lg p-2"
-                      },
-                      [
-                        _c(
-                          "router-link",
-                          { attrs: { to: "/users/" + _vm.user.id } },
-                          [
-                            _vm.user.social_path == null
-                              ? _c("img", {
-                                  staticClass: "w-7 h-7 rounded-full inline",
-                                  attrs: {
-                                    src:
-                                      "/uploads/users/photo/" + _vm.user.photo
-                                  }
-                                })
-                              : _c("img", {
-                                  staticClass: "w-7 h-7 rounded-full inline",
-                                  attrs: { src: _vm.user.social_path }
-                                }),
-                            _vm._v(" "),
-                            _c("span", { staticClass: "text-gray-600" }, [
-                              _vm._v(_vm._s(_vm.user.name))
-                            ])
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          { staticClass: "relative float-right inline-block" },
-                          [
-                            _c(
-                              "button",
-                              {
-                                staticClass:
-                                  "drop-button text-black focus:outline-none font-bold",
-                                on: {
-                                  click: function($event) {
-                                    return _vm.toggleDDd("myDropdown" + post.id)
-                                  }
+            return _c("div", { key: post.id, staticClass: "w-full  p-3" }, [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "bg-white border-transparent rounded-lg shadow-lg"
+                },
+                [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "bg-gray-400  text-gray-800 border-b-2 border-gray-500 rounded-tl-lg rounded-tr-lg p-2"
+                    },
+                    [
+                      _c(
+                        "router-link",
+                        { attrs: { to: "/users/" + _vm.user.id } },
+                        [
+                          _vm.user.social_path == null
+                            ? _c("img", {
+                                staticClass: "w-7 h-7 rounded-full inline",
+                                attrs: {
+                                  src: "/uploads/users/photo/" + _vm.user.photo
                                 }
-                              },
-                              [
-                                _vm._v(
-                                  "\n                                        ...\n                                    "
-                                )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "div",
-                              {
-                                staticClass:
-                                  "dropdownlist absolute w-60 bg-gray-400 rounded-tl-lg rounded-tr-lg text-black right-0 mt-3 p-3 overflow-auto z-30 invisible",
-                                attrs: { id: "myDropdown" + post.id }
-                              },
-                              [
-                                post.user_id == _vm.user.id && post.status == 1
-                                  ? _c(
-                                      "a",
-                                      {
-                                        staticClass:
-                                          "p-2 hover:bg-gray-800 text-black text-sm no-underline hover:no-underline block cursor-pointer",
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.showHideModal(post.id)
-                                          }
-                                        }
-                                      },
-                                      [_vm._v(" Deactive ")]
-                                    )
-                                  : _c(
-                                      "a",
-                                      {
-                                        staticClass:
-                                          "p-2 hover:bg-gray-800 text-black text-sm no-underline hover:no-underline block cursor-pointer text-red-700"
-                                      },
-                                      [_vm._v(" Deactived ")]
-                                    ),
-                                _vm._v(" "),
-                                post.user_id == _vm.user.id
-                                  ? _c(
-                                      "a",
-                                      {
-                                        staticClass:
-                                          "p-2 hover:bg-gray-800 text-red-700 text-sm no-underline hover:no-underline block cursor-pointer",
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.showDeleteModal(post.id)
-                                          }
-                                        }
-                                      },
-                                      [
-                                        _c("i", {
-                                          staticClass: "    fa-cog fa-fw"
-                                        }),
-                                        _vm._v(" Delete")
-                                      ]
-                                    )
-                                  : _vm._e(),
-                                _vm._v(" "),
-                                _c("div", {
-                                  staticClass: "border border-gray-800"
-                                }),
-                                _vm._v(" "),
-                                _vm._m(0, true)
-                              ]
-                            )
-                          ]
-                        )
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "p-5" },
-                      [
-                        _c(
-                          "router-link",
-                          { attrs: { to: "/video/" + post.id } },
-                          [
-                            _c(
-                              "video",
-                              {
-                                staticClass: "cursor-pointer h-56",
-                                attrs: { id: "video" + post.id, width: "420" },
-                                on: {
-                                  mouseover: function($event) {
-                                    return _vm.playVideo(post.id)
-                                  },
-                                  mouseout: function($event) {
-                                    return _vm.stopVideo(post.id)
-                                  }
+                              })
+                            : _c("img", {
+                                staticClass: "w-7 h-7 rounded-full inline",
+                                attrs: { src: _vm.user.social_path }
+                              }),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "text-gray-600" }, [
+                            _vm._v(_vm._s(_vm.user.name))
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "relative float-right inline-block" },
+                        [
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "drop-button text-black focus:outline-none font-bold",
+                              on: {
+                                click: function($event) {
+                                  return _vm.toggleDDd("myDropdown" + post.id)
                                 }
-                              },
-                              [
-                                _c("source", {
-                                  attrs: {
-                                    src: post.video_path,
-                                    type: "video/mp4"
-                                  }
-                                }),
-                                _vm._v(" "),
-                                _c("source", {
-                                  attrs: { src: "", type: "video/ogg" }
-                                }),
-                                _vm._v(
-                                  "\n                                    Your browser does not support HTML video.\n                                "
-                                )
-                              ]
-                            )
-                          ]
-                        ),
-                        _vm._v(
-                          "        \n                       \n                            " +
-                            _vm._s(post.discription.substring(0, 40)) +
-                            "\n                        "
-                        )
-                      ],
-                      1
-                    )
-                  ]
-                )
-              ]
-            )
+                              }
+                            },
+                            [
+                              _vm._v(
+                                "\n                                        ...\n                                    "
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "dropdownlist absolute  bg-gray-400 rounded-tl-lg rounded-tr-lg text-black right-0 mt-3 p-3 overflow-auto z-30 invisible",
+                              attrs: { id: "myDropdown" + post.id }
+                            },
+                            [
+                              post.user_id == _vm.user.id && post.status == 1
+                                ? _c(
+                                    "a",
+                                    {
+                                      staticClass:
+                                        "p-2 hover:bg-gray-800 text-black text-sm no-underline hover:no-underline block cursor-pointer",
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.showHideModal(post.id)
+                                        }
+                                      }
+                                    },
+                                    [_vm._v(" Deactive ")]
+                                  )
+                                : _c(
+                                    "a",
+                                    {
+                                      staticClass:
+                                        "p-2 hover:bg-gray-800 text-black text-sm no-underline hover:no-underline block cursor-pointer text-red-700"
+                                    },
+                                    [_vm._v(" Deactived ")]
+                                  ),
+                              _vm._v(" "),
+                              post.user_id == _vm.user.id
+                                ? _c(
+                                    "a",
+                                    {
+                                      staticClass:
+                                        "p-2 hover:bg-gray-800 text-red-700 text-sm no-underline hover:no-underline block cursor-pointer",
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.showDeleteModal(post.id)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass: "    fa-cog fa-fw"
+                                      }),
+                                      _vm._v(" Delete")
+                                    ]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _c("div", {
+                                staticClass: "border border-gray-800"
+                              }),
+                              _vm._v(" "),
+                              _vm._m(0, true)
+                            ]
+                          )
+                        ]
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "p-5" },
+                    [
+                      _c(
+                        "router-link",
+                        { attrs: { to: "/video/" + post.id } },
+                        [
+                          _c(
+                            "video",
+                            {
+                              staticClass: "cursor-pointer ",
+                              attrs: { id: "video" + post.id, width: "420" },
+                              on: {
+                                mouseover: function($event) {
+                                  return _vm.playVideo(post.id)
+                                },
+                                mouseout: function($event) {
+                                  return _vm.stopVideo(post.id)
+                                }
+                              }
+                            },
+                            [
+                              _c("source", {
+                                attrs: {
+                                  src: post.video_path,
+                                  type: "video/mp4"
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("source", {
+                                attrs: { src: "", type: "video/ogg" }
+                              }),
+                              _vm._v(
+                                "\n                                    Your browser does not support HTML video.\n                                "
+                              )
+                            ]
+                          )
+                        ]
+                      ),
+                      _vm._v(
+                        "        \n                       \n                            " +
+                          _vm._s(post.discription.substring(0, 40)) +
+                          "\n                        "
+                      )
+                    ],
+                    1
+                  )
+                ]
+              )
+            ])
           }),
           _vm._v(" "),
           _vm.showdeletemodal
@@ -42672,223 +42876,211 @@ var render = function() {
           staticClass: "flex flex-row flex-wrap flex-grow mt-2"
         },
         _vm._l(_vm.posts, function(post) {
-          return _c(
-            "div",
-            { key: post.id, staticClass: "w-full md:w-1/2 xl:w-1/3 p-3" },
-            [
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "bg-white border-transparent rounded-lg shadow-lg"
-                },
-                [
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "bg-gray-200  text-gray-800 border-b-2 border-gray-500 rounded-tl-lg rounded-tr-lg p-2"
-                    },
-                    [
-                      _c(
-                        "router-link",
-                        { attrs: { to: "/users/" + post.user.id } },
-                        [
-                          post.user.social_path == null
-                            ? _c("img", {
-                                staticClass: "w-7 h-7 rounded-full inline",
-                                attrs: {
-                                  src: "/uploads/users/photo/" + post.user.photo
-                                }
-                              })
-                            : _c("img", {
-                                staticClass: "w-7 h-7 rounded-full inline",
-                                attrs: { src: post.user.social_path }
-                              }),
-                          _vm._v(" "),
-                          _c("span", { staticClass: "text-gray-600" }, [
-                            _vm._v(_vm._s(post.user.name))
-                          ])
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "relative float-right inline-block" },
-                        [
-                          _c(
-                            "button",
-                            {
-                              staticClass:
-                                "drop-button text-black focus:outline-none font-bold",
-                              on: {
-                                click: function($event) {
-                                  return _vm.toggleDDd("myDropdown" + post.id)
-                                }
+          return _c("div", { key: post.id, staticClass: " p-3" }, [
+            _c(
+              "div",
+              {
+                staticClass: "bg-white border-transparent rounded-lg shadow-lg"
+              },
+              [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "bg-gray-200  text-gray-800 border-b-2 border-gray-500 rounded-tl-lg rounded-tr-lg p-2"
+                  },
+                  [
+                    _c(
+                      "router-link",
+                      { attrs: { to: "/users/" + post.user.id } },
+                      [
+                        post.user.social_path == null
+                          ? _c("img", {
+                              staticClass: "w-7 h-7 rounded-full inline",
+                              attrs: {
+                                src: "/uploads/users/photo/" + post.user.photo
                               }
-                            },
-                            [
-                              _vm._v(
-                                "\n                                  ...\n                              "
-                              )
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            {
-                              staticClass:
-                                "dropdownlist absolute w-60 bg-gray-400 rounded-tl-lg rounded-tr-lg text-black right-0 mt-3 p-3 overflow-auto z-30 invisible",
-                              attrs: { id: "myDropdown" + post.id }
-                            },
-                            [
-                              _c(
-                                "a",
-                                {
-                                  staticClass:
-                                    "p-2 hover:bg-gray-800 text-blue-700 text-sm no-underline hover:no-underline block cursor-pointer",
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.shareOnfacebook(
-                                        post.id,
-                                        post.user.name
-                                      )
-                                    }
-                                  }
-                                },
-                                [
-                                  _c("i", { staticClass: "fab fa-facebook" }),
-                                  _vm._v(" Share")
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "a",
-                                {
-                                  staticClass:
-                                    "p-2 hover:bg-gray-800 text-blue-500 text-sm no-underline hover:no-underline block cursor-pointer ",
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.shareOntwitter(
-                                        post.id,
-                                        post.user.name
-                                      )
-                                    }
-                                  }
-                                },
-                                [
-                                  _c("i", { staticClass: "fab fa-twitter" }),
-                                  _vm._v(" Share ")
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "a",
-                                {
-                                  staticClass:
-                                    "p-2 hover:bg-gray-800 text-black text-sm no-underline hover:no-underline block cursor-pointer",
-                                  on: {
-                                    click: function($event) {
-                                      _vm.copyToClipboard(post.id)
-                                      _vm.showToast("Link copied to clipboard.")
-                                    }
-                                  }
-                                },
-                                [
-                                  _c("i", { staticClass: "fa fa-copy" }),
-                                  _vm._v(" Copy")
-                                ]
-                              )
-                            ]
-                          )
-                        ]
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "p-5" },
-                    [
-                      _c(
-                        "router-link",
-                        { attrs: { to: "/video/" + post.id } },
-                        [
-                          _c(
-                            "video",
-                            {
-                              staticClass: "cursor-pointer w-full h-60",
-                              attrs: { id: "video" + post.id },
-                              on: {
-                                mouseover: function($event) {
-                                  return _vm.playVideo(post.id)
-                                },
-                                mouseout: function($event) {
-                                  return _vm.stopVideo(post.id)
-                                },
-                                "&scroll": function($event) {
-                                  return _vm.onScroll($event)
-                                }
-                              }
-                            },
-                            [
-                              _c("source", {
-                                attrs: {
-                                  src: post.video_path,
-                                  type: "video/mp4"
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c("source", {
-                                attrs: { src: "", type: "video/ogg" }
-                              }),
-                              _vm._v(
-                                "\n                                  Your browser does not support HTML video.\n                              "
-                              )
-                            ]
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c("span", {}, [
-                        _vm._v(
-                          "\n                              " +
-                            _vm._s(post.discription.substring(0, 30)) +
-                            "\n                              " +
-                            _vm._s(post.created_at.diffForHumans) +
-                            "   \n                          "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("span", { staticClass: "float-right" }, [
+                            })
+                          : _c("img", {
+                              staticClass: "w-7 h-7 rounded-full inline",
+                              attrs: { src: post.user.social_path }
+                            }),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "text-gray-600" }, [
+                          _vm._v(_vm._s(post.user.name))
+                        ])
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "relative float-right inline-block" },
+                      [
                         _c(
                           "button",
                           {
-                            class:
-                              "text-white font-bold  px-4 rounded-full focus:outline-none " +
-                              _vm.follow_collor,
-                            attrs: { id: "follow_class" + post.user.id },
+                            staticClass:
+                              "drop-button text-black focus:outline-none font-bold",
                             on: {
                               click: function($event) {
-                                return _vm.userFollow(post.user.id)
+                                return _vm.toggleDDd("myDropdown" + post.id)
                               }
                             }
                           },
                           [
                             _vm._v(
-                              "\n                              Follow\n                              "
+                              "\n                                  ...\n                              "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "dropdownlist absolute w-60 bg-gray-400 rounded-tl-lg rounded-tr-lg text-black right-0 mt-3 p-3 overflow-auto z-30 invisible",
+                            attrs: { id: "myDropdown" + post.id }
+                          },
+                          [
+                            _c(
+                              "a",
+                              {
+                                staticClass:
+                                  "p-2 hover:bg-gray-800 text-blue-700 text-sm no-underline hover:no-underline block cursor-pointer",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.shareOnfacebook(
+                                      post.id,
+                                      post.user.name
+                                    )
+                                  }
+                                }
+                              },
+                              [
+                                _c("i", { staticClass: "fab fa-facebook" }),
+                                _vm._v(" Share")
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "a",
+                              {
+                                staticClass:
+                                  "p-2 hover:bg-gray-800 text-blue-500 text-sm no-underline hover:no-underline block cursor-pointer ",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.shareOntwitter(
+                                      post.id,
+                                      post.user.name
+                                    )
+                                  }
+                                }
+                              },
+                              [
+                                _c("i", { staticClass: "fab fa-twitter" }),
+                                _vm._v(" Share ")
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "a",
+                              {
+                                staticClass:
+                                  "p-2 hover:bg-gray-800 text-black text-sm no-underline hover:no-underline block cursor-pointer",
+                                on: {
+                                  click: function($event) {
+                                    _vm.copyToClipboard(post.id)
+                                    _vm.showToast("Link copied to clipboard.")
+                                  }
+                                }
+                              },
+                              [
+                                _c("i", { staticClass: "fa fa-copy" }),
+                                _vm._v(" Copy")
+                              ]
                             )
                           ]
                         )
-                      ])
-                    ],
-                    1
-                  )
-                ]
-              )
-            ]
-          )
+                      ]
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "p-5" },
+                  [
+                    _c("router-link", { attrs: { to: "/video/" + post.id } }, [
+                      _c(
+                        "video",
+                        {
+                          staticClass: "cursor-pointer ",
+                          attrs: { id: "video" + post.id },
+                          on: {
+                            mouseover: function($event) {
+                              return _vm.playVideo(post.id)
+                            },
+                            mouseout: function($event) {
+                              return _vm.stopVideo(post.id)
+                            },
+                            "&scroll": function($event) {
+                              return _vm.onScroll($event)
+                            }
+                          }
+                        },
+                        [
+                          _c("source", {
+                            attrs: { src: post.video_path, type: "video/mp4" }
+                          }),
+                          _vm._v(" "),
+                          _c("source", {
+                            attrs: { src: "", type: "video/ogg" }
+                          }),
+                          _vm._v(
+                            "\n                                  Your browser does not support HTML video.\n                              "
+                          )
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("span", {}, [
+                      _vm._v(
+                        "\n                              " +
+                          _vm._s(post.discription.substring(0, 30)) +
+                          "\n                              " +
+                          _vm._s(post.created_at.diffForHumans) +
+                          "   \n                          "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "float-right" }, [
+                      _c(
+                        "button",
+                        {
+                          class:
+                            "text-white font-bold  px-4 rounded-full focus:outline-none " +
+                            _vm.follow_collor,
+                          attrs: { id: "follow_class" + post.user.id },
+                          on: {
+                            click: function($event) {
+                              return _vm.userFollow(post.user.id)
+                            }
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n                              Follow\n                              "
+                          )
+                        ]
+                      )
+                    ])
+                  ],
+                  1
+                )
+              ]
+            )
+          ])
         }),
         0
       ),
@@ -58617,7 +58809,9 @@ window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _App_vue_vue_type_template_id_332fccf4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./App.vue?vue&type=template&id=332fccf4& */ "./resources/js/components/App.vue?vue&type=template&id=332fccf4&");
 /* harmony import */ var _App_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./App.vue?vue&type=script&lang=js& */ "./resources/js/components/App.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _App_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./App.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/App.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -58625,7 +58819,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _App_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _App_vue_vue_type_template_id_332fccf4___WEBPACK_IMPORTED_MODULE_0__["render"],
   _App_vue_vue_type_template_id_332fccf4___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
@@ -58654,6 +58848,22 @@ component.options.__file = "resources/js/components/App.vue"
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./App.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/App.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/App.vue?vue&type=style&index=0&lang=css&":
+/*!**************************************************************************!*\
+  !*** ./resources/js/components/App.vue?vue&type=style&index=0&lang=css& ***!
+  \**************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./App.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/App.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+
 
 /***/ }),
 
@@ -58824,7 +59034,9 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _HeroMenu_vue_vue_type_template_id_6c133c8a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./HeroMenu.vue?vue&type=template&id=6c133c8a& */ "./resources/js/components/hero-section/HeroMenu.vue?vue&type=template&id=6c133c8a&");
 /* harmony import */ var _HeroMenu_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./HeroMenu.vue?vue&type=script&lang=js& */ "./resources/js/components/hero-section/HeroMenu.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _HeroMenu_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./HeroMenu.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/hero-section/HeroMenu.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -58832,7 +59044,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _HeroMenu_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _HeroMenu_vue_vue_type_template_id_6c133c8a___WEBPACK_IMPORTED_MODULE_0__["render"],
   _HeroMenu_vue_vue_type_template_id_6c133c8a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
@@ -58861,6 +59073,22 @@ component.options.__file = "resources/js/components/hero-section/HeroMenu.vue"
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_HeroMenu_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./HeroMenu.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/hero-section/HeroMenu.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_HeroMenu_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/hero-section/HeroMenu.vue?vue&type=style&index=0&lang=css&":
+/*!********************************************************************************************!*\
+  !*** ./resources/js/components/hero-section/HeroMenu.vue?vue&type=style&index=0&lang=css& ***!
+  \********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_HeroMenu_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./HeroMenu.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/hero-section/HeroMenu.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_HeroMenu_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_HeroMenu_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_HeroMenu_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_HeroMenu_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+
 
 /***/ }),
 
@@ -58893,9 +59121,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _HeroRightSidebar_vue_vue_type_template_id_55f16d08___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./HeroRightSidebar.vue?vue&type=template&id=55f16d08& */ "./resources/js/components/hero-section/HeroRightSidebar.vue?vue&type=template&id=55f16d08&");
 /* harmony import */ var _HeroRightSidebar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./HeroRightSidebar.vue?vue&type=script&lang=js& */ "./resources/js/components/hero-section/HeroRightSidebar.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _HeroRightSidebar_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./HeroRightSidebar.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/hero-section/HeroRightSidebar.vue?vue&type=style&index=0&lang=css&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -58903,7 +59129,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
   _HeroRightSidebar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _HeroRightSidebar_vue_vue_type_template_id_55f16d08___WEBPACK_IMPORTED_MODULE_0__["render"],
   _HeroRightSidebar_vue_vue_type_template_id_55f16d08___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
@@ -58932,22 +59158,6 @@ component.options.__file = "resources/js/components/hero-section/HeroRightSideba
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_HeroRightSidebar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./HeroRightSidebar.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/hero-section/HeroRightSidebar.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_HeroRightSidebar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/components/hero-section/HeroRightSidebar.vue?vue&type=style&index=0&lang=css&":
-/*!****************************************************************************************************!*\
-  !*** ./resources/js/components/hero-section/HeroRightSidebar.vue?vue&type=style&index=0&lang=css& ***!
-  \****************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_HeroRightSidebar_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./HeroRightSidebar.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/hero-section/HeroRightSidebar.vue?vue&type=style&index=0&lang=css&");
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_HeroRightSidebar_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_HeroRightSidebar_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_HeroRightSidebar_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_HeroRightSidebar_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-
 
 /***/ }),
 
