@@ -1,67 +1,58 @@
 <template>
-  <div class="main-content flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5">
+    <div class="main-content flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5">
 
+        <div class="flex flex-row flex-wrap flex-grow mt-2" v-infinite-scroll="onNextPage">
 
-            <div class="flex flex-row flex-wrap flex-grow mt-2" v-infinite-scroll="onNextPage">
+            <div class="w-full  p-3" v-for="post in posts" v-bind:key="post.id" >
+                <!--Graph Card-->
+                <div class="bg-white border-transparent rounded-lg shadow-lg ">
+                    <div class="bg-gray-200  text-gray-800 border-b-2 border-gray-500 rounded-tl-lg rounded-tr-lg p-2">
+                        <router-link :to="'/users/'+post.user.id">
+                            <img class="w-7 h-7 rounded-full inline"  :src="'/uploads/users/photo/'+post.user.photo" v-if="post.user.social_path == null">
+                            <img class="w-7 h-7 rounded-full inline"  :src="post.user.social_path" v-else> 
+                            <span class="text-gray-600">{{post.user.name}}</span>
+                        </router-link>
 
-                <div class="w-full  p-3" v-for="post in posts" v-bind:key="post.id" >
-                    <!--Graph Card-->
-                    <div class="bg-white border-transparent rounded-lg shadow-lg ">
-                        <div class="bg-gray-200  text-gray-800 border-b-2 border-gray-500 rounded-tl-lg rounded-tr-lg p-2">
-                            <router-link :to="'/users/'+post.user.id">
-                                <img class="w-7 h-7 rounded-full inline"  :src="'/uploads/users/photo/'+post.user.photo" v-if="post.user.social_path == null">
-                                <img class="w-7 h-7 rounded-full inline"  :src="post.user.social_path" v-else> 
-                                <span class="text-gray-600">{{post.user.name}}</span>
-                            </router-link>
-
-                            <div class="relative float-right inline-block">
-                                <button @click="toggleDDd('myDropdown'+post.id)" class="drop-button text-black focus:outline-none font-bold">
-                                    ...
-                                </button>
-                                <div :id="'myDropdown'+post.id" class="dropdownlist absolute w-60 bg-gray-400 rounded-tl-lg rounded-tr-lg text-black right-0 mt-3 p-3 overflow-auto z-30 invisible">
-                                    <a  class="p-2 hover:bg-gray-800 text-blue-700 text-sm no-underline hover:no-underline block cursor-pointer" @click="shareOnfacebook(post.id,post.user.name)"> <i class="fab fa-facebook"></i> Share</a>
-                                    <a  class="p-2 hover:bg-gray-800 text-blue-500 text-sm no-underline hover:no-underline block cursor-pointer " @click="shareOntwitter(post.id,post.user.name)"> <i class="fab fa-twitter"></i> Share </a>
-                                    <a   class="p-2 hover:bg-gray-800 text-black text-sm no-underline hover:no-underline block cursor-pointer"  @click="copyToClipboard(post.id);showToast('Link copied to clipboard.')"><i class="fa fa-copy" ></i> Copy</a>
-                                    
-                            
-                                </div>
+                        <div class="relative float-right inline-block">
+                            <button @click="toggleDDd('myDropdown'+post.id)" class="drop-button text-black focus:outline-none font-bold">
+                                ...
+                            </button>
+                            <div :id="'myDropdown'+post.id" class="dropdownlist absolute w-60 bg-gray-400 rounded-tl-lg rounded-tr-lg text-black right-0 mt-3 p-3 overflow-auto z-30 invisible">
+                                <a  class="p-2 hover:bg-gray-800 text-blue-700 text-sm no-underline hover:no-underline block cursor-pointer" @click="shareOnfacebook(post.id,post.user.name)"> <i class="fab fa-facebook"></i> Share</a>
+                                <a  class="p-2 hover:bg-gray-800 text-blue-500 text-sm no-underline hover:no-underline block cursor-pointer " @click="shareOntwitter(post.id,post.user.name)"> <i class="fab fa-twitter"></i> Share </a>
+                                <a   class="p-2 hover:bg-gray-800 text-black text-sm no-underline hover:no-underline block cursor-pointer"  @click="copyToClipboard(post.id);showToast('Link copied to clipboard.')"><i class="fa fa-copy" ></i> Copy</a>
                             </div>
-                            
                         </div>
-                        <div class="p-5">
-                            <router-link :to="'/video/'+post.id">
-                                <video :id="'video'+post.id"  class="cursor-pointer "
-                                 @keydown="playVideo(post.id);" 
-                                 v-on:mouseout="stopVideo(post.id)"
-                                 v-on:scroll.passive="onScroll"
-                                 >
-                                    <source :src="post.video_path" type="video/mp4">
-                                    <source src="" type="video/ogg">
-                                    Your browser does not support HTML video.
-                                </video>
-                            </router-link>        
-                       
-                            <span class="">
-                                {{post.discription.substring(0,30)}}
-                                {{post.created_at.diffForHumans}}   
-                            </span>
-                            <span class="float-right">
-
-                                <button @click="userFollow(post.user.id)" :class="'text-white font-bold  px-4 rounded-full focus:outline-none '+follow_collor" :id="'follow_class'+post.user.id">
-                                Follow
-                                </button>
-
-                            </span>
-                        </div>
+                        
                     </div>
-                    <!--/Graph Card-->
-                </div>
+                    <div class="p-5">
 
+                            <video  :id="'video'+post.id"  class="cursor-pointer max-h-screen"
+                                
+                                >
+                                <source :src="post.video_path" type="video/mp4">
+                                <source src="" type="video/ogg">
+                                Your browser does not support HTML video.
+                            </video>
+                            <button   @click="playVideo(post.id);"   class="active video-button focus:outline-none"><i  class="fa fa-play " :id="'video-play'+post.id"></i></button>
+
+                            
+                    
+                        <span class="">
+                            {{post.discription.substring(0,30)}}
+                            {{post.created_at.diffForHumans}}   
+                        </span>
+                       
+                    </div>
+                </div>
+                <!--/Graph Card-->
             </div>
-            <span v-if="nextLink">
-                <center><i class="fas fa-spinner fa-pulse text-blue-600" ></i></center> 
-            </span>
+
         </div>
+        <span v-if="nextLink">
+            <center><i class="fas fa-spinner fa-pulse text-blue-600" ></i></center> 
+        </span>
+    </div>
 </template>
 
 <script>
@@ -176,7 +167,17 @@ export default {
          */
         playVideo(id){
             var myVideo = document.getElementById("video"+id);
-            myVideo.play();
+            var videoplay = document.getElementById('video-play'+id);
+            
+            if(videoplay.classList.contains('fa-play')){
+                videoplay.classList.add('fa-play','fa-stop');
+                myVideo.play();
+            }
+            else if(videoplay.classList.contains("fa-stop")){
+                videoplay.classList.add("fa-stop",'fa-play');
+                myVideo.pause();
+            }
+            // myVideo.play();<i class="fas fa-stop"></i>
         },
 
         /**
@@ -218,5 +219,35 @@ export default {
 </script>
 
 <style>
-
+video {
+  
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: -1;
+  -webkit-transition: all 1s;
+  -moz-transition: all 1s;
+  -o-transition: all 1s;
+  transition: all 1s;
+}
+.video-button{
+    background-color: #666;
+    border: medium none;
+    color: #fff;
+    display: block;
+    font-size: 18px;
+    left: 0;
+    margin: 0 auto;
+    padding: 8px 16px;
+    position: relative;
+    right: 0;
+    top: 91%;
+    margin-top: -50px;
+}
+button.active {
+  background-color: transparent;
+}
 </style>

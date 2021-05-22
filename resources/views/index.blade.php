@@ -51,6 +51,9 @@
                 }
             }
         }
+       function playPauseVideo(post_id){
+         alert(post_id);
+        }
     </script>
 </body>
 </html>
