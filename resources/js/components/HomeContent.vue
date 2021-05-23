@@ -5,7 +5,7 @@
 
             <div class="w-full  p-3" v-for="post in posts" v-bind:key="post.id" >
                 <!--Graph Card-->
-                <div class="bg-white border-transparent rounded-lg shadow-lg ">
+                <div class="bg-white border-transparent rounded-lg shadow-lg " >
                     <div class="bg-gray-200  text-gray-800 border-b-2 border-gray-500 rounded-tl-lg rounded-tr-lg p-2">
                         <router-link :to="'/users/'+post.user.id">
                             <img class="w-7 h-7 rounded-full inline"  :src="'/uploads/users/photo/'+post.user.photo" v-if="post.user.social_path == null">
@@ -34,7 +34,7 @@
                                 <source src="" type="video/ogg">
                                 Your browser does not support HTML video.
                             </video>
-                            <button   @click="playVideo(post.id);"   class="active video-button focus:outline-none"><i  class="fa fa-play " :id="'video-play'+post.id"></i></button>
+                            <button   @click="playVideo(post.id);"   class="active video-button focus:outline-none"><i  class="fa fa-play text-orange-400" :id="'video-play'+post.id"></i></button>
 
                             
                     
@@ -50,7 +50,9 @@
 
         </div>
         <span v-if="nextLink">
-            <center><i class="fas fa-spinner fa-pulse text-blue-600" ></i></center> 
+            <center>
+                <i class="fas fa-spinner fa-pulse text-blue-600" ></i>
+            </center> 
         </span>
     </div>
 </template>

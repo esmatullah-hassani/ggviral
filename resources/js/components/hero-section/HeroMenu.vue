@@ -31,12 +31,12 @@
 							<button onclick="toggleDD('myDropdown')" class="drop-button  focus:outline-none hover:text-gray-900">
                                 {{authuser.name}}
                                 <svg class="h-3 fill-current inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg></button>
-                            <div id="myDropdown" class="dropdownlist absolute bg-indigo-900  right-0 mt-3 p-3 overflow-auto z-30 invisible">
-                                <input type="text" class="drop-search p-2 text-gray-600" placeholder="Search.." id="myInput" onkeyup="filterDD('myDropdown','myInput')">
-                                <router-link :to="'/users/'+authuser.id" class="p-2 hover:bg-gray-800  text-sm no-underline hover:no-underline block"><i class="fa fa-user-circle fa-fw"></i> Profile</router-link>
-                                <a href="/user/profile" class="p-2 hover:bg-gray-800  text-sm no-underline hover:no-underline block"><i class="    fa-cog fa-fw"></i> Settings</a>
-                                <div class="border border-gray-800"></div>
-                                <a href="/logout" class="p-2 hover:bg-gray-800  text-sm no-underline hover:no-underline block"><i class="fas fa-sign-out-alt fa-fw"></i> Log Out</a>
+                            <div id="myDropdown" class="dropdownlist absolute bg-gray-200 shadow-lg  right-0 mt-3 p-3 overflow-auto z-30 invisible">
+                                <input type="text" class="drop-search p-2 text-gray-600 border  focus:outline-none focus:border-gray-700 rounded py-1 px-2 pl-10 appearance-none leading-normal" placeholder="Search.." id="myInput" onkeyup="filterDD('myDropdown','myInput')">
+                                <router-link :to="'/users/'+authuser.id" class="p-2 hover:bg-orange-400 hover:text-white  text-sm no-underline hover:no-underline block"><i class="fa fa-user-circle fa-fw"></i> Profile</router-link>
+                                <a href="/user/profile" class="p-2 hover:bg-orange-400 hover:text-white text-sm no-underline hover:no-underline block"><i class="fa fa-cog"></i> Settings</a>
+                                <div class="border border-orange-400"></div>
+                                <a href="/logout" class="p-2 hover:bg-orange-400 hover:text-white text-sm no-underline hover:no-underline block"><i class="fas fa-sign-out-alt fa-fw"></i> Log Out</a>
                            
                             </div>
                         </div>
@@ -49,10 +49,10 @@
         <div id="myDropdownMenu" class="visible sm:visible md:hidden dropdownlist top-0  bg-white left-0 mt-0 h-screen  w-1/2 z-30 shadow-inner">
             <span @click="closeSidebarMenu('myDropdownMenu')"  id="closeMenu" class=" visible sm:visible md:hidden text-xl pl-2 cursor-pointer drop-button float-right"><i class="fas fa-times"></i></span>
 
-            <router-link :to="'/users/'+authuser.id" class="p-2 hover:bg-gray-800  text-sm no-underline hover:no-underline block "><i class="fa fa-user-circle fa-fw"></i> Profile</router-link>
-            <a href="/user/profile" class="p-2 hover:bg-gray-800  text-sm no-underline hover:no-underline block"><i class="    fa-cog fa-fw"></i> Settings</a>
-            <a href="/logout" class="p-2 hover:bg-gray-800  text-sm no-underline hover:no-underline block"><i class="fas fa-sign-out-alt fa-fw"></i> Log Out</a>
-            <div class="border border-gray-800"></div>
+            <router-link :to="'/users/'+authuser.id" class="p-2 hover:bg-orange-400 hover:text-white  text-sm no-underline hover:no-underline block "><i class="fa fa-user-circle fa-fw"></i> Profile</router-link>
+            <a href="/user/profile" class="p-2 hover:bg-orange-400 hover:text-white  text-sm no-underline hover:no-underline block"><i class="fa fa-cog"></i> Settings</a>
+            <a href="/logout" class="p-2 hover:bg-orange-400 hover:text-white text-sm no-underline hover:no-underline block"><i class="fas fa-sign-out-alt fa-fw"></i> Log Out</a>
+            <div class="border hover:bg-orange-400 hover:text-white"></div>
             
                 <div class="overflow-y-auto max-h-screen text-left justify-between">
                     <div v-for="user in allusers" v-bind:key="user.id">
@@ -60,7 +60,7 @@
                             <img class="w-7 h-7 rounded-full inline"  :src="'/uploads/users/photo/'+user.photo" v-if="user.social_path == null">
                             <img class="w-7 h-7 rounded-full inline"  :src="user.social_path" v-else> 
                             <span class="text-gray-600">{{user.name}}</span>                                        
-                            <button class="py-2 px-4 text-blue-500 right-0 rounded-xl">Follow</button>
+                            <button class="py-2 px-4 text-orange-400 right-0 rounded-xl">Follow</button>
                         </router-link>
                     </div>
                     
@@ -138,4 +138,5 @@ export default {
 #closeMenu{
     visibility: hidden;
 }
+
 </style>

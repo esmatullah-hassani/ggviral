@@ -3972,6 +3972,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "HomeContent",
@@ -8301,7 +8303,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "#myDropdownMenu{\n  visibility: hidden;\n}\n#closeMenu{\n  visibility: hidden;\n}\n", ""]);
+exports.push([module.i, "#myDropdownMenu{\n  visibility: hidden;\n}\n#closeMenu{\n  visibility: hidden;\n}\n\n", ""]);
 
 // exports
 
@@ -40465,7 +40467,7 @@ var render = function() {
                     },
                     [
                       _c("i", {
-                        staticClass: "fa fa-play ",
+                        staticClass: "fa fa-play text-orange-400",
                         attrs: { id: "video-play" + post.id }
                       })
                     ]
@@ -40914,12 +40916,13 @@ var render = function() {
                       "div",
                       {
                         staticClass:
-                          "dropdownlist absolute bg-indigo-900  right-0 mt-3 p-3 overflow-auto z-30 invisible",
+                          "dropdownlist absolute bg-gray-200 shadow-lg  right-0 mt-3 p-3 overflow-auto z-30 invisible",
                         attrs: { id: "myDropdown" }
                       },
                       [
                         _c("input", {
-                          staticClass: "drop-search p-2 text-gray-600",
+                          staticClass:
+                            "drop-search p-2 text-gray-600 border  focus:outline-none focus:border-gray-700 rounded py-1 px-2 pl-10 appearance-none leading-normal",
                           attrs: {
                             type: "text",
                             placeholder: "Search..",
@@ -40932,7 +40935,7 @@ var render = function() {
                           "router-link",
                           {
                             staticClass:
-                              "p-2 hover:bg-gray-800  text-sm no-underline hover:no-underline block",
+                              "p-2 hover:bg-orange-400 hover:text-white  text-sm no-underline hover:no-underline block",
                             attrs: { to: "/users/" + _vm.authuser.id }
                           },
                           [
@@ -40943,7 +40946,7 @@ var render = function() {
                         _vm._v(" "),
                         _vm._m(0),
                         _vm._v(" "),
-                        _c("div", { staticClass: "border border-gray-800" }),
+                        _c("div", { staticClass: "border border-orange-400" }),
                         _vm._v(" "),
                         _vm._m(1)
                       ],
@@ -40984,7 +40987,7 @@ var render = function() {
             "router-link",
             {
               staticClass:
-                "p-2 hover:bg-gray-800  text-sm no-underline hover:no-underline block ",
+                "p-2 hover:bg-orange-400 hover:text-white  text-sm no-underline hover:no-underline block ",
               attrs: { to: "/users/" + _vm.authuser.id }
             },
             [
@@ -40997,7 +41000,9 @@ var render = function() {
           _vm._v(" "),
           _vm._m(3),
           _vm._v(" "),
-          _c("div", { staticClass: "border border-gray-800" }),
+          _c("div", {
+            staticClass: "border hover:bg-orange-400 hover:text-white"
+          }),
           _vm._v(" "),
           _c(
             "div",
@@ -41036,7 +41041,7 @@ var render = function() {
                         "button",
                         {
                           staticClass:
-                            "py-2 px-4 text-blue-500 right-0 rounded-xl"
+                            "py-2 px-4 text-orange-400 right-0 rounded-xl"
                         },
                         [_vm._v("Follow")]
                       )
@@ -41063,10 +41068,10 @@ var staticRenderFns = [
       "a",
       {
         staticClass:
-          "p-2 hover:bg-gray-800  text-sm no-underline hover:no-underline block",
+          "p-2 hover:bg-orange-400 hover:text-white text-sm no-underline hover:no-underline block",
         attrs: { href: "/user/profile" }
       },
-      [_c("i", { staticClass: "    fa-cog fa-fw" }), _vm._v(" Settings")]
+      [_c("i", { staticClass: "fa fa-cog" }), _vm._v(" Settings")]
     )
   },
   function() {
@@ -41077,7 +41082,7 @@ var staticRenderFns = [
       "a",
       {
         staticClass:
-          "p-2 hover:bg-gray-800  text-sm no-underline hover:no-underline block",
+          "p-2 hover:bg-orange-400 hover:text-white text-sm no-underline hover:no-underline block",
         attrs: { href: "/logout" }
       },
       [
@@ -41094,10 +41099,10 @@ var staticRenderFns = [
       "a",
       {
         staticClass:
-          "p-2 hover:bg-gray-800  text-sm no-underline hover:no-underline block",
+          "p-2 hover:bg-orange-400 hover:text-white  text-sm no-underline hover:no-underline block",
         attrs: { href: "/user/profile" }
       },
-      [_c("i", { staticClass: "    fa-cog fa-fw" }), _vm._v(" Settings")]
+      [_c("i", { staticClass: "fa fa-cog" }), _vm._v(" Settings")]
     )
   },
   function() {
@@ -41108,7 +41113,7 @@ var staticRenderFns = [
       "a",
       {
         staticClass:
-          "p-2 hover:bg-gray-800  text-sm no-underline hover:no-underline block",
+          "p-2 hover:bg-orange-400 hover:text-white text-sm no-underline hover:no-underline block",
         attrs: { href: "/logout" }
       },
       [
@@ -41258,18 +41263,18 @@ var render = function() {
                     "router-link",
                     {
                       staticClass:
-                        "block py-1 md:py-3 pl-1 align-middle text-white no-underline border-b-2 border-gray-800 hover:border-pink-500  ",
+                        "block py-1 md:py-3 pl-1 align-middle  no-underline border-b-2  hover:border-orange-400  ",
                       attrs: { to: "/" }
                     },
                     [
                       _c("i", {
-                        staticClass: "fas fa-home pr-0 md:pr-0 text-blue-600"
+                        staticClass: "fas fa-home pr-0 md:pr-0 text-orange-400"
                       }),
                       _c(
                         "span",
                         {
                           staticClass:
-                            "pb-1 md:pb-0 text-xs      md:text-base text-black md:text-black block md:inline-block pl-5"
+                            "pb-1 md:pb-0 text-xs      md:text-base   block md:inline-block pl-5"
                         },
                         [_vm._v("Home")]
                       )
@@ -41287,18 +41292,19 @@ var render = function() {
                     "router-link",
                     {
                       staticClass:
-                        "block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-pink-500",
+                        "block py-1 md:py-3 pl-1 align-middle  no-underline  border-b-2  hover:border-orange-400",
                       attrs: { to: "/posts/create" }
                     },
                     [
                       _c("i", {
-                        staticClass: "fas fa-upload pr-0 md:pr-0 text-blue-600"
+                        staticClass:
+                          "fas fa-upload pr-0 md:pr-0 text-orange-400"
                       }),
                       _c(
                         "span",
                         {
                           staticClass:
-                            "pb-1 md:pb-0 text-xs md:text-base text-black md:text-black block md:inline-block pl-5"
+                            "pb-1 md:pb-0 text-xs md:text-base   block md:inline-block pl-5"
                         },
                         [_vm._v("Upload")]
                       )
@@ -41316,19 +41322,19 @@ var render = function() {
                     "router-link",
                     {
                       staticClass:
-                        "block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-purple-500",
+                        "block py-1 md:py-3 pl-1 align-middle  no-underline  border-b-2  hover:border-orange-400",
                       attrs: { to: "/chats" }
                     },
                     [
                       _c("i", {
-                        staticClass: "fa fa-video pr-0 md:pr-0 text-blue-600",
+                        staticClass: "fa fa-video pr-0 md:pr-0 text-orange-400",
                         attrs: { title: "live" }
                       }),
                       _c(
                         "span",
                         {
                           staticClass:
-                            "pb-1 md:pb-0 text-xs md:text-base text-black md:text-black block md:inline-block pl-5"
+                            "pb-1 md:pb-0 text-xs md:text-base   block md:inline-block pl-5"
                         },
                         [_vm._v("Live")]
                       ),
@@ -41358,18 +41364,18 @@ var render = function() {
                     "router-link",
                     {
                       staticClass:
-                        "block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-gray-800 hover:border-purple-500",
+                        "block py-1 md:py-3 pl-1 align-middle  no-underline  border-b-2  hover:border-orange-400",
                       attrs: { to: "/following" }
                     },
                     [
                       _c("i", {
-                        staticClass: "fa fa-envelope pr-0 md:pr-3 text-blue-600"
+                        staticClass: "fa fa-user pr-0 md:pr-0 text-orange-400"
                       }),
                       _c(
                         "span",
                         {
                           staticClass:
-                            "pb-1 md:pb-0 text-xs md:text-base text-black md:text-black block md:inline-block"
+                            "pb-1 md:pb-0 text-xs md:text-base   block md:inline-block pl-5"
                         },
                         [_vm._v("Following")]
                       )
@@ -41387,19 +41393,18 @@ var render = function() {
                     "router-link",
                     {
                       staticClass:
-                        "block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white border-b-2 border-blue-600",
+                        "block py-1 md:py-3 pl-1 align-middle  no-underline  border-b-2 hover:border-orange-400",
                       attrs: { to: "/follower" }
                     },
                     [
                       _c("i", {
-                        staticClass:
-                          "fas fa-chart-area pr-0 md:pr-3 text-blue-600"
+                        staticClass: "fas fa-user pr-0 md:pr-0  text-orange-400"
                       }),
                       _c(
                         "span",
                         {
                           staticClass:
-                            "pb-1 md:pb-0 text-xs md:text-base text-black md:text-black block md:inline-block"
+                            "pb-1 md:pb-0 text-xs md:text-base   block md:inline-block pl-5"
                         },
                         [_vm._v("Follower")]
                       )

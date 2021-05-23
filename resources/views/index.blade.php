@@ -6,6 +6,15 @@
     <title>GGviral</title>
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     <script  src="{{asset('css/font.js')}}"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300&display=swap" rel="stylesheet">
+<style>
+    body{
+        font-family: Helvetica, sans-serif;
+        color:#5f6368 !important;
+    }
+    
+</style>
 </head>
 <body>
 <div id="app">
