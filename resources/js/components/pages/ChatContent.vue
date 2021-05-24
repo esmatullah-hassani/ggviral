@@ -1,11 +1,10 @@
 <template>
-  <div class="main-content flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5">
-    <div class="bg-indigo-900 p-2 shadow text-xl text-white">
-      <h3 class="font-bold pl-2">Live</h3>
-    </div>
-    <center><button @click="getLive">Live</button></center>
+    <div class="main-content flex-1 bg-gray-100 mt-4 md:mt-4 pb-24 md:pb-5 justify-center">
     
-    <div class="col-12 video-container" v-if="callPlaced">
+    <center><button @click="getLive" class="py-2 px-4 bg-orange-400 rounded-full text-white hover:font-bold"> <i class="fa fa-video"></i> Live</button></center>
+
+    
+    <div class="w-full sm:w-3/4 md:w-3/4 md:ml-28" v-if="callPlaced">
     <video
       ref="userVideo"
       muted
@@ -30,21 +29,21 @@
           <p class="q-pt-md">
             <strong>{{ callPartner }}</strong>
           </p>
-          <p>In live...</p>
+          <p class="text-orange-400">In live...</p>
         </div>
       </div>
     </div>
     <div class="action-btns ">
       
-      <div class="user-button" v-show="controlCall">
+      <div class="mb-0" v-show="controlCall">
         <button
         type="button"
-        class="btn btn-primary mx-4"
+        class="btn btn-primary mx-4 py-2 px-4 hover:bg-orange-400 hover:text-white rounded-full"
         @click="toggleMuteVideo"
         >
           {{ mutedVideo ? "ShowVideo" : "HideVideo" }}
         </button>
-        <button type="button" class="btn btn-danger" @click="endCall">
+        <button type="button" class="btn btn-danger py-2 px-4 bg-transparent hover:bg-orange-400 hover:text-white rounded-full" @click="endCall">
           EndLive
         </button>
       </div>
@@ -525,17 +524,7 @@ export default {
   border: 1px solid #0acf83;
 }
 
-.video-container {
-  width: 1000px;
-  height: 7000px;
-  max-width: 90vw;
-  max-height: 50vh;
-  margin: 0 auto;
-  border: 1px solid #0acf83;
-  position: relative;
-  box-shadow: 1px 1px 11px #9e9e9e;
-  background-color: #fff;
-}
+
 
 .video-container .user-video {
   width: 20%;

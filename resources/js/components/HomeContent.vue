@@ -13,21 +13,21 @@
                             <span class="text-gray-600">{{post.user.name}}</span>
                         </router-link>
 
-                        <div class="relative float-right inline-block">
-                            <button @click="toggleDDd('myDropdown'+post.id)" class="drop-button text-black focus:outline-none font-bold">
+                        <div class="relative float-right inline-block ">
+                            <button @click="toggleDDd('myDropdown'+post.id)" class="drop-button text-orange-400 focus:outline-none font-bold">
                                 ...
                             </button>
-                            <div :id="'myDropdown'+post.id" class="dropdownlist absolute w-60 bg-gray-400 rounded-tl-lg rounded-tr-lg text-black right-0 mt-3 p-3 overflow-auto z-30 invisible">
-                                <a  class="p-2 hover:bg-gray-800 text-blue-700 text-sm no-underline hover:no-underline block cursor-pointer" @click="shareOnfacebook(post.id,post.user.name)"> <i class="fab fa-facebook"></i> Share</a>
-                                <a  class="p-2 hover:bg-gray-800 text-blue-500 text-sm no-underline hover:no-underline block cursor-pointer " @click="shareOntwitter(post.id,post.user.name)"> <i class="fab fa-twitter"></i> Share </a>
-                                <a   class="p-2 hover:bg-gray-800 text-black text-sm no-underline hover:no-underline block cursor-pointer"  @click="copyToClipboard(post.id);showToast('Link copied to clipboard.')"><i class="fa fa-copy" ></i> Copy</a>
+                            <div :id="'myDropdown'+post.id" class="dropdownlist absolute w-60 bg-gray-200 rounded-tl-lg rounded-tr-lg text-black right-0 mt-3 p-3 overflow-auto z-30 invisible">
+                                <a  class="p-2 hover:bg-orange-400 hover:text-white text-blue-700 text-sm no-underline hover:no-underline block cursor-pointer" @click="shareOnfacebook(post.id,post.user.name)"> <i class="fab fa-facebook"></i> Share</a>
+                                <a  class="p-2 hover:bg-orange-400 hover:text-white text-blue-500 text-sm no-underline hover:no-underline block cursor-pointer " @click="shareOntwitter(post.id,post.user.name)"> <i class="fab fa-twitter"></i> Share </a>
+                                <a   class="p-2 hover:bg-orange-400 hover:text-white text-black text-sm no-underline hover:no-underline block cursor-pointer"  @click="copyToClipboard(post.id);showToast('Link copied to clipboard.')"><i class="fa fa-copy" ></i> Copy</a>
                             </div>
                         </div>
                         
                     </div>
                     <div class="p-5">
 
-                            <video  :id="'video'+post.id"  class="cursor-pointer max-h-screen"
+                            <video  :id="'video'+post.id"  class="cursor-pointer max-h-screen mb-2"
                                 
                                 >
                                 <source :src="post.video_path" type="video/mp4">
@@ -38,11 +38,38 @@
 
                             
                     
-                        <span class="">
+                        <span class="pt-5">
                             {{post.discription.substring(0,30)}}
                             {{post.created_at.diffForHumans}}   
                         </span>
+                        <p v-for="comment in post.comments" v-bind:key="comment.id">
+                            <img class="w-7 h-7 rounded-full inline"  :src="'/uploads/users/photo/'+comment.photo" v-if="comment.social_path == null">
+                            <img class="w-7 h-7 rounded-full inline"  :src="comment.social_path" v-else> 
+                            <span class="font-bold">{{comment.name}}</span> : {{comment.comment}}
+                        </p>
                        
+                    </div>
+                    <div class="shadow flex">
+                        <input 
+                            class="w-full  text-sm text-black transition border  focus:outline-none focus:border-gray-700 rounded py-1 px-2 pl-10 appearance-none leading-normal" 
+                            type="text" 
+                            placeholder="Write a comment ..."
+                            v-model="comment"
+                            @keyup="checkKey($event,post.id)"
+                        >
+                        <button
+                        @click="setComment(post.id)"
+                        class="bg-white w-auto flex justify-end items-center text-blue-500 p-2 hover:text-blue-400 focus:outline-none">
+                        
+                            <span v-if="load_button">
+                                <i class="fas fa-spinner fa-pulse text-blue-600" ></i>
+                            </span>
+
+                            <span v-if="send_button">
+                            <i class="fa fa-paper-plane  text-blue-600" ></i>
+                            </span> 
+                            
+                        </button>
                     </div>
                 </div>
                 <!--/Graph Card-->
@@ -70,6 +97,10 @@ export default {
             nextLink:true,
             follow_collor:"bg-pink-500 hover:bg-blue-700",
             follows:null,
+            send_button:true,
+            load_button:false,
+            comment:null,
+            comments:[],
         }
     },
     created(){
@@ -77,6 +108,36 @@ export default {
     },
     
     methods:{
+
+        /**
+         * store comment of spicifig video
+         */
+        setComment(post_id){
+            this.load_button = true;
+            var formData = new FormData();
+            formData.append('comment',this.comment);
+            formData.append("post_id",post_id);
+            this.services.setComment(formData)
+            .then((response) => {
+                if(response.data.status){
+                    this.comment = "";
+                    this.load_button = false;
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        },
+
+        /**
+         * Submit if press enter button
+         */
+        checkKey(event,post_id){
+            if(event.keyCode == 13){
+                this.setComment(post_id);
+            }
+        },
+
         //share to facebook
         shareOnfacebook(video,name){
             var url = `https://www.facebook.com/sharer/sharer.php?u=ggviral.com/#/video/${video}`;
@@ -247,7 +308,7 @@ video {
     position: relative;
     right: 0;
     top: 91%;
-    margin-top: -50px;
+    margin-top: -55px;
 }
 button.active {
   background-color: transparent;

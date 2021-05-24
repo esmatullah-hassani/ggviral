@@ -18,8 +18,10 @@ class PostController extends Controller
     public function index()
     {
         $follows = Follow::where('user_1',Auth::id())->get();
-        $posts = Post::with("user")
-       
+        $posts = Post::with("user")->with(["comments" => function($q){
+            $q->select("post_user.*",'users.name','users.photo','users.social_path')
+            ->join("users","post_user.user_id","users.id");
+        }])
         ->orderBy("created_at",'desc')->where("status",1)->paginate(6);
         return response(['status' => true,'posts' => $posts,'follows' => $follows]);
     }

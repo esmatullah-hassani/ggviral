@@ -3974,6 +3974,33 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "HomeContent",
@@ -3985,13 +4012,45 @@ __webpack_require__.r(__webpack_exports__);
       services: new _services_api_service__WEBPACK_IMPORTED_MODULE_0__["default"](),
       nextLink: true,
       follow_collor: "bg-pink-500 hover:bg-blue-700",
-      follows: null
+      follows: null,
+      send_button: true,
+      load_button: false,
+      comment: null,
+      comments: []
     };
   },
   created: function created() {
     this.getPost();
   },
   methods: {
+    /**
+     * store comment of spicifig video
+     */
+    setComment: function setComment(post_id) {
+      var _this = this;
+
+      this.load_button = true;
+      var formData = new FormData();
+      formData.append('comment', this.comment);
+      formData.append("post_id", post_id);
+      this.services.setComment(formData).then(function (response) {
+        if (response.data.status) {
+          _this.comment = "";
+          _this.load_button = false;
+        }
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+
+    /**
+     * Submit if press enter button
+     */
+    checkKey: function checkKey(event, post_id) {
+      if (event.keyCode == 13) {
+        this.setComment(post_id);
+      }
+    },
     //share to facebook
     shareOnfacebook: function shareOnfacebook(video, name) {
       var url = "https://www.facebook.com/sharer/sharer.php?u=ggviral.com/#/video/".concat(video);
@@ -4035,25 +4094,25 @@ __webpack_require__.r(__webpack_exports__);
      * Display all post
      */
     getPost: function getPost() {
-      var _this = this;
+      var _this2 = this;
 
       var pageNumber = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
       this.services.getPost(pageNumber).then(function (response) {
         if (response.data.status) {
           if (response.data.posts.data.length == 0) {
-            _this.nextLink = false;
+            _this2.nextLink = false;
           }
 
           if (pageNumber == null) {
-            _this.posts = response.data.posts.data;
-            _this.follows = response.data.follows;
+            _this2.posts = response.data.posts.data;
+            _this2.follows = response.data.follows;
           } else {
             for (var x = 0; x < response.data.posts.data.length; x++) {
-              _this.posts.push(response.data.posts.data[x]);
+              _this2.posts.push(response.data.posts.data[x]);
             }
           }
 
-          if (response.data.posts.to == response.data.posts.total) _this.nextLink = false;
+          if (response.data.posts.to == response.data.posts.total) _this2.nextLink = false;
         }
       })["catch"](function (errors) {
         console.log(errors + " errors");
@@ -4108,14 +4167,14 @@ __webpack_require__.r(__webpack_exports__);
      * follow
      */
     userFollow: function userFollow(user_2) {
-      var _this2 = this;
+      var _this3 = this;
 
       var formData = new FormData();
       formData.append("user_1", this.authuser.id);
       formData.append("user_2", user_2);
       this.services.userFollow(formData).then(function (response) {
         if (response.data.status) {
-          _this2.getPost(_this2.currentpage); // if(response.data.message == 1){
+          _this3.getPost(_this3.currentpage); // if(response.data.message == 1){
           // }
           // else if(response.data.message == 2){
           //     var dd = document.getElementById("follow_class"+user_2);
@@ -4755,7 +4814,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
 //
 //
 //
@@ -6079,11 +6137,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
 //
 //
 //
@@ -8284,7 +8337,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "video {\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  min-width: 100%;\n  min-height: 100%;\n  z-index: -1;\n  transition: all 1s;\n}\n.video-button{\n  background-color: #666;\n  border: medium none;\n  color: #fff;\n  display: block;\n  font-size: 18px;\n  left: 0;\n  margin: 0 auto;\n  padding: 8px 16px;\n  position: relative;\n  right: 0;\n  top: 91%;\n  margin-top: -50px;\n}\nbutton.active {\n  background-color: transparent;\n}\n", ""]);
+exports.push([module.i, "video {\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  min-width: 100%;\n  min-height: 100%;\n  z-index: -1;\n  transition: all 1s;\n}\n.video-button{\n  background-color: #666;\n  border: medium none;\n  color: #fff;\n  display: block;\n  font-size: 18px;\n  left: 0;\n  margin: 0 auto;\n  padding: 8px 16px;\n  position: relative;\n  right: 0;\n  top: 91%;\n  margin-top: -55px;\n}\nbutton.active {\n  background-color: transparent;\n}\n", ""]);
 
 // exports
 
@@ -8322,7 +8375,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "#video-row[data-v-1ff6365b] {\n  width: 100%;\n  max-width: 90vw;\n}\n#incoming-call-card[data-v-1ff6365b] {\n  border: 1px solid #0acf83;\n}\n.video-container[data-v-1ff6365b] {\n  width: 1000px;\n  height: 7000px;\n  max-width: 90vw;\n  max-height: 50vh;\n  margin: 0 auto;\n  border: 1px solid #0acf83;\n  position: relative;\n  box-shadow: 1px 1px 11px #9e9e9e;\n  background-color: #fff;\n}\n.video-container .user-video[data-v-1ff6365b] {\n  width: 20%;\n  position: absolute;\n  left: 10px;\n  bottom: 10px;\n  border: 1px solid #fff;\n  border-radius: 6px;\n  z-index: 2;\n}\n.video-container .partner-video[data-v-1ff6365b] {\n  width: 100%;\n  height: 100%;\n  position: absolute;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  top: 0;\n  z-index: 1;\n  margin: 0;\n  padding: 0;\n}\n.video-container .action-btns[data-v-1ff6365b] {\n  position: absolute;\n  bottom: 20px;\n  left: 50%;\n  margin-left: -50px;\n  z-index: 3;\n  display: flex;\n  flex-direction: row;\n  align-content: center;\n}\n\n/* Mobiel Styles */\n@media only screen and (max-width: 768px) {\n.video-container[data-v-1ff6365b] {\n    height: 50vh;\n}\n}\n\n", ""]);
+exports.push([module.i, "#video-row[data-v-1ff6365b] {\n  width: 100%;\n  max-width: 90vw;\n}\n#incoming-call-card[data-v-1ff6365b] {\n  border: 1px solid #0acf83;\n}\n.video-container .user-video[data-v-1ff6365b] {\n  width: 20%;\n  position: absolute;\n  left: 10px;\n  bottom: 10px;\n  border: 1px solid #fff;\n  border-radius: 6px;\n  z-index: 2;\n}\n.video-container .partner-video[data-v-1ff6365b] {\n  width: 100%;\n  height: 100%;\n  position: absolute;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  top: 0;\n  z-index: 1;\n  margin: 0;\n  padding: 0;\n}\n.video-container .action-btns[data-v-1ff6365b] {\n  position: absolute;\n  bottom: 20px;\n  left: 50%;\n  margin-left: -50px;\n  z-index: 3;\n  display: flex;\n  flex-direction: row;\n  align-content: center;\n}\n\n/* Mobiel Styles */\n@media only screen and (max-width: 768px) {\n.video-container[data-v-1ff6365b] {\n    height: 50vh;\n}\n}\n\n", ""]);
 
 // exports
 
@@ -40343,13 +40396,13 @@ var render = function() {
                     _vm._v(" "),
                     _c(
                       "div",
-                      { staticClass: "relative float-right inline-block" },
+                      { staticClass: "relative float-right inline-block " },
                       [
                         _c(
                           "button",
                           {
                             staticClass:
-                              "drop-button text-black focus:outline-none font-bold",
+                              "drop-button text-orange-400 focus:outline-none font-bold",
                             on: {
                               click: function($event) {
                                 return _vm.toggleDDd("myDropdown" + post.id)
@@ -40367,7 +40420,7 @@ var render = function() {
                           "div",
                           {
                             staticClass:
-                              "dropdownlist absolute w-60 bg-gray-400 rounded-tl-lg rounded-tr-lg text-black right-0 mt-3 p-3 overflow-auto z-30 invisible",
+                              "dropdownlist absolute w-60 bg-gray-200 rounded-tl-lg rounded-tr-lg text-black right-0 mt-3 p-3 overflow-auto z-30 invisible",
                             attrs: { id: "myDropdown" + post.id }
                           },
                           [
@@ -40375,7 +40428,7 @@ var render = function() {
                               "a",
                               {
                                 staticClass:
-                                  "p-2 hover:bg-gray-800 text-blue-700 text-sm no-underline hover:no-underline block cursor-pointer",
+                                  "p-2 hover:bg-orange-400 hover:text-white text-blue-700 text-sm no-underline hover:no-underline block cursor-pointer",
                                 on: {
                                   click: function($event) {
                                     return _vm.shareOnfacebook(
@@ -40395,7 +40448,7 @@ var render = function() {
                               "a",
                               {
                                 staticClass:
-                                  "p-2 hover:bg-gray-800 text-blue-500 text-sm no-underline hover:no-underline block cursor-pointer ",
+                                  "p-2 hover:bg-orange-400 hover:text-white text-blue-500 text-sm no-underline hover:no-underline block cursor-pointer ",
                                 on: {
                                   click: function($event) {
                                     return _vm.shareOntwitter(
@@ -40415,7 +40468,7 @@ var render = function() {
                               "a",
                               {
                                 staticClass:
-                                  "p-2 hover:bg-gray-800 text-black text-sm no-underline hover:no-underline block cursor-pointer",
+                                  "p-2 hover:bg-orange-400 hover:text-white text-black text-sm no-underline hover:no-underline block cursor-pointer",
                                 on: {
                                   click: function($event) {
                                     _vm.copyToClipboard(post.id)
@@ -40436,52 +40489,141 @@ var render = function() {
                   1
                 ),
                 _vm._v(" "),
-                _c("div", { staticClass: "p-5" }, [
-                  _c(
-                    "video",
-                    {
-                      staticClass: "cursor-pointer max-h-screen",
-                      attrs: { id: "video" + post.id }
-                    },
-                    [
-                      _c("source", {
-                        attrs: { src: post.video_path, type: "video/mp4" }
-                      }),
-                      _vm._v(" "),
-                      _c("source", { attrs: { src: "", type: "video/ogg" } }),
+                _c(
+                  "div",
+                  { staticClass: "p-5" },
+                  [
+                    _c(
+                      "video",
+                      {
+                        staticClass: "cursor-pointer max-h-screen mb-2",
+                        attrs: { id: "video" + post.id }
+                      },
+                      [
+                        _c("source", {
+                          attrs: { src: post.video_path, type: "video/mp4" }
+                        }),
+                        _vm._v(" "),
+                        _c("source", { attrs: { src: "", type: "video/ogg" } }),
+                        _vm._v(
+                          "\n                            Your browser does not support HTML video.\n                        "
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "active video-button focus:outline-none",
+                        on: {
+                          click: function($event) {
+                            return _vm.playVideo(post.id)
+                          }
+                        }
+                      },
+                      [
+                        _c("i", {
+                          staticClass: "fa fa-play text-orange-400",
+                          attrs: { id: "video-play" + post.id }
+                        })
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "pt-5" }, [
                       _vm._v(
-                        "\n                            Your browser does not support HTML video.\n                        "
+                        "\n                        " +
+                          _vm._s(post.discription.substring(0, 30)) +
+                          "\n                        " +
+                          _vm._s(post.created_at.diffForHumans) +
+                          "   \n                    "
                       )
-                    ]
-                  ),
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(post.comments, function(comment) {
+                      return _c("p", { key: comment.id }, [
+                        comment.social_path == null
+                          ? _c("img", {
+                              staticClass: "w-7 h-7 rounded-full inline",
+                              attrs: {
+                                src: "/uploads/users/photo/" + comment.photo
+                              }
+                            })
+                          : _c("img", {
+                              staticClass: "w-7 h-7 rounded-full inline",
+                              attrs: { src: comment.social_path }
+                            }),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "font-bold" }, [
+                          _vm._v(_vm._s(comment.name))
+                        ]),
+                        _vm._v(
+                          " : " +
+                            _vm._s(comment.comment) +
+                            "\n                    "
+                        )
+                      ])
+                    })
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "shadow flex" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.comment,
+                        expression: "comment"
+                      }
+                    ],
+                    staticClass:
+                      "w-full  text-sm text-black transition border  focus:outline-none focus:border-gray-700 rounded py-1 px-2 pl-10 appearance-none leading-normal",
+                    attrs: { type: "text", placeholder: "Write a comment ..." },
+                    domProps: { value: _vm.comment },
+                    on: {
+                      keyup: function($event) {
+                        return _vm.checkKey($event, post.id)
+                      },
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.comment = $event.target.value
+                      }
+                    }
+                  }),
                   _vm._v(" "),
                   _c(
                     "button",
                     {
-                      staticClass: "active video-button focus:outline-none",
+                      staticClass:
+                        "bg-white w-auto flex justify-end items-center text-blue-500 p-2 hover:text-blue-400 focus:outline-none",
                       on: {
                         click: function($event) {
-                          return _vm.playVideo(post.id)
+                          return _vm.setComment(post.id)
                         }
                       }
                     },
                     [
-                      _c("i", {
-                        staticClass: "fa fa-play text-orange-400",
-                        attrs: { id: "video-play" + post.id }
-                      })
+                      _vm.load_button
+                        ? _c("span", [
+                            _c("i", {
+                              staticClass:
+                                "fas fa-spinner fa-pulse text-blue-600"
+                            })
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.send_button
+                        ? _c("span", [
+                            _c("i", {
+                              staticClass: "fa fa-paper-plane  text-blue-600"
+                            })
+                          ])
+                        : _vm._e()
                     ]
-                  ),
-                  _vm._v(" "),
-                  _c("span", {}, [
-                    _vm._v(
-                      "\n                        " +
-                        _vm._s(post.discription.substring(0, 30)) +
-                        "\n                        " +
-                        _vm._s(post.created_at.diffForHumans) +
-                        "   \n                    "
-                    )
-                  ])
+                  )
                 ])
               ]
             )
@@ -41540,17 +41682,24 @@ var render = function() {
   return _c(
     "div",
     {
-      staticClass: "main-content flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5"
+      staticClass:
+        "main-content flex-1 bg-gray-100 mt-4 md:mt-4 pb-24 md:pb-5 justify-center"
     },
     [
-      _vm._m(0),
-      _vm._v(" "),
       _c("center", [
-        _c("button", { on: { click: _vm.getLive } }, [_vm._v("Live")])
+        _c(
+          "button",
+          {
+            staticClass:
+              "py-2 px-4 bg-orange-400 rounded-full text-white hover:font-bold",
+            on: { click: _vm.getLive }
+          },
+          [_c("i", { staticClass: "fa fa-video" }), _vm._v(" Live")]
+        )
       ]),
       _vm._v(" "),
       _vm.callPlaced
-        ? _c("div", { staticClass: "col-12 video-container" }, [
+        ? _c("div", { staticClass: "w-full sm:w-3/4 md:w-3/4 md:ml-28" }, [
             _c("video", {
               ref: "userVideo",
               staticClass: "cursor-pointer",
@@ -41584,7 +41733,9 @@ var render = function() {
                                 _c("strong", [_vm._v(_vm._s(_vm.callPartner))])
                               ]),
                               _vm._v(" "),
-                              _c("p", [_vm._v("In live...")])
+                              _c("p", { staticClass: "text-orange-400" }, [
+                                _vm._v("In live...")
+                              ])
                             ]
                           )
                         ]
@@ -41604,13 +41755,14 @@ var render = function() {
                       expression: "controlCall"
                     }
                   ],
-                  staticClass: "user-button"
+                  staticClass: "mb-0"
                 },
                 [
                   _c(
                     "button",
                     {
-                      staticClass: "btn btn-primary mx-4",
+                      staticClass:
+                        "btn btn-primary mx-4 py-2 px-4 hover:bg-orange-400 hover:text-white rounded-full",
                       attrs: { type: "button" },
                       on: { click: _vm.toggleMuteVideo }
                     },
@@ -41626,7 +41778,8 @@ var render = function() {
                   _c(
                     "button",
                     {
-                      staticClass: "btn btn-danger",
+                      staticClass:
+                        "btn btn-danger py-2 px-4 bg-transparent hover:bg-orange-400 hover:text-white rounded-full",
                       attrs: { type: "button" },
                       on: { click: _vm.endCall }
                     },
@@ -41758,7 +41911,7 @@ var render = function() {
                         "inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full"
                     },
                     [
-                      _vm._m(1),
+                      _vm._m(0),
                       _vm._v(" "),
                       _c(
                         "div",
@@ -41806,16 +41959,6 @@ var render = function() {
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "bg-indigo-900 p-2 shadow text-xl text-white" },
-      [_c("h3", { staticClass: "font-bold pl-2" }, [_vm._v("Live")])]
-    )
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -43159,8 +43302,6 @@ var render = function() {
       staticClass: "main-content flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5"
     },
     [
-      _vm._m(0),
-      _vm._v(" "),
       _c(
         "div",
         {
@@ -43176,34 +43317,29 @@ var render = function() {
                     "w-96 flex flex-col  items-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-white mt-5 "
                 },
                 [
-                  _c(
-                    "svg",
-                    {
-                      staticClass: "w-9 h-8",
-                      attrs: {
-                        fill: "currentColor",
-                        xmlns: "http://www.w3.org/2000/svg",
-                        viewBox: "0 0 20 20"
-                      }
-                    },
-                    [
-                      _c("path", {
-                        attrs: {
-                          d:
-                            "M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z"
-                        }
-                      })
-                    ]
-                  ),
+                  _c("i", {
+                    staticClass: "fa fa-upload text-orange-400",
+                    attrs: { "aria-hidden": "true" }
+                  }),
                   _vm._v(" "),
-                  _c("span", { staticClass: "mt-2 text-base leading-normal" }, [
-                    _vm._v("Select a video")
-                  ]),
+                  _c(
+                    "span",
+                    {
+                      staticClass:
+                        "mt-2 text-base leading-normal text-orange-400"
+                    },
+                    [_vm._v("Select a video")]
+                  ),
                   _vm._v(" "),
                   _c("input", {
                     ref: "video",
                     staticClass: "hidden",
-                    attrs: { type: "file", name: "video", id: "video" },
+                    attrs: {
+                      type: "file",
+                      accept: "video/*",
+                      name: "video",
+                      id: "video"
+                    },
                     on: { change: _vm.uploadVideo }
                   })
                 ]
@@ -43308,7 +43444,7 @@ var render = function() {
                 "button",
                 {
                   staticClass:
-                    "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 w-96 focus:outline-none rounded-full",
+                    "bg-orange-400 hover:font-bold text-white  py-2 w-96 focus:outline-none rounded-full",
                   on: { click: _vm.submitPost }
                 },
                 [_vm._v("\n            Post\n            ")]
@@ -43321,18 +43457,7 @@ var render = function() {
     ]
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "bg-indigo-900 p-2 shadow text-xl text-white" },
-      [_c("h3", { staticClass: "font-bold pl-2" }, [_vm._v("Analytics")])]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
