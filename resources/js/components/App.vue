@@ -42,7 +42,9 @@ export default {
         livedata:null,
       }
     },
-   
+   created(){
+     
+   },
 
     mounted(){
       Echo.private("presence-video-channel")
@@ -69,5 +71,37 @@ export default {
     .hidden-div{
         display: none;
     }
+}
+
+video {
+  
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  z-index: -1;
+  -webkit-transition: all 1s;
+  -moz-transition: all 1s;
+  -o-transition: all 1s;
+  transition: all 1s;
+}
+.video-button{
+    background-color: #666;
+    border: medium none;
+    color: #fff;
+    display: block;
+    font-size: 18px;
+    left: 0;
+    margin: 0 auto;
+    padding: 8px 16px;
+    position: relative;
+    right: 0;
+    top: 91%;
+    margin-top: -55px;
+}
+button.active {
+  background-color: transparent;
 }
 </style>

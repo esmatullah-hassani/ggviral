@@ -39,7 +39,7 @@
             </center>
             <div class="flex flex-row flex-wrap flex-grow mt-2" v-infinite-scroll="onNextPage">
                 
-                <div class="w-full  p-3" v-for="post in posts" v-bind:key="post.id" >
+                <div class="w-full  p-3" v-for="(post,index) in posts" v-bind:key="post.id" >
                     <!--Graph Card-->
                     <div class="bg-white border-transparent rounded-lg shadow-lg">
                         <div class="bg-gray-400  text-gray-800 border-b-2 border-gray-500 rounded-tl-lg rounded-tr-lg p-2">
@@ -65,14 +65,41 @@
                         </div>
                         <div class="p-5">
                             <router-link :to="'/video/'+post.id">
-                                <video :id="'video'+post.id" width="420" class="cursor-pointer " v-on:mouseover="playVideo(post.id);" v-on:mouseout="stopVideo(post.id)">
+                                <video :id="'video'+post.id" width="420" class="cursor-pointer " >
                                     <source :src="post.video_path" type="video/mp4">
                                     <source src="" type="video/ogg">
                                     Your browser does not support HTML video.
                                 </video>
                             </router-link>        
-                       
-                            {{post.discription.substring(0,40)}}
+                            <button   @click="playVideo(post.id);"   class="active video-button focus:outline-none"><i  class="fa fa-play text-orange-400" :id="'video-play'+post.id"></i></button>
+                            <p class="mt-3">{{post.discription.substring(0,40)}}{{index}}</p>
+                            <p v-for="comment in post.comments" v-bind:key="comment.id">
+                                <img class="w-7 h-7 rounded-full inline"  :src="'/uploads/users/photo/'+comment.photo" v-if="comment.social_path == null">
+                                <img class="w-7 h-7 rounded-full inline"  :src="comment.social_path" v-else> 
+                                <span class="font-bold">{{comment.name}}</span> : {{comment.comment}}
+                            </p>
+                        </div>
+                        <div class="shadow flex">
+                            <input 
+                                class="w-full  text-sm text-black transition border  focus:outline-none focus:border-gray-700 rounded py-1 px-2 pl-10 appearance-none leading-normal" 
+                                type="text" 
+                                placeholder="Write a comment ..."
+                                v-model="comment"
+                                @keyup="checkKey($event,post.id)"
+                            >
+                            <button
+                            @click="setComment(post.id)"
+                            class="bg-white w-auto flex justify-end items-center text-blue-500 p-2 hover:text-blue-400 focus:outline-none">
+                            
+                                <span :id="'load_button'+post.id" class="invisible">
+                                    <i class="fas fa-spinner fa-pulse text-blue-600" ></i>
+                                </span>
+
+                                <span v-if="send_button">
+                                <i class="fa fa-paper-plane  text-blue-600" ></i>
+                                </span> 
+                                
+                            </button>
                         </div>
                     </div>
                     <!--/Graph Card-->
@@ -197,6 +224,10 @@ export default {
         uploadPercentage: 0,
         progrescount:false,
         image:null,
+        send_button:true,
+        load_button:false,
+        comment:null,
+        comments:[],
       }
     },
     created(){
@@ -205,6 +236,38 @@ export default {
     },
     
     methods:{
+
+        /**
+         * store comment of spicifig post
+         */
+        setComment(post_id){
+            var load_button = document.getElementById("load_button"+post_id);
+            
+            load_button.classList.add("invisible",'visible'); 
+            var formData = new FormData();
+            formData.append('comment',this.comment);
+            formData.append("post_id",post_id);
+            this.comment = "";
+            this.services.setComment(formData)
+            .then((response) => {
+                if(response.data.status){
+                    load_button.classList.add("visible",'invisible'); 
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        },
+
+        /**
+         * Submit if press enter button
+         */
+        checkKey(event,post_id){
+            if(event.keyCode == 13){
+                this.setComment(post_id);
+            }
+        },
+
         toggleDDd(myDropMenu){document.getElementById(myDropMenu).classList.toggle("invisible");},
       // get spicifig user post and profile
       getUserPost(user_id,pageNumber = null){
@@ -237,12 +300,22 @@ export default {
             ++this.currentpage, this.getUserPost(this.user_id,this.currentpage);
         },
 
-      /**
+         /**
          * Play video
          */
         playVideo(id){
             var myVideo = document.getElementById("video"+id);
-            myVideo.play();
+            var videoplay = document.getElementById('video-play'+id);
+            
+            if(videoplay.classList.contains('fa-play')){
+                videoplay.classList.add('fa-play','fa-stop');
+                myVideo.play();
+            }
+            else if(videoplay.classList.contains("fa-stop")){
+                videoplay.classList.add("fa-stop",'fa-play');
+                myVideo.pause();
+            }
+            // myVideo.play();<i class="fas fa-stop"></i>
         },
 
         /**

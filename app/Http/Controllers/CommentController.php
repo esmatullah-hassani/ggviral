@@ -39,7 +39,8 @@ class CommentController extends Controller
         $request['user_id'] = auth()->id();
         $c = Comment::create($request->all());
         if($c){
-            $comment = Comment::with("user")->where('id',$c->id)->get();
+            $comment = Comment::select("post_user.*",'users.name','users.photo','users.social_path')
+            ->join("users","post_user.user_id","users.id")->where('post_user.id',$c->id)->paginate(1);
             if($comment->isEmpty()){
                 broadcast(new CommentEvent(auth()->user(),$c))->toOthers();
                 return response(['status' => true,'message' => $c]);

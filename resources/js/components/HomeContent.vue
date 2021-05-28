@@ -3,7 +3,7 @@
 
         <div class="flex flex-row flex-wrap flex-grow mt-2" v-infinite-scroll="onNextPage">
 
-            <div class="w-full  p-3" v-for="post in posts" v-bind:key="post.id" >
+            <div class="w-full  p-3" v-for="(post,index) in posts" v-bind:key="post.id" >
                 <!--Graph Card-->
                 <div class="bg-white border-transparent rounded-lg shadow-lg " >
                     <div class="bg-gray-200  text-gray-800 border-b-2 border-gray-500 rounded-tl-lg rounded-tr-lg p-2">
@@ -27,7 +27,7 @@
                     </div>
                     <div class="p-5">
 
-                            <video  :id="'video'+post.id"  class="cursor-pointer max-h-screen mb-2"
+                            <video  :id="'video'+post.id"  class="max-h-screen mb-2"
                                 
                                 >
                                 <source :src="post.video_path" type="video/mp4">
@@ -45,32 +45,38 @@
                         <p v-for="comment in post.comments" v-bind:key="comment.id">
                             <img class="w-7 h-7 rounded-full inline"  :src="'/uploads/users/photo/'+comment.photo" v-if="comment.social_path == null">
                             <img class="w-7 h-7 rounded-full inline"  :src="comment.social_path" v-else> 
-                            <span class="font-bold">{{comment.name}}</span> : {{comment.comment}}
+                            <span class="font-bold text-black">
+                                {{comment.name}} 
+                            </span><br>
+                            <span>
+                                 {{comment.comment.substring(0,90)}}
+                            </span>
                         </p>
                        
                     </div>
                     <div class="shadow flex">
                         <input 
-                            class="w-full  text-sm text-black transition border  focus:outline-none focus:border-gray-700 rounded py-1 px-2 pl-10 appearance-none leading-normal" 
+                            class="w-full  text-sm text-black transition   focus:outline-none focus:border-gray-700 rounded py-1 px-2 pl-10 appearance-none leading-normal" 
                             type="text" 
                             placeholder="Write a comment ..."
                             v-model="comment"
-                            @keyup="checkKey($event,post.id)"
+                            @keyup="checkKey($event,post.id,index)"
                         >
                         <button
-                        @click="setComment(post.id)"
+                        @click="setComment(post.id,index)"
                         class="bg-white w-auto flex justify-end items-center text-blue-500 p-2 hover:text-blue-400 focus:outline-none">
                         
-                            <span v-if="load_button">
+                            <span :id="'load_button'+post.id" class="invisible">
                                 <i class="fas fa-spinner fa-pulse text-blue-600" ></i>
                             </span>
 
                             <span v-if="send_button">
-                            <i class="fa fa-paper-plane  text-blue-600" ></i>
+                            <i class="fa fa-paper-plane  text-orange-400" ></i>
                             </span> 
                             
                         </button>
                     </div>
+                    
                 </div>
                 <!--/Graph Card-->
             </div>
@@ -106,22 +112,32 @@ export default {
     created(){
         this.getPost();
     },
-    
+    mounted(){
+        Echo.private("video-comment")
+        .listen("CommentEvent",(e)=>{
+            // this.posts[].comments.push(e.data);
+           console.log(e);
+		});
+    },
     methods:{
 
         /**
-         * store comment of spicifig video
+         * store comment of spicifig post
          */
-        setComment(post_id){
-            this.load_button = true;
+        setComment(post_id,index){
+            var load_button = document.getElementById("load_button"+post_id);
+            
+            load_button.classList.add("invisible",'visible'); 
             var formData = new FormData();
             formData.append('comment',this.comment);
             formData.append("post_id",post_id);
+            formData.append("post_index",index);
+            this.comment = "";
             this.services.setComment(formData)
             .then((response) => {
                 if(response.data.status){
-                    this.comment = "";
-                    this.load_button = false;
+                    this.posts[index].comments.push(...response.data.message.data);
+                    load_button.classList.add("visible",'invisible'); 
                 }
             })
             .catch((error) => {
@@ -132,9 +148,9 @@ export default {
         /**
          * Submit if press enter button
          */
-        checkKey(event,post_id){
+        checkKey(event,post_id,index){
             if(event.keyCode == 13){
-                this.setComment(post_id);
+                this.setComment(post_id,index);
             }
         },
 
@@ -282,35 +298,5 @@ export default {
 </script>
 
 <style>
-video {
-  
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  min-width: 100%;
-  min-height: 100%;
-  z-index: -1;
-  -webkit-transition: all 1s;
-  -moz-transition: all 1s;
-  -o-transition: all 1s;
-  transition: all 1s;
-}
-.video-button{
-    background-color: #666;
-    border: medium none;
-    color: #fff;
-    display: block;
-    font-size: 18px;
-    left: 0;
-    margin: 0 auto;
-    padding: 8px 16px;
-    position: relative;
-    right: 0;
-    top: 91%;
-    margin-top: -55px;
-}
-button.active {
-  background-color: transparent;
-}
+
 </style>

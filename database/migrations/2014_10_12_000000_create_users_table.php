@@ -26,6 +26,7 @@ class CreateUsersTable extends Migration
             $table->string('google_id')->nullable();
             $table->string("facebook_id")->nullable();
             $table->string('social_path')->nullable();
+            $table->boolean("is_online")->default(0);
             $table->timestamps();
         });
     }

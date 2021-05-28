@@ -1,7 +1,7 @@
 <template>
-  <div class="shadow-lg h-16 fixed bottom-0 mt-12 md:relative md:h-screen z-10 w-full md:w-48 sm:overflow-x-auto">
+  <div class="shadow-lg h-16 fixed bottom-0 mt-12 md:relative md:h-screen z-10 w-full md:w-1/4 sm:overflow-x-auto">
 
-            <div class="md:mt-12 md:w-48 md:fixed md:left-0 md:top-0 content-center md:content-start text-left justify-between overflow-x-auto sm:overflow-x-auto md:overflow-y-auto">
+            <div class="md:mt-12 md:w-1/4 md:fixed md:left-0 md:top-0 content-center md:content-start text-left justify-between overflow-x-auto sm:overflow-x-auto md:overflow-y-auto">
                 <ul class="list-reset flex flex-row md:flex-col py-0 md:py-3 px-1 md:px-2 text-center md:text-left">
                     <li class="mr-3 flex-1 ">
                         <router-link to="/" class="block py-1 md:py-3 pl-1 align-middle  no-underline border-b-2  hover:border-orange-400  ">

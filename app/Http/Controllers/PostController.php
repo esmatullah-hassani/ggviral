@@ -20,7 +20,7 @@ class PostController extends Controller
         $follows = Follow::where('user_1',Auth::id())->get();
         $posts = Post::with("user")->with(["comments" => function($q){
             $q->select("post_user.*",'users.name','users.photo','users.social_path')
-            ->join("users","post_user.user_id","users.id");
+            ->join("users","post_user.user_id","users.id")->orderBy("created_at",'desc')->paginate(5);
         }])
         ->orderBy("created_at",'desc')->where("status",1)->paginate(6);
         return response(['status' => true,'posts' => $posts,'follows' => $follows]);
@@ -129,7 +129,12 @@ class PostController extends Controller
      */
     public function getUserPost(Request $request)
     {
-        $posts = Post::where("user_id",$request->user_id)->orderBy("created_at",'desc')->paginate(6);
+        $posts = Post::where("user_id",$request->user_id)
+        ->with(["comments" => function($q){
+            $q->select("post_user.*",'users.name','users.photo','users.social_path')
+            ->join("users","post_user.user_id","users.id")->orderBy("created_at",'desc')->paginate(4);
+        }])
+        ->orderBy("created_at",'desc')->paginate(6);
 
         $user = User::find($request->user_id);
         $following = count(User::select('follows.user_1')->leftJoin('follows','users.id','follows.user_1')->where('follows.user_1',auth()->id())->groupBy('user_1')->get());
@@ -158,7 +163,12 @@ class PostController extends Controller
      */
     public function searchPost(Request $request){
         $follows = Follow::where('user_1',Auth::id())->get();
-        $posts = Post::with("user")->where("discription",'like','%'.$request->discription."%")
+        $posts = Post::with("user")
+        ->with(["comments" => function($q){
+            $q->select("post_user.*",'users.name','users.photo','users.social_path')
+            ->join("users","post_user.user_id","users.id")->orderBy("created_at",'desc')->paginate(5);
+        }])
+        ->where("discription",'like','%'.$request->discription."%")
        
         ->orderBy("created_at",'desc')->where("status",1)->paginate(6);
         return response(['status' => true,'posts' => $posts,'follows' => $follows]);

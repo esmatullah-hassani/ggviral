@@ -3883,6 +3883,7 @@ __webpack_require__.r(__webpack_exports__);
       livedata: null
     };
   },
+  created: function created() {},
   mounted: function mounted() {
     Echo["private"]("presence-video-channel").listen("StartVideoChat", function (e) {
       console.log(e);
@@ -3915,6 +3916,24 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_api_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../services/api.service */ "./resources/js/services/api.service.js");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -4022,21 +4041,33 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     this.getPost();
   },
+  mounted: function mounted() {
+    Echo["private"]("video-comment").listen("CommentEvent", function (e) {
+      // this.posts[].comments.push(e.data);
+      console.log(e);
+    });
+  },
   methods: {
     /**
-     * store comment of spicifig video
+     * store comment of spicifig post
      */
-    setComment: function setComment(post_id) {
+    setComment: function setComment(post_id, index) {
       var _this = this;
 
-      this.load_button = true;
+      var load_button = document.getElementById("load_button" + post_id);
+      load_button.classList.add("invisible", 'visible');
       var formData = new FormData();
       formData.append('comment', this.comment);
       formData.append("post_id", post_id);
+      formData.append("post_index", index);
+      this.comment = "";
       this.services.setComment(formData).then(function (response) {
         if (response.data.status) {
-          _this.comment = "";
-          _this.load_button = false;
+          var _this$posts$index$com;
+
+          (_this$posts$index$com = _this.posts[index].comments).push.apply(_this$posts$index$com, _toConsumableArray(response.data.message.data));
+
+          load_button.classList.add("visible", 'invisible');
         }
       })["catch"](function (error) {
         console.log(error);
@@ -4046,9 +4077,9 @@ __webpack_require__.r(__webpack_exports__);
     /**
      * Submit if press enter button
      */
-    checkKey: function checkKey(event, post_id) {
+    checkKey: function checkKey(event, post_id, index) {
       if (event.keyCode == 13) {
-        this.setComment(post_id);
+        this.setComment(post_id, index);
       }
     },
     //share to facebook
@@ -5708,6 +5739,33 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Profile',
@@ -5727,7 +5785,11 @@ __webpack_require__.r(__webpack_exports__);
       following: null,
       uploadPercentage: 0,
       progrescount: false,
-      image: null
+      image: null,
+      send_button: true,
+      load_button: false,
+      comment: null,
+      comments: []
     };
   },
   created: function created() {
@@ -5735,6 +5797,33 @@ __webpack_require__.r(__webpack_exports__);
     this.getUserPost(this.user_id, null);
   },
   methods: {
+    /**
+     * store comment of spicifig post
+     */
+    setComment: function setComment(post_id) {
+      var load_button = document.getElementById("load_button" + post_id);
+      load_button.classList.add("invisible", 'visible');
+      var formData = new FormData();
+      formData.append('comment', this.comment);
+      formData.append("post_id", post_id);
+      this.comment = "";
+      this.services.setComment(formData).then(function (response) {
+        if (response.data.status) {
+          load_button.classList.add("visible", 'invisible');
+        }
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+
+    /**
+     * Submit if press enter button
+     */
+    checkKey: function checkKey(event, post_id) {
+      if (event.keyCode == 13) {
+        this.setComment(post_id);
+      }
+    },
     toggleDDd: function toggleDDd(myDropMenu) {
       document.getElementById(myDropMenu).classList.toggle("invisible");
     },
@@ -5772,11 +5861,20 @@ __webpack_require__.r(__webpack_exports__);
     },
 
     /**
-       * Play video
-       */
+    * Play video
+    */
     playVideo: function playVideo(id) {
       var myVideo = document.getElementById("video" + id);
-      myVideo.play();
+      var videoplay = document.getElementById('video-play' + id);
+
+      if (videoplay.classList.contains('fa-play')) {
+        videoplay.classList.add('fa-play', 'fa-stop');
+        myVideo.play();
+      } else if (videoplay.classList.contains("fa-stop")) {
+        videoplay.classList.add("fa-stop", 'fa-play');
+        myVideo.pause();
+      } // myVideo.play();<i class="fas fa-stop"></i>
+
     },
 
     /**
@@ -5974,6 +6072,33 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "SearchPost",
@@ -5986,7 +6111,11 @@ __webpack_require__.r(__webpack_exports__);
       nextLink: true,
       follow_collor: "bg-pink-500 hover:bg-blue-700",
       follows: null,
-      post_data: ''
+      post_data: '',
+      send_button: true,
+      load_button: false,
+      comment: null,
+      comments: []
     };
   },
   created: function created() {
@@ -5994,6 +6123,39 @@ __webpack_require__.r(__webpack_exports__);
     this.searchPost();
   },
   methods: {
+    /**
+     * store comment of spicifig post
+     */
+    setComment: function setComment(post_id, index) {
+      var _this = this;
+
+      var load_button = document.getElementById("load_button" + post_id);
+      load_button.classList.add("invisible", 'visible');
+      var formData = new FormData();
+      formData.append('comment', this.comment);
+      formData.append("post_id", post_id);
+      this.comment = "";
+      this.services.setComment(formData).then(function (response) {
+        if (response.data.status) {
+          console.log(response.data.message);
+
+          _this.posts[index].comments.push(response.data.message);
+
+          load_button.classList.add("visible", 'invisible');
+        }
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+
+    /**
+     * Submit if press enter button
+     */
+    checkKey: function checkKey(event, post_id, index) {
+      if (event.keyCode == 13) {
+        this.setComment(post_id, index);
+      }
+    },
     //share to facebook
     shareOnfacebook: function shareOnfacebook(video, name) {
       var url = "https://www.facebook.com/sharer/sharer.php?u=ggviral.com/#/video/".concat(video);
@@ -6037,7 +6199,7 @@ __webpack_require__.r(__webpack_exports__);
      * Display all post
      */
     searchPost: function searchPost() {
-      var _this = this;
+      var _this2 = this;
 
       var pageNumber = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
       var formData = new FormData();
@@ -6045,19 +6207,19 @@ __webpack_require__.r(__webpack_exports__);
       this.services.searchPost(formData, pageNumber).then(function (response) {
         if (response.data.status) {
           if (response.data.posts.data.length == 0) {
-            _this.nextLink = false;
+            _this2.nextLink = false;
           }
 
           if (pageNumber == null) {
-            _this.posts = response.data.posts.data;
-            _this.follows = response.data.follows;
+            _this2.posts = response.data.posts.data;
+            _this2.follows = response.data.follows;
           } else {
             for (var x = 0; x < response.data.posts.data.length; x++) {
-              _this.posts.push(response.data.posts.data[x]);
+              _this2.posts.push(response.data.posts.data[x]);
             }
           }
 
-          if (response.data.posts.to == response.data.posts.total) _this.nextLink = false;
+          if (response.data.posts.to == response.data.posts.total) _this2.nextLink = false;
         }
       })["catch"](function (errors) {
         console.log(errors + " errors");
@@ -6088,29 +6250,30 @@ __webpack_require__.r(__webpack_exports__);
      */
     playVideo: function playVideo(id) {
       var myVideo = document.getElementById("video" + id);
-      myVideo.play();
-    },
+      var videoplay = document.getElementById('video-play' + id);
 
-    /**
-     * stop video
-     */
-    stopVideo: function stopVideo(id) {
-      var myVideo = document.getElementById("video" + id);
-      myVideo.pause();
+      if (videoplay.classList.contains('fa-play')) {
+        videoplay.classList.add('fa-play', 'fa-stop');
+        myVideo.play();
+      } else if (videoplay.classList.contains("fa-stop")) {
+        videoplay.classList.add("fa-stop", 'fa-play');
+        myVideo.pause();
+      } // myVideo.play();<i class="fas fa-stop"></i>
+
     },
 
     /**
      * follow
      */
     userFollow: function userFollow(user_2) {
-      var _this2 = this;
+      var _this3 = this;
 
       var formData = new FormData();
       formData.append("user_1", this.authuser.id);
       formData.append("user_2", user_2);
       this.services.userFollow(formData).then(function (response) {
         if (response.data.status) {
-          _this2.searchPost(_this2.currentpage); // if(response.data.message == 1){
+          _this3.searchPost(_this3.currentpage); // if(response.data.message == 1){
           // }
           // else if(response.data.message == 2){
           //     var dd = document.getElementById("follow_class"+user_2);
@@ -8318,26 +8481,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "@media (max-width: 768px)\n{\n.hidden-div{\n    display: none;\n}\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-
-/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/HomeContent.vue?vue&type=style&index=0&lang=css&":
-/*!*****************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/HomeContent.vue?vue&type=style&index=0&lang=css& ***!
-  \*****************************************************************************************************************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
-// imports
-
-
-// module
-exports.push([module.i, "video {\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  min-width: 100%;\n  min-height: 100%;\n  z-index: -1;\n  transition: all 1s;\n}\n.video-button{\n  background-color: #666;\n  border: medium none;\n  color: #fff;\n  display: block;\n  font-size: 18px;\n  left: 0;\n  margin: 0 auto;\n  padding: 8px 16px;\n  position: relative;\n  right: 0;\n  top: 91%;\n  margin-top: -55px;\n}\nbutton.active {\n  background-color: transparent;\n}\n", ""]);
+exports.push([module.i, "@media (max-width: 768px)\n{\n.hidden-div{\n    display: none;\n}\n}\nvideo {\n  top: 0;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  min-width: 100%;\n  min-height: 100%;\n  z-index: -1;\n  transition: all 1s;\n}\n.video-button{\n  background-color: #666;\n  border: medium none;\n  color: #fff;\n  display: block;\n  font-size: 18px;\n  left: 0;\n  margin: 0 auto;\n  padding: 8px 16px;\n  position: relative;\n  right: 0;\n  top: 91%;\n  margin-top: -55px;\n}\nbutton.active {\n  background-color: transparent;\n}\n", ""]);
 
 // exports
 
@@ -39160,36 +39304,6 @@ if(false) {}
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/HomeContent.vue?vue&type=style&index=0&lang=css&":
-/*!*********************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/HomeContent.vue?vue&type=style&index=0&lang=css& ***!
-  \*********************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./HomeContent.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/HomeContent.vue?vue&type=style&index=0&lang=css&");
-
-if(typeof content === 'string') content = [[module.i, content, '']];
-
-var transform;
-var insertInto;
-
-
-
-var options = {"hmr":true}
-
-options.transform = transform
-options.insertInto = undefined;
-
-var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
-
-if(content.locals) module.exports = content.locals;
-
-if(false) {}
-
-/***/ }),
-
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/hero-section/HeroMenu.vue?vue&type=style&index=0&lang=css&":
 /*!*******************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/hero-section/HeroMenu.vue?vue&type=style&index=0&lang=css& ***!
@@ -40357,7 +40471,7 @@ var render = function() {
           ],
           staticClass: "flex flex-row flex-wrap flex-grow mt-2"
         },
-        _vm._l(_vm.posts, function(post) {
+        _vm._l(_vm.posts, function(post, index) {
           return _c("div", { key: post.id, staticClass: "w-full  p-3" }, [
             _c(
               "div",
@@ -40496,7 +40610,7 @@ var render = function() {
                     _c(
                       "video",
                       {
-                        staticClass: "cursor-pointer max-h-screen mb-2",
+                        staticClass: "max-h-screen mb-2",
                         attrs: { id: "video" + post.id }
                       },
                       [
@@ -40553,14 +40667,22 @@ var render = function() {
                               attrs: { src: comment.social_path }
                             }),
                         _vm._v(" "),
-                        _c("span", { staticClass: "font-bold" }, [
-                          _vm._v(_vm._s(comment.name))
+                        _c("span", { staticClass: "font-bold text-black" }, [
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(comment.name) +
+                              " \n                        "
+                          )
                         ]),
-                        _vm._v(
-                          " : " +
-                            _vm._s(comment.comment) +
-                            "\n                    "
-                        )
+                        _c("br"),
+                        _vm._v(" "),
+                        _c("span", [
+                          _vm._v(
+                            "\n                             " +
+                              _vm._s(comment.comment.substring(0, 90)) +
+                              "\n                        "
+                          )
+                        ])
                       ])
                     })
                   ],
@@ -40578,12 +40700,12 @@ var render = function() {
                       }
                     ],
                     staticClass:
-                      "w-full  text-sm text-black transition border  focus:outline-none focus:border-gray-700 rounded py-1 px-2 pl-10 appearance-none leading-normal",
+                      "w-full  text-sm text-black transition   focus:outline-none focus:border-gray-700 rounded py-1 px-2 pl-10 appearance-none leading-normal",
                     attrs: { type: "text", placeholder: "Write a comment ..." },
                     domProps: { value: _vm.comment },
                     on: {
                       keyup: function($event) {
-                        return _vm.checkKey($event, post.id)
+                        return _vm.checkKey($event, post.id, index)
                       },
                       input: function($event) {
                         if ($event.target.composing) {
@@ -40601,24 +40723,28 @@ var render = function() {
                         "bg-white w-auto flex justify-end items-center text-blue-500 p-2 hover:text-blue-400 focus:outline-none",
                       on: {
                         click: function($event) {
-                          return _vm.setComment(post.id)
+                          return _vm.setComment(post.id, index)
                         }
                       }
                     },
                     [
-                      _vm.load_button
-                        ? _c("span", [
-                            _c("i", {
-                              staticClass:
-                                "fas fa-spinner fa-pulse text-blue-600"
-                            })
-                          ])
-                        : _vm._e(),
+                      _c(
+                        "span",
+                        {
+                          staticClass: "invisible",
+                          attrs: { id: "load_button" + post.id }
+                        },
+                        [
+                          _c("i", {
+                            staticClass: "fas fa-spinner fa-pulse text-blue-600"
+                          })
+                        ]
+                      ),
                       _vm._v(" "),
                       _vm.send_button
                         ? _c("span", [
                             _c("i", {
-                              staticClass: "fa fa-paper-plane  text-blue-600"
+                              staticClass: "fa fa-paper-plane  text-orange-400"
                             })
                           ])
                         : _vm._e()
@@ -41380,14 +41506,14 @@ var render = function() {
     "div",
     {
       staticClass:
-        "shadow-lg h-16 fixed bottom-0 mt-12 md:relative md:h-screen z-10 w-full md:w-48 sm:overflow-x-auto"
+        "shadow-lg h-16 fixed bottom-0 mt-12 md:relative md:h-screen z-10 w-full md:w-1/4 sm:overflow-x-auto"
     },
     [
       _c(
         "div",
         {
           staticClass:
-            "md:mt-12 md:w-48 md:fixed md:left-0 md:top-0 content-center md:content-start text-left justify-between overflow-x-auto sm:overflow-x-auto md:overflow-y-auto"
+            "md:mt-12 md:w-1/4 md:fixed md:left-0 md:top-0 content-center md:content-start text-left justify-between overflow-x-auto sm:overflow-x-auto md:overflow-y-auto"
         },
         [
           _c(
@@ -42454,7 +42580,7 @@ var render = function() {
           staticClass: "flex flex-row flex-wrap flex-grow mt-2"
         },
         [
-          _vm._l(_vm.posts, function(post) {
+          _vm._l(_vm.posts, function(post, index) {
             return _c("div", { key: post.id, staticClass: "w-full  p-3" }, [
               _c(
                 "div",
@@ -42591,15 +42717,7 @@ var render = function() {
                             "video",
                             {
                               staticClass: "cursor-pointer ",
-                              attrs: { id: "video" + post.id, width: "420" },
-                              on: {
-                                mouseover: function($event) {
-                                  return _vm.playVideo(post.id)
-                                },
-                                mouseout: function($event) {
-                                  return _vm.stopVideo(post.id)
-                                }
-                              }
+                              attrs: { id: "video" + post.id, width: "420" }
                             },
                             [
                               _c("source", {
@@ -42619,14 +42737,126 @@ var render = function() {
                           )
                         ]
                       ),
-                      _vm._v(
-                        "        \n                       \n                            " +
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "active video-button focus:outline-none",
+                          on: {
+                            click: function($event) {
+                              return _vm.playVideo(post.id)
+                            }
+                          }
+                        },
+                        [
+                          _c("i", {
+                            staticClass: "fa fa-play text-orange-400",
+                            attrs: { id: "video-play" + post.id }
+                          })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "mt-3" }, [
+                        _vm._v(
                           _vm._s(post.discription.substring(0, 40)) +
-                          "\n                        "
-                      )
+                            _vm._s(index)
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _vm._l(post.comments, function(comment) {
+                        return _c("p", { key: comment.id }, [
+                          comment.social_path == null
+                            ? _c("img", {
+                                staticClass: "w-7 h-7 rounded-full inline",
+                                attrs: {
+                                  src: "/uploads/users/photo/" + comment.photo
+                                }
+                              })
+                            : _c("img", {
+                                staticClass: "w-7 h-7 rounded-full inline",
+                                attrs: { src: comment.social_path }
+                              }),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "font-bold" }, [
+                            _vm._v(_vm._s(comment.name))
+                          ]),
+                          _vm._v(
+                            " : " +
+                              _vm._s(comment.comment) +
+                              "\n                            "
+                          )
+                        ])
+                      })
                     ],
-                    1
-                  )
+                    2
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "shadow flex" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.comment,
+                          expression: "comment"
+                        }
+                      ],
+                      staticClass:
+                        "w-full  text-sm text-black transition border  focus:outline-none focus:border-gray-700 rounded py-1 px-2 pl-10 appearance-none leading-normal",
+                      attrs: {
+                        type: "text",
+                        placeholder: "Write a comment ..."
+                      },
+                      domProps: { value: _vm.comment },
+                      on: {
+                        keyup: function($event) {
+                          return _vm.checkKey($event, post.id)
+                        },
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.comment = $event.target.value
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass:
+                          "bg-white w-auto flex justify-end items-center text-blue-500 p-2 hover:text-blue-400 focus:outline-none",
+                        on: {
+                          click: function($event) {
+                            return _vm.setComment(post.id)
+                          }
+                        }
+                      },
+                      [
+                        _c(
+                          "span",
+                          {
+                            staticClass: "invisible",
+                            attrs: { id: "load_button" + post.id }
+                          },
+                          [
+                            _c("i", {
+                              staticClass:
+                                "fas fa-spinner fa-pulse text-blue-600"
+                            })
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _vm.send_button
+                          ? _c("span", [
+                              _c("i", {
+                                staticClass: "fa fa-paper-plane  text-blue-600"
+                              })
+                            ])
+                          : _vm._e()
+                      ]
+                    )
+                  ])
                 ]
               )
             ])
@@ -43048,12 +43278,12 @@ var render = function() {
           ],
           staticClass: "flex flex-row flex-wrap flex-grow mt-2"
         },
-        _vm._l(_vm.posts, function(post) {
-          return _c("div", { key: post.id, staticClass: " p-3" }, [
+        _vm._l(_vm.posts, function(post, index) {
+          return _c("div", { key: post.id, staticClass: "w-full  p-3" }, [
             _c(
               "div",
               {
-                staticClass: "bg-white border-transparent rounded-lg shadow-lg"
+                staticClass: "bg-white border-transparent rounded-lg shadow-lg "
               },
               [
                 _c(
@@ -43087,13 +43317,13 @@ var render = function() {
                     _vm._v(" "),
                     _c(
                       "div",
-                      { staticClass: "relative float-right inline-block" },
+                      { staticClass: "relative float-right inline-block " },
                       [
                         _c(
                           "button",
                           {
                             staticClass:
-                              "drop-button text-black focus:outline-none font-bold",
+                              "drop-button text-orange-400 focus:outline-none font-bold",
                             on: {
                               click: function($event) {
                                 return _vm.toggleDDd("myDropdown" + post.id)
@@ -43102,7 +43332,7 @@ var render = function() {
                           },
                           [
                             _vm._v(
-                              "\n                                  ...\n                              "
+                              "\n                            ...\n                        "
                             )
                           ]
                         ),
@@ -43111,7 +43341,7 @@ var render = function() {
                           "div",
                           {
                             staticClass:
-                              "dropdownlist absolute w-60 bg-gray-400 rounded-tl-lg rounded-tr-lg text-black right-0 mt-3 p-3 overflow-auto z-30 invisible",
+                              "dropdownlist absolute w-60 bg-gray-200 rounded-tl-lg rounded-tr-lg text-black right-0 mt-3 p-3 overflow-auto z-30 invisible",
                             attrs: { id: "myDropdown" + post.id }
                           },
                           [
@@ -43119,7 +43349,7 @@ var render = function() {
                               "a",
                               {
                                 staticClass:
-                                  "p-2 hover:bg-gray-800 text-blue-700 text-sm no-underline hover:no-underline block cursor-pointer",
+                                  "p-2 hover:bg-orange-400 hover:text-white text-blue-700 text-sm no-underline hover:no-underline block cursor-pointer",
                                 on: {
                                   click: function($event) {
                                     return _vm.shareOnfacebook(
@@ -43139,7 +43369,7 @@ var render = function() {
                               "a",
                               {
                                 staticClass:
-                                  "p-2 hover:bg-gray-800 text-blue-500 text-sm no-underline hover:no-underline block cursor-pointer ",
+                                  "p-2 hover:bg-orange-400 hover:text-white text-blue-500 text-sm no-underline hover:no-underline block cursor-pointer ",
                                 on: {
                                   click: function($event) {
                                     return _vm.shareOntwitter(
@@ -43159,7 +43389,7 @@ var render = function() {
                               "a",
                               {
                                 staticClass:
-                                  "p-2 hover:bg-gray-800 text-black text-sm no-underline hover:no-underline block cursor-pointer",
+                                  "p-2 hover:bg-orange-400 hover:text-white text-black text-sm no-underline hover:no-underline block cursor-pointer",
                                 on: {
                                   click: function($event) {
                                     _vm.copyToClipboard(post.id)
@@ -43184,73 +43414,149 @@ var render = function() {
                   "div",
                   { staticClass: "p-5" },
                   [
-                    _c("router-link", { attrs: { to: "/video/" + post.id } }, [
-                      _c(
-                        "video",
-                        {
-                          staticClass: "cursor-pointer ",
-                          attrs: { id: "video" + post.id },
-                          on: {
-                            mouseover: function($event) {
-                              return _vm.playVideo(post.id)
-                            },
-                            mouseout: function($event) {
-                              return _vm.stopVideo(post.id)
-                            },
-                            "&scroll": function($event) {
-                              return _vm.onScroll($event)
-                            }
-                          }
-                        },
-                        [
-                          _c("source", {
-                            attrs: { src: post.video_path, type: "video/mp4" }
-                          }),
-                          _vm._v(" "),
-                          _c("source", {
-                            attrs: { src: "", type: "video/ogg" }
-                          }),
-                          _vm._v(
-                            "\n                                  Your browser does not support HTML video.\n                              "
-                          )
-                        ]
-                      )
-                    ]),
+                    _c(
+                      "video",
+                      {
+                        staticClass: "max-h-screen mb-2",
+                        attrs: { id: "video" + post.id }
+                      },
+                      [
+                        _c("source", {
+                          attrs: { src: post.video_path, type: "video/mp4" }
+                        }),
+                        _vm._v(" "),
+                        _c("source", { attrs: { src: "", type: "video/ogg" } }),
+                        _vm._v(
+                          "\n                            Your browser does not support HTML video.\n                        "
+                        )
+                      ]
+                    ),
                     _vm._v(" "),
-                    _c("span", {}, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "active video-button focus:outline-none",
+                        on: {
+                          click: function($event) {
+                            return _vm.playVideo(post.id)
+                          }
+                        }
+                      },
+                      [
+                        _c("i", {
+                          staticClass: "fa fa-play text-orange-400",
+                          attrs: { id: "video-play" + post.id }
+                        })
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "pt-5" }, [
                       _vm._v(
-                        "\n                              " +
+                        "\n                        " +
                           _vm._s(post.discription.substring(0, 30)) +
-                          "\n                              " +
+                          "\n                        " +
                           _vm._s(post.created_at.diffForHumans) +
-                          "   \n                          "
+                          "   \n                    "
                       )
                     ]),
                     _vm._v(" "),
-                    _c("span", { staticClass: "float-right" }, [
+                    _vm._l(post.comments, function(comment) {
+                      return _c("p", { key: comment.id }, [
+                        comment.social_path == null
+                          ? _c("img", {
+                              staticClass: "w-7 h-7 rounded-full inline",
+                              attrs: {
+                                src: "/uploads/users/photo/" + comment.photo
+                              }
+                            })
+                          : _c("img", {
+                              staticClass: "w-7 h-7 rounded-full inline",
+                              attrs: { src: comment.social_path }
+                            }),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "font-bold" }, [
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(comment.name) +
+                              " :\n                        "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("span", [
+                          _vm._v(
+                            "\n                             " +
+                              _vm._s(comment.comment.substring(0, 90)) +
+                              "\n                        "
+                          )
+                        ])
+                      ])
+                    })
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "shadow flex" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.comment,
+                        expression: "comment"
+                      }
+                    ],
+                    staticClass:
+                      "w-full  text-sm text-black transition   focus:outline-none focus:border-gray-700 rounded py-1 px-2 pl-10 appearance-none leading-normal",
+                    attrs: { type: "text", placeholder: "Write a comment ..." },
+                    domProps: { value: _vm.comment },
+                    on: {
+                      keyup: function($event) {
+                        return _vm.checkKey($event, post.id, index)
+                      },
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.comment = $event.target.value
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "bg-white w-auto flex justify-end items-center text-blue-500 p-2 hover:text-blue-400 focus:outline-none",
+                      on: {
+                        click: function($event) {
+                          return _vm.setComment(post.id, index)
+                        }
+                      }
+                    },
+                    [
                       _c(
-                        "button",
+                        "span",
                         {
-                          class:
-                            "text-white font-bold  px-4 rounded-full focus:outline-none " +
-                            _vm.follow_collor,
-                          attrs: { id: "follow_class" + post.user.id },
-                          on: {
-                            click: function($event) {
-                              return _vm.userFollow(post.user.id)
-                            }
-                          }
+                          staticClass: "invisible",
+                          attrs: { id: "load_button" + post.id }
                         },
                         [
-                          _vm._v(
-                            "\n                              Follow\n                              "
-                          )
+                          _c("i", {
+                            staticClass: "fas fa-spinner fa-pulse text-blue-600"
+                          })
                         ]
-                      )
-                    ])
-                  ],
-                  1
-                )
+                      ),
+                      _vm._v(" "),
+                      _vm.send_button
+                        ? _c("span", [
+                            _c("i", {
+                              staticClass: "fa fa-paper-plane  text-orange-400"
+                            })
+                          ])
+                        : _vm._e()
+                    ]
+                  )
+                ])
               ]
             )
           ])
@@ -59051,9 +59357,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _HomeContent_vue_vue_type_template_id_3e008c7f___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./HomeContent.vue?vue&type=template&id=3e008c7f& */ "./resources/js/components/HomeContent.vue?vue&type=template&id=3e008c7f&");
 /* harmony import */ var _HomeContent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./HomeContent.vue?vue&type=script&lang=js& */ "./resources/js/components/HomeContent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _HomeContent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./HomeContent.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/HomeContent.vue?vue&type=style&index=0&lang=css&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -59061,7 +59365,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
   _HomeContent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _HomeContent_vue_vue_type_template_id_3e008c7f___WEBPACK_IMPORTED_MODULE_0__["render"],
   _HomeContent_vue_vue_type_template_id_3e008c7f___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
@@ -59090,22 +59394,6 @@ component.options.__file = "resources/js/components/HomeContent.vue"
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_HomeContent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./HomeContent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/HomeContent.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_HomeContent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/components/HomeContent.vue?vue&type=style&index=0&lang=css&":
-/*!**********************************************************************************!*\
-  !*** ./resources/js/components/HomeContent.vue?vue&type=style&index=0&lang=css& ***!
-  \**********************************************************************************/
-/*! no static exports found */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_HomeContent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./HomeContent.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/HomeContent.vue?vue&type=style&index=0&lang=css&");
-/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_HomeContent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_HomeContent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_HomeContent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_HomeContent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-
 
 /***/ }),
 
