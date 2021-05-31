@@ -4516,6 +4516,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "HeroMenu",
@@ -4527,6 +4532,23 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    /**
+     * follow user
+     */
+    mobileUserFollow: function mobileUserFollow(user_id) {
+      var follow = document.getElementById("mobilefollow" + user_id);
+      var formData = new FormData();
+      formData.append("user_2", user_id);
+      this.services.userFollow(formData).then(function (response) {
+        if (response.data.status) {
+          if (follow.innerHTML == "Follow") {
+            follow.innerHTML = "Unfollow";
+          } else {
+            follow.innerHTML = "Follow";
+          }
+        }
+      });
+    },
     toggleMobileMenu: function toggleMobileMenu(myDropMenu) {
       var menu = "";
       menu = document.getElementById(myDropMenu);
@@ -4580,6 +4602,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _services_api_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../services/api.service */ "./resources/js/services/api.service.js");
 //
 //
 //
@@ -4600,9 +4623,39 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "HeroRightSidebar",
-  props: ['allusers']
+  props: ['allusers', 'authuser'],
+  data: function data() {
+    return {
+      services: new _services_api_service__WEBPACK_IMPORTED_MODULE_0__["default"]()
+    };
+  },
+  methods: {
+    /**
+     * follow user
+     */
+    userFollow: function userFollow(user_id) {
+      var follow = document.getElementById("follow" + user_id);
+      var formData = new FormData();
+      formData.append("user_2", user_id);
+      this.services.userFollow(formData).then(function (response) {
+        if (response.data.status) {
+          if (follow.innerHTML == "Follow") {
+            follow.innerHTML = "Unfollow";
+          } else {
+            follow.innerHTML = "Follow";
+          }
+        }
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -8519,7 +8572,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "#video-row[data-v-1ff6365b] {\n  width: 100%;\n  max-width: 90vw;\n}\n#incoming-call-card[data-v-1ff6365b] {\n  border: 1px solid #0acf83;\n}\n.video-container .user-video[data-v-1ff6365b] {\n  width: 20%;\n  position: absolute;\n  left: 10px;\n  bottom: 10px;\n  border: 1px solid #fff;\n  border-radius: 6px;\n  z-index: 2;\n}\n.video-container .partner-video[data-v-1ff6365b] {\n  width: 100%;\n  height: 100%;\n  position: absolute;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  top: 0;\n  z-index: 1;\n  margin: 0;\n  padding: 0;\n}\n.video-container .action-btns[data-v-1ff6365b] {\n  position: absolute;\n  bottom: 20px;\n  left: 50%;\n  margin-left: -50px;\n  z-index: 3;\n  display: flex;\n  flex-direction: row;\n  align-content: center;\n}\n\n/* Mobiel Styles */\n@media only screen and (max-width: 768px) {\n.video-container[data-v-1ff6365b] {\n    height: 50vh;\n}\n}\n\n", ""]);
+exports.push([module.i, "#video-row[data-v-1ff6365b] {\n  width: 100%;\n  max-width: 90vw;\n}\n#incoming-call-card[data-v-1ff6365b] {\n  border: 1px solid #0acf83;\n}\n.video-container .user-video[data-v-1ff6365b] {\n  width: 20%;\n  position: absolute;\n  left: 10px;\n  bottom: 10px;\n  border: 1px solid #fff;\n  border-radius: 6px;\n  z-index: 2;\n}\n.video-container .partner-video[data-v-1ff6365b] {\n  width: 100%;\n  height: 100%;\n  position: absolute;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  top: 0;\n  z-index: 1;\n  margin: 0;\n  padding: 0;\n}\n.video-container .action-btns[data-v-1ff6365b] {\n  position: absolute;\n  bottom: 20px;\n  left: 50%;\n  margin-left: -50px;\n  z-index: 3;\n  display: flex;\n  flex-direction: row;\n  align-content: center;\n}\n\n/* Mobiel Styles */\n@media only screen and (max-width: 768px) {\n.video-container[data-v-1ff6365b] {\n    height: 50vh;\n}\n}\n.live-video-button[data-v-1ff6365b]{\n  border: medium none;\n  color: #fff;\n  display: block;\n  font-size: 18px;\n  left: 0;\n  margin: 0 auto;\n  padding: 8px 16px;\n  position: relative;\n  right: 0;\n  top: 91%;\n  margin-top: -85px;\n}\n", ""]);
 
 // exports
 
@@ -40422,7 +40475,9 @@ var render = function() {
             }
           }),
           _vm._v(" "),
-          _c("hero-right-sidebar", { attrs: { allusers: _vm.allusers } })
+          _c("hero-right-sidebar", {
+            attrs: { allusers: _vm.allusers, authuser: _vm.authuser }
+          })
         ],
         1
       )
@@ -41279,18 +41334,15 @@ var render = function() {
                 "overflow-y-auto max-h-screen text-left justify-between"
             },
             _vm._l(_vm.allusers, function(user) {
-              return _c(
-                "div",
-                { key: user.id },
-                [
-                  _c(
-                    "router-link",
-                    {
-                      staticClass:
-                        "block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white hover:border-pink-500",
-                      attrs: { to: "/" }
-                    },
-                    [
+              return _c("div", { key: user.id }, [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white hover:border-pink-500"
+                  },
+                  [
+                    _c("router-link", { attrs: { to: "/users/" + user.id } }, [
                       user.social_path == null
                         ? _c("img", {
                             staticClass: "w-7 h-7 rounded-full inline",
@@ -41303,21 +41355,38 @@ var render = function() {
                       _vm._v(" "),
                       _c("span", { staticClass: "text-gray-600" }, [
                         _vm._v(_vm._s(user.name))
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass:
-                            "py-2 px-4 text-orange-400 right-0 rounded-xl"
-                        },
-                        [_vm._v("Follow")]
-                      )
-                    ]
-                  )
-                ],
-                1
-              )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass:
+                          "py-2 px-4 bg-orange-400 float-right rounded-xl",
+                        on: {
+                          click: function($event) {
+                            return _vm.mobileUserFollow(user.id)
+                          }
+                        }
+                      },
+                      [
+                        user.following.length == 0
+                          ? _c(
+                              "span",
+                              { attrs: { id: "mobilefollow" + user.id } },
+                              [_vm._v("Follow")]
+                            )
+                          : _c(
+                              "span",
+                              { attrs: { id: "mobilefollow" + user.id } },
+                              [_vm._v("Unfollow")]
+                            )
+                      ]
+                    )
+                  ],
+                  1
+                )
+              ])
             }),
             0
           )
@@ -41433,18 +41502,15 @@ var render = function() {
                 "list-reset flex flex-row md:flex-col py-0 md:py-3 px-2 md:px-2 text-center md:text-left mt-5"
             },
             _vm._l(_vm.allusers, function(user) {
-              return _c(
-                "li",
-                { key: user.id, staticClass: "mr-3 flex-1" },
-                [
-                  _c(
-                    "router-link",
-                    {
-                      staticClass:
-                        "block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white hover:border-pink-500",
-                      attrs: { to: "#" }
-                    },
-                    [
+              return _c("li", { key: user.id, staticClass: "mr-3 flex-1" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white hover:border-pink-500"
+                  },
+                  [
+                    _c("router-link", { attrs: { to: "/users/" + user.id } }, [
                       user.social_path == null
                         ? _c("img", {
                             staticClass: "w-7 h-7 rounded-full inline",
@@ -41457,21 +41523,34 @@ var render = function() {
                       _vm._v(" "),
                       _c("span", { staticClass: "text-gray-600" }, [
                         _vm._v(_vm._s(user.name))
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass:
-                            "py-2 px-4 bg-orange-400 float-right rounded-xl"
-                        },
-                        [_vm._v("Follow")]
-                      )
-                    ]
-                  )
-                ],
-                1
-              )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass:
+                          "py-2 px-4 bg-orange-400 float-right rounded-xl",
+                        on: {
+                          click: function($event) {
+                            return _vm.userFollow(user.id)
+                          }
+                        }
+                      },
+                      [
+                        user.following.length == 0
+                          ? _c("span", { attrs: { id: "follow" + user.id } }, [
+                              _vm._v("Follow")
+                            ])
+                          : _c("span", { attrs: { id: "follow" + user.id } }, [
+                              _vm._v("Unfollow")
+                            ])
+                      ]
+                    )
+                  ],
+                  1
+                )
+              ])
             }),
             0
           )
@@ -41888,7 +41967,7 @@ var render = function() {
                     "button",
                     {
                       staticClass:
-                        "btn btn-primary mx-4 py-2 px-4 hover:bg-orange-400 hover:text-white rounded-full",
+                        "btn btn-primary mx-4 py-2 px-4 live-video-button hover:bg-orange-400 hover:text-white rounded-full",
                       attrs: { type: "button" },
                       on: { click: _vm.toggleMuteVideo }
                     },
@@ -41905,7 +41984,7 @@ var render = function() {
                     "button",
                     {
                       staticClass:
-                        "btn btn-danger py-2 px-4 bg-transparent hover:bg-orange-400 hover:text-white rounded-full",
+                        "btn btn-danger live-video-button py-2 px-4 bg-transparent hover:bg-orange-400 hover:text-white rounded-full",
                       attrs: { type: "button" },
                       on: { click: _vm.endCall }
                     },

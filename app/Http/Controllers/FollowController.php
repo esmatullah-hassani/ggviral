@@ -49,6 +49,7 @@ class FollowController extends Controller
      */
     public function store(Request $request)
     {
+        $request['user_1'] = Auth::id();
         $follows = Follow::where("user_1",$request->user_1)->where("user_2",$request->user_2)->get();
         if($follows->isEMpty()){
             $follow = new Follow();

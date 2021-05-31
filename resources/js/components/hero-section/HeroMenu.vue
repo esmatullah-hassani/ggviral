@@ -56,12 +56,17 @@
             
                 <div class="overflow-y-auto max-h-screen text-left justify-between">
                     <div v-for="user in allusers" v-bind:key="user.id">
-                        <router-link to="/" class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white hover:border-pink-500">
+                        <div class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white hover:border-pink-500">
+                            <router-link :to="'/users/'+user.id">
                             <img class="w-7 h-7 rounded-full inline"  :src="'/uploads/users/photo/'+user.photo" v-if="user.social_path == null">
                             <img class="w-7 h-7 rounded-full inline"  :src="user.social_path" v-else> 
-                            <span class="text-gray-600">{{user.name}}</span>                                        
-                            <button class="py-2 px-4 text-orange-400 right-0 rounded-xl">Follow</button>
-                        </router-link>
+                            <span class="text-gray-600">{{user.name}}</span>
+                            </router-link>                                      
+                            <button class="py-2 px-4 bg-orange-400 float-right rounded-xl" @click="mobileUserFollow(user.id)" >
+                                <span :id='"mobilefollow"+user.id' v-if="user.following.length == 0">Follow</span>
+                                <span :id='"mobilefollow"+user.id' v-else>Unfollow</span>
+                            </button>
+                        </div>
                     </div>
                     
                 </div>
@@ -83,6 +88,31 @@ export default {
         }
     },
     methods:{
+
+      /**
+       * follow user
+       */
+        mobileUserFollow(user_id){
+            var follow = document.getElementById("mobilefollow"+user_id);
+            var formData = new FormData();
+            formData.append("user_2",user_id);
+
+            this.services.userFollow(formData)
+            .then((response) => {
+            if(response.data.status)
+            {
+                if(follow.innerHTML == "Follow")
+                {
+                follow.innerHTML = "Unfollow";
+                }
+                else
+                {
+                follow.innerHTML = "Follow";
+                }
+            }
+            })
+       
+        },
         toggleMobileMenu(myDropMenu){
             var menu ="";
             menu = document.getElementById(myDropMenu);

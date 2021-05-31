@@ -38,12 +38,12 @@
       <div class="mb-0" v-show="controlCall">
         <button
         type="button"
-        class="btn btn-primary mx-4 py-2 px-4 hover:bg-orange-400 hover:text-white rounded-full"
+        class="btn btn-primary mx-4 py-2 px-4 live-video-button hover:bg-orange-400 hover:text-white rounded-full"
         @click="toggleMuteVideo"
         >
           {{ mutedVideo ? "ShowVideo" : "HideVideo" }}
         </button>
-        <button type="button" class="btn btn-danger py-2 px-4 bg-transparent hover:bg-orange-400 hover:text-white rounded-full" @click="endCall">
+        <button type="button" class="btn btn-danger live-video-button py-2 px-4 bg-transparent hover:bg-orange-400 hover:text-white rounded-full" @click="endCall">
           EndLive
         </button>
       </div>
@@ -566,5 +566,18 @@ export default {
     height: 50vh;
   }
 }
-
+.live-video-button{
+  
+    border: medium none;
+    color: #fff;
+    display: block;
+    font-size: 18px;
+    left: 0;
+    margin: 0 auto;
+    padding: 8px 16px;
+    position: relative;
+    right: 0;
+    top: 91%;
+    margin-top: -85px;
+}
 </style>

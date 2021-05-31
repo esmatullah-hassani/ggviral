@@ -13,7 +13,7 @@
         :userLive="userLive"
         :livedata="livedata"
         />
-      <hero-right-sidebar :allusers="allusers"/>
+      <hero-right-sidebar :allusers="allusers" :authuser="authuser"/>
 
     </div>
     

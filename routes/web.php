@@ -26,7 +26,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     if(auth()->check()){
-    $users = User::where('id', '<>', Auth::id())->orderBy('last_seen','desc')->get();
+    $users = User::where('id', '<>', Auth::id())->with(["following" => function($q){
+        $q->where("user_1",Auth::id());
+    }])->orderBy('last_seen','desc')->get();
     foreach($users as $user)
         return view("index",['users' => $users]);
     }
@@ -44,7 +46,9 @@ Route::get('/authorized/facebook/callback', [LoginWithSocialiteController::class
 Route::get("/logout",[UserController::class,'logoutUser']);
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    $users = User::where('id', '<>', Auth::id())->orderBy('last_seen','desc')->get();
+    $users = User::where('id', '<>', Auth::id())->with(["following" => function($q){
+        $q->where("follows.user_1",Auth::id());
+    }])->orderBy('last_seen','desc')->get();
     return view('index',['users' => $users]);
     Route::get("/users-get",function(){
         return response()->json(['message' => "Hello dear"]);
