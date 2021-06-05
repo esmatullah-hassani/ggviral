@@ -56,13 +56,13 @@
             
                 <div class="overflow-y-auto max-h-screen text-left justify-between">
                     <div v-for="user in allusers" v-bind:key="user.id">
-                        <div class="block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white hover:border-pink-500">
+                        <div class="flex flex-col block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white hover:border-pink-500">
                             <router-link :to="'/users/'+user.id">
                             <img class="w-7 h-7 rounded-full inline"  :src="'/uploads/users/photo/'+user.photo" v-if="user.social_path == null">
                             <img class="w-7 h-7 rounded-full inline"  :src="user.social_path" v-else> 
                             <span class="text-gray-600">{{user.name}}</span>
-                            </router-link>                                      
-                            <button class="py-2 px-4 bg-orange-400 float-right rounded-xl" @click="mobileUserFollow(user.id)" >
+                            </router-link>                                     
+                            <button class="py-2 px-2 w-28 lef-0 bg-orange-400  rounded-xl" @click="mobileUserFollow(user.id)" >
                                 <span :id='"mobilefollow"+user.id' v-if="user.following.length == 0">Follow</span>
                                 <span :id='"mobilefollow"+user.id' v-else>Unfollow</span>
                             </button>

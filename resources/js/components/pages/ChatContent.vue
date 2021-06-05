@@ -47,19 +47,24 @@
           EndLive
         </button>
       </div>
-      <div class="buttons coin-div" v-show="giftdiv">
-            <a style="color:blue;" class="cursor-pointer" @click="setGift(10)">
+      <div class="buttons coin-div live-video-button text-center" v-show="giftdiv">
+            <a style="color:blue;" class="cursor-pointer py-2 px-2 rounded-full hover:bg-gray-200" @click="setGift(10)">
               <span>10$</span>
               <i class="fas fa-gift"></i>
             </a>
-            <a style="color:red; padding-left:10%;" class="cursor-pointer" @click="setGift(8)">
+            <a style="color:red; padding-left:10%;" class="cursor-pointer py-2 px-2 rounded-full hover:bg-gray-200" @click="setGift(8)">
               <span>8$</span>
               <i class="fas fa-heart mp" ></i>
             </a>
-            <a style="color: rgb(51, 255, 0); padding-left:10%;" class="cursor-pointer" @click="setGift(5)">
+            <a style="color:blue; padding-left:10%;" class="cursor-pointer py-2 px-2 rounded-full hover:bg-gray-200" @click="setGift(5)">
               <span>5$</span>
-              <img src="/images/gift-image.jpeg" class="w-8 cursor-pointer">
+              <i class="fas fa-star-of-life"></i>
             </a>
+            <a style="color:red; padding-left:10%;" class="cursor-pointer py-2 px-2 rounded-full hover:bg-gray-200" @click="setGift(1)">
+              <span>1$</span>
+              <i class="fas fa-hand-holding-heart"></i>
+            </a>
+            
       </div>
     </div>
     

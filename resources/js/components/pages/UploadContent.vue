@@ -1,11 +1,11 @@
 <template>
     <div class="main-content flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5">
 
+        <div class="flex flex-row flex-wrap flex-grow mt-2" v-infinite-scroll="onNextPage">
 
-        <div class="flex flex-col flex-wrap flex-grow mt-2 justify-center">
             <center>
-            <div class="w-full md:w-1/2 xl:w-1/3 p-3">
-                    <label class="w-96 flex flex-col  items-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-white mt-5 ">
+            <div class="">
+                    <label class="w-80 sm:w-80 md:w-96 flex flex-col  items-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-white mt-5 ">
                     <i class="fa fa-upload text-orange-400" aria-hidden="true"></i>
                     <span class="mt-2 text-base leading-normal text-orange-400">Select a video</span>
                     <input type="file" accept="video/*" class="hidden" name="video" id="video" ref="video" v-on:change="uploadVideo">
@@ -27,8 +27,8 @@
                         <div :style="'width:'+uploadPercentage+'%'" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-pink-500"></div>
                     </div>
                 </div>
-                <textarea class="resize-y border rounded-md w-96 focus:outline-none focus:shadow-outline" placeholder="Write any things.." v-model="discription"></textarea>
-                <button @click="submitPost" class="bg-orange-400 hover:font-bold text-white  py-2 w-96 focus:outline-none rounded-full">
+                <textarea class="resize-y border rounded-md w-80 sm:w-80 md:w-96 focus:outline-none focus:shadow-outline" placeholder="Write any things.." v-model="discription"></textarea>
+                <button @click="submitPost" class="bg-orange-400 hover:font-bold text-white  py-2 w-80 sm:w-80 md:w-96 focus:outline-none rounded-full">
                 Post
                 </button>
             </div>

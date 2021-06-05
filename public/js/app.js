@@ -4711,6 +4711,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['userLive', 'livedata'],
   data: function data() {
@@ -4898,6 +4899,11 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
 //
 //
 //
@@ -5419,8 +5425,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_api_service__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../services/api.service */ "./resources/js/services/api.service.js");
-//
-//
 //
 //
 //
@@ -40871,7 +40875,7 @@ var render = function() {
               "div",
               {
                 staticClass:
-                  "bg-gray-400  text-gray-800 border-b-2 border-gray-500 rounded-tl-lg rounded-tr-lg p-2"
+                  "bg-gray-200  text-gray-800 border-b-2 border-gray-500 rounded-tl-lg rounded-tr-lg p-2"
               },
               [
                 _vm.user.social_path == null
@@ -40924,7 +40928,7 @@ var render = function() {
               "div",
               {
                 staticClass:
-                  "bg-gray-400  text-gray-800 border-b-2 border-gray-500 rounded-tl-lg rounded-tr-lg p-2"
+                  "bg-gray-200  text-gray-800 border-b-2 border-gray-500 rounded-tl-lg rounded-tr-lg p-2"
               },
               [_c("center", [_vm._v("Comments")])],
               1
@@ -41048,8 +41052,10 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c(
       "div",
-      { staticClass: "bg-indigo-900 p-2 shadow text-xl text-white" },
-      [_c("h3", { staticClass: "font-bold pl-2" }, [_vm._v("Analytics")])]
+      {
+        staticClass: "bg-orange-400 p-2 shadow text-xl text-white text-center"
+      },
+      [_c("h3", { staticClass: "font-bold pl-2" }, [_vm._v("video")])]
     )
   }
 ]
@@ -41339,7 +41345,7 @@ var render = function() {
                   "div",
                   {
                     staticClass:
-                      "block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white hover:border-pink-500"
+                      "flex flex-col block py-1 md:py-3 pl-1 align-middle text-white no-underline hover:text-white hover:border-pink-500"
                   },
                   [
                     _c("router-link", { attrs: { to: "/users/" + user.id } }, [
@@ -41362,7 +41368,7 @@ var render = function() {
                       "button",
                       {
                         staticClass:
-                          "py-2 px-4 bg-orange-400 float-right rounded-xl",
+                          "py-2 px-2 w-28 lef-0 bg-orange-400  rounded-xl",
                         on: {
                           click: function($event) {
                             return _vm.mobileUserFollow(user.id)
@@ -41604,7 +41610,7 @@ var render = function() {
             [
               _c(
                 "li",
-                { staticClass: "mr-3 flex-1 " },
+                { staticClass: "mr-3 flex-1  " },
                 [
                   _c(
                     "router-link",
@@ -41617,6 +41623,7 @@ var render = function() {
                       _c("i", {
                         staticClass: "fas fa-home pr-0 md:pr-0 text-orange-400"
                       }),
+                      _vm._v(" "),
                       _c(
                         "span",
                         {
@@ -42004,13 +42011,14 @@ var render = function() {
                       expression: "giftdiv"
                     }
                   ],
-                  staticClass: "buttons coin-div"
+                  staticClass: "buttons coin-div live-video-button text-center"
                 },
                 [
                   _c(
                     "a",
                     {
-                      staticClass: "cursor-pointer",
+                      staticClass:
+                        "cursor-pointer py-2 px-2 rounded-full hover:bg-gray-200",
                       staticStyle: { color: "blue" },
                       on: {
                         click: function($event) {
@@ -42028,7 +42036,8 @@ var render = function() {
                   _c(
                     "a",
                     {
-                      staticClass: "cursor-pointer",
+                      staticClass:
+                        "cursor-pointer py-2 px-2 rounded-full hover:bg-gray-200",
                       staticStyle: { color: "red", "padding-left": "10%" },
                       on: {
                         click: function($event) {
@@ -42046,11 +42055,9 @@ var render = function() {
                   _c(
                     "a",
                     {
-                      staticClass: "cursor-pointer",
-                      staticStyle: {
-                        color: "rgb(51, 255, 0)",
-                        "padding-left": "10%"
-                      },
+                      staticClass:
+                        "cursor-pointer py-2 px-2 rounded-full hover:bg-gray-200",
+                      staticStyle: { color: "blue", "padding-left": "10%" },
                       on: {
                         click: function($event) {
                           return _vm.setGift(5)
@@ -42060,10 +42067,26 @@ var render = function() {
                     [
                       _c("span", [_vm._v("5$")]),
                       _vm._v(" "),
-                      _c("img", {
-                        staticClass: "w-8 cursor-pointer",
-                        attrs: { src: "/images/gift-image.jpeg" }
-                      })
+                      _c("i", { staticClass: "fas fa-star-of-life" })
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    {
+                      staticClass:
+                        "cursor-pointer py-2 px-2 rounded-full hover:bg-gray-200",
+                      staticStyle: { color: "red", "padding-left": "10%" },
+                      on: {
+                        click: function($event) {
+                          return _vm.setGift(1)
+                        }
+                      }
+                    },
+                    [
+                      _c("span", [_vm._v("1$")]),
+                      _vm._v(" "),
+                      _c("i", { staticClass: "fas fa-hand-holding-heart" })
                     ]
                   )
                 ]
@@ -42267,7 +42290,7 @@ var render = function() {
                     "div",
                     {
                       staticClass:
-                        "bg-gray-400  text-gray-800 border-b-2 border-gray-500 rounded-tl-lg rounded-tr-lg p-2"
+                        "bg-gray-200  text-gray-800 border-b-2 border-gray-500 rounded-tl-lg rounded-tr-lg p-2"
                     },
                     [
                       _c(
@@ -42318,7 +42341,7 @@ var render = function() {
                             "div",
                             {
                               staticClass:
-                                "dropdownlist absolute w-60 bg-gray-400 rounded-tl-lg rounded-tr-lg text-black right-0 mt-3 p-3 overflow-auto z-30 invisible",
+                                "dropdownlist absolute w-60 bg-gray-200 rounded-tl-lg rounded-tr-lg text-black right-0 mt-3 p-3 overflow-auto z-30 invisible",
                               attrs: { id: "myDropdown" + post.id }
                             },
                             [
@@ -42326,7 +42349,7 @@ var render = function() {
                                 "a",
                                 {
                                   staticClass:
-                                    "p-2 hover:bg-gray-800 text-blue-700 text-sm no-underline hover:no-underline block cursor-pointer"
+                                    "p-2 hover:bg-orange-400 hover:text-white text-blue-700 text-sm no-underline hover:no-underline block cursor-pointer"
                                 },
                                 [_vm._v(" Share to facebook ")]
                               ),
@@ -42335,7 +42358,7 @@ var render = function() {
                                 "a",
                                 {
                                   staticClass:
-                                    "p-2 hover:bg-gray-800 text-black text-sm no-underline hover:no-underline block cursor-pointer "
+                                    "p-2 hover:bg-orange-400 hover:text-white text-black text-sm no-underline hover:no-underline block cursor-pointer "
                                 },
                                 [_vm._v(" Share to tw ")]
                               ),
@@ -42343,7 +42366,8 @@ var render = function() {
                               _vm._m(1, true),
                               _vm._v(" "),
                               _c("div", {
-                                staticClass: "border border-gray-800"
+                                staticClass:
+                                  "border border-orange-400 hover:text-white"
                               }),
                               _vm._v(" "),
                               _vm._m(2, true)
@@ -42409,27 +42433,7 @@ var render = function() {
                         )
                       ]),
                       _vm._v(" "),
-                      _c("span", { staticClass: "float-right" }, [
-                        _c(
-                          "button",
-                          {
-                            class:
-                              "text-white font-bold  px-4 rounded-full focus:outline-none " +
-                              _vm.follow_collor,
-                            attrs: { id: "follow_class" + post.user.id },
-                            on: {
-                              click: function($event) {
-                                return _vm.userFollow(post.user.id)
-                              }
-                            }
-                          },
-                          [
-                            _vm._v(
-                              "\n                              UnFollow\n                              "
-                            )
-                          ]
-                        )
-                      ])
+                      _c("span", { staticClass: "float-right" })
                     ],
                     1
                   )
@@ -42464,8 +42468,10 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c(
       "div",
-      { staticClass: "bg-indigo-900 p-2 shadow text-xl text-white" },
-      [_c("h3", { staticClass: "font-bold pl-2" }, [_vm._v("Your following")])]
+      {
+        staticClass: "bg-orange-400 p-2 shadow text-xl text-white text-center"
+      },
+      [_c("h3", { staticClass: "font-bold pl-2" }, [_vm._v("My Following")])]
     )
   },
   function() {
@@ -42476,7 +42482,7 @@ var staticRenderFns = [
       "a",
       {
         staticClass:
-          "p-2 hover:bg-gray-800 text-black text-sm no-underline hover:no-underline block cursor-pointer"
+          "p-2 hover:bg-orange-400 hover:text-white text-black text-sm no-underline hover:no-underline block cursor-pointer"
       },
       [_c("i", { staticClass: "    fa-cog fa-fw" }), _vm._v(" Copy")]
     )
@@ -42489,7 +42495,7 @@ var staticRenderFns = [
       "a",
       {
         staticClass:
-          "p-2 hover:bg-gray-800 text-black text-sm no-underline hover:no-underline block",
+          "p-2 hover:bg-orange-400 hover:text-white text-black text-sm no-underline hover:no-underline block",
         attrs: { href: "/logout" }
       },
       [_c("i", { staticClass: "fas fa-sign-out-alt fa-fw" }), _vm._v(" Share")]
@@ -42525,7 +42531,9 @@ var render = function() {
     [
       _c(
         "div",
-        { staticClass: "bg-indigo-900 p-2 shadow text-xl text-white" },
+        {
+          staticClass: "bg-orange-400 p-2 shadow text-xl text-white text-center"
+        },
         [
           _c("h3", { staticClass: "font-bold pl-2" }, [
             _vm._v("Welcome to " + _vm._s(_vm.user.name) + " profile")
@@ -42672,7 +42680,7 @@ var render = function() {
                     "div",
                     {
                       staticClass:
-                        "bg-gray-400  text-gray-800 border-b-2 border-gray-500 rounded-tl-lg rounded-tr-lg p-2"
+                        "bg-gray-200  text-gray-800 border-b-2 border-gray-500 rounded-tl-lg rounded-tr-lg p-2"
                     },
                     [
                       _c(
@@ -42723,7 +42731,7 @@ var render = function() {
                             "div",
                             {
                               staticClass:
-                                "dropdownlist absolute  bg-gray-400 rounded-tl-lg rounded-tr-lg text-black right-0 mt-3 p-3 overflow-auto z-30 invisible",
+                                "dropdownlist absolute w-60 bg-gray-200 rounded-tl-lg rounded-tr-lg text-black right-0 mt-3 p-3 overflow-auto z-30 invisible ",
                               attrs: { id: "myDropdown" + post.id }
                             },
                             [
@@ -42732,20 +42740,25 @@ var render = function() {
                                     "a",
                                     {
                                       staticClass:
-                                        "p-2 hover:bg-gray-800 text-black text-sm no-underline hover:no-underline block cursor-pointer",
+                                        "p-2 hover:bg-orange-400 hover:text-white text-black text-sm no-underline hover:no-underline block cursor-pointer",
                                       on: {
                                         click: function($event) {
                                           return _vm.showHideModal(post.id)
                                         }
                                       }
                                     },
-                                    [_vm._v(" Deactive ")]
+                                    [
+                                      _c("i", {
+                                        staticClass: "fas fa-ban pr-2"
+                                      }),
+                                      _vm._v("Deactive ")
+                                    ]
                                   )
                                 : _c(
                                     "a",
                                     {
                                       staticClass:
-                                        "p-2 hover:bg-gray-800 text-black text-sm no-underline hover:no-underline block cursor-pointer text-red-700"
+                                        "p-2 hover:bg-orange-400 hover:text-white text-black text-sm no-underline hover:no-underline block cursor-pointer text-red-700"
                                     },
                                     [_vm._v(" Deactived ")]
                                   ),
@@ -42755,7 +42768,7 @@ var render = function() {
                                     "a",
                                     {
                                       staticClass:
-                                        "p-2 hover:bg-gray-800 text-red-700 text-sm no-underline hover:no-underline block cursor-pointer",
+                                        "p-2 hover:bg-orange-400 hover:text-white text-red-700 text-sm no-underline hover:no-underline block cursor-pointer",
                                       on: {
                                         click: function($event) {
                                           return _vm.showDeleteModal(post.id)
@@ -42763,9 +42776,7 @@ var render = function() {
                                       }
                                     },
                                     [
-                                      _c("i", {
-                                        staticClass: "    fa-cog fa-fw"
-                                      }),
+                                      _c("i", { staticClass: "fa fa-trash" }),
                                       _vm._v(" Delete")
                                     ]
                                   )
@@ -42881,7 +42892,7 @@ var render = function() {
                         }
                       ],
                       staticClass:
-                        "w-full  text-sm text-black transition border  focus:outline-none focus:border-gray-700 rounded py-1 px-2 pl-10 appearance-none leading-normal",
+                        "w-full  text-sm text-black transition   focus:outline-none focus:border-gray-700 rounded py-1 px-2 pl-10 appearance-none leading-normal",
                       attrs: {
                         type: "text",
                         placeholder: "Write a comment ..."
@@ -42889,7 +42900,7 @@ var render = function() {
                       domProps: { value: _vm.comment },
                       on: {
                         keyup: function($event) {
-                          return _vm.checkKey($event, post.id)
+                          return _vm.checkKey($event, post.id, index)
                         },
                         input: function($event) {
                           if ($event.target.composing) {
@@ -42907,7 +42918,7 @@ var render = function() {
                           "bg-white w-auto flex justify-end items-center text-blue-500 p-2 hover:text-blue-400 focus:outline-none",
                         on: {
                           click: function($event) {
-                            return _vm.setComment(post.id)
+                            return _vm.setComment(post.id, index)
                           }
                         }
                       },
@@ -42929,7 +42940,8 @@ var render = function() {
                         _vm.send_button
                           ? _c("span", [
                               _c("i", {
-                                staticClass: "fa fa-paper-plane  text-blue-600"
+                                staticClass:
+                                  "fa fa-paper-plane  text-orange-400"
                               })
                             ])
                           : _vm._e()
@@ -43101,7 +43113,7 @@ var render = function() {
                     [
                       _c("div", {
                         staticClass:
-                          "fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity",
+                          "fixed inset-0 bg-gray-200 bg-opacity-75 transition-opacity",
                         attrs: { "aria-hidden": "true" }
                       }),
                       _vm._v(" "),
@@ -43248,7 +43260,7 @@ var staticRenderFns = [
       "a",
       {
         staticClass:
-          "p-2 hover:bg-gray-800 text-black text-sm no-underline hover:no-underline block",
+          "p-2 hover:bg-orange-400 hover:text-white text-black text-sm no-underline hover:no-underline block",
         attrs: { href: "/logout" }
       },
       [_c("i", { staticClass: "fas fa-sign-out-alt fa-fw" }), _vm._v(" Share")]
@@ -43690,16 +43702,24 @@ var render = function() {
       _c(
         "div",
         {
-          staticClass: "flex flex-col flex-wrap flex-grow mt-2 justify-center"
+          directives: [
+            {
+              name: "infinite-scroll",
+              rawName: "v-infinite-scroll",
+              value: _vm.onNextPage,
+              expression: "onNextPage"
+            }
+          ],
+          staticClass: "flex flex-row flex-wrap flex-grow mt-2"
         },
         [
           _c("center", [
-            _c("div", { staticClass: "w-full md:w-1/2 xl:w-1/3 p-3" }, [
+            _c("div", {}, [
               _c(
                 "label",
                 {
                   staticClass:
-                    "w-96 flex flex-col  items-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-white mt-5 "
+                    "w-80 sm:w-80 md:w-96 flex flex-col  items-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide uppercase border border-blue cursor-pointer hover:bg-blue hover:text-white mt-5 "
                 },
                 [
                   _c("i", {
@@ -43812,7 +43832,7 @@ var render = function() {
                   }
                 ],
                 staticClass:
-                  "resize-y border rounded-md w-96 focus:outline-none focus:shadow-outline",
+                  "resize-y border rounded-md w-80 sm:w-80 md:w-96 focus:outline-none focus:shadow-outline",
                 attrs: { placeholder: "Write any things.." },
                 domProps: { value: _vm.discription },
                 on: {
@@ -43829,7 +43849,7 @@ var render = function() {
                 "button",
                 {
                   staticClass:
-                    "bg-orange-400 hover:font-bold text-white  py-2 w-96 focus:outline-none rounded-full",
+                    "bg-orange-400 hover:font-bold text-white  py-2 w-80 sm:w-80 md:w-96 focus:outline-none rounded-full",
                   on: { click: _vm.submitPost }
                 },
                 [_vm._v("\n            Post\n            ")]

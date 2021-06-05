@@ -1,7 +1,7 @@
 <template>
   <div class="main-content flex-1 bg-gray-100 mt-12 md:mt-2 pb-24 md:pb-5">
 
-            <div class="bg-indigo-900 p-2 shadow text-xl text-white">
+            <div class="bg-orange-400 p-2 shadow text-xl text-white text-center">
                 <h3 class="font-bold pl-2">Welcome to {{user.name}} profile</h3>
             </div>
             <center>
@@ -42,7 +42,7 @@
                 <div class="w-full  p-3" v-for="(post,index) in posts" v-bind:key="post.id" >
                     <!--Graph Card-->
                     <div class="bg-white border-transparent rounded-lg shadow-lg">
-                        <div class="bg-gray-400  text-gray-800 border-b-2 border-gray-500 rounded-tl-lg rounded-tr-lg p-2">
+                        <div class="bg-gray-200  text-gray-800 border-b-2 border-gray-500 rounded-tl-lg rounded-tr-lg p-2">
                             <router-link :to="'/users/'+user.id">
                                 <img class="w-7 h-7 rounded-full inline"  :src="'/uploads/users/photo/'+user.photo" v-if="user.social_path == null">
                                 <img class="w-7 h-7 rounded-full inline"  :src="user.social_path" v-else> 
@@ -52,12 +52,12 @@
                                     <button @click="toggleDDd('myDropdown'+post.id)" class="drop-button text-black focus:outline-none font-bold">
                                         ...
                                     </button>
-                                    <div :id="'myDropdown'+post.id" class="dropdownlist absolute  bg-gray-400 rounded-tl-lg rounded-tr-lg text-black right-0 mt-3 p-3 overflow-auto z-30 invisible">
-                                        <a @click="showHideModal(post.id)" class="p-2 hover:bg-gray-800 text-black text-sm no-underline hover:no-underline block cursor-pointer" v-if="post.user_id == user.id && post.status ==1"> Deactive </a>
-                                        <a  class="p-2 hover:bg-gray-800 text-black text-sm no-underline hover:no-underline block cursor-pointer text-red-700" v-else> Deactived </a>
-                                        <a  @click="showDeleteModal(post.id)" class="p-2 hover:bg-gray-800 text-red-700 text-sm no-underline hover:no-underline block cursor-pointer" v-if="post.user_id == user.id"><i class="    fa-cog fa-fw" ></i> Delete</a>
+                                    <div :id="'myDropdown'+post.id" class="dropdownlist absolute w-60 bg-gray-200 rounded-tl-lg rounded-tr-lg text-black right-0 mt-3 p-3 overflow-auto z-30 invisible ">
+                                        <a @click="showHideModal(post.id)" class="p-2 hover:bg-orange-400 hover:text-white text-black text-sm no-underline hover:no-underline block cursor-pointer" v-if="post.user_id == user.id && post.status ==1"><i class="fas fa-ban pr-2"></i>Deactive </a>
+                                        <a  class="p-2 hover:bg-orange-400 hover:text-white text-black text-sm no-underline hover:no-underline block cursor-pointer text-red-700" v-else> Deactived </a>
+                                        <a  @click="showDeleteModal(post.id)" class="p-2 hover:bg-orange-400 hover:text-white text-red-700 text-sm no-underline hover:no-underline block cursor-pointer" v-if="post.user_id == user.id"><i class="fa fa-trash" ></i> Delete</a>
                                         <div class="border border-gray-800"></div>
-                                        <a href="/logout" class="p-2 hover:bg-gray-800 text-black text-sm no-underline hover:no-underline block"><i class="fas fa-sign-out-alt fa-fw"></i> Share</a>
+                                        <a href="/logout" class="p-2 hover:bg-orange-400 hover:text-white text-black text-sm no-underline hover:no-underline block"><i class="fas fa-sign-out-alt fa-fw"></i> Share</a>
                                 
                                     </div>
                                 </div>
@@ -81,14 +81,14 @@
                         </div>
                         <div class="shadow flex">
                             <input 
-                                class="w-full  text-sm text-black transition border  focus:outline-none focus:border-gray-700 rounded py-1 px-2 pl-10 appearance-none leading-normal" 
+                                class="w-full  text-sm text-black transition   focus:outline-none focus:border-gray-700 rounded py-1 px-2 pl-10 appearance-none leading-normal" 
                                 type="text" 
                                 placeholder="Write a comment ..."
                                 v-model="comment"
-                                @keyup="checkKey($event,post.id)"
+                                @keyup="checkKey($event,post.id,index)"
                             >
                             <button
-                            @click="setComment(post.id)"
+                            @click="setComment(post.id,index)"
                             class="bg-white w-auto flex justify-end items-center text-blue-500 p-2 hover:text-blue-400 focus:outline-none">
                             
                                 <span :id="'load_button'+post.id" class="invisible">
@@ -96,7 +96,7 @@
                                 </span>
 
                                 <span v-if="send_button">
-                                <i class="fa fa-paper-plane  text-blue-600" ></i>
+                                <i class="fa fa-paper-plane  text-orange-400" ></i>
                                 </span> 
                                 
                             </button>
@@ -155,7 +155,7 @@
                 <div class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true" v-if="showhidemodal">
                 <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
                     
-                    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+                    <div class="fixed inset-0 bg-gray-200 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
 
                         <!-- This element is to trick the browser into centering the modal contents. -->
                         <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
